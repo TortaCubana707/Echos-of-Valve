@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/style.css" type="text/css">
+    <title>{% block Titulo %}Blog Left 4 Dead{% endblock %}</title>
+</head>
+<body>
+
+    <header>
+        <h1>Left 4 Dead: El Blog</h1>
+        {% block header %}{% endblock %}
+    </header>
+
+    <nav>
+        <a href="/">Inicio</a>
+        <a href="/login">Login</a>
+        <a href="/register">Registro</a>
+        <a href="#">Opción 4</a>
+        <a href="#">Opción 5</a>
+    </nav>
+
+    <main>
+        {% if show_aside %}
+        <aside>
+            <div id="menuAside">
+                <a href="#">option1</a> 
+                <a href="#">option2</a> 
+                <a href="#">option3</a> 
+                <a href="#">option4</a> 
+                <a href="#">option5</a> 
+            </div>
+        </aside>
+        {% endif %}
+
+        <div>
+            {% block content %}
+            <article>
+                <h2>Título del Artículo</h2>
+                <p>Aquí va el contenido de tu blog. Puedes escribir sobre campañas, estrategias, personajes favoritos o los momentos más épicos que has vivido en el juego.</p>
+            </article>
+            {% endblock %}
+        </div>
+    </main>
+
+    <footer>
+        &copy; 2025 Blog Left 4 Dead | Hecho por sergio  
+        <br>
+        by.Sarduño, Lalocura, Sergey y Neto
+        {% block footer %}{% endblock %}
+    </footer>
+
+</body>
+</html>
