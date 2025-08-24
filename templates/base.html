@@ -4,18 +4,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/static/style.css" type="text/css">
+<<<<<<< HEAD
     <title>{% block Titulo %}Echoes of Valve{% endblock %}</title>
     <link rel="icon" type="image/png" href="/static/img/Jockey.png">
+=======
+    <title>{% block Titulo %}Blog Left 4 Dead{% endblock %}</title>
+>>>>>>> 0743c987e5ef920bdbafbae1be9eadbc3129cf85
 </head>
 <body>
 
     <header>
+<<<<<<< HEAD
         <h1>Echoes of Valve</h1>
+=======
+        <h1>Left 4 Dead: El Blog</h1>
+>>>>>>> 0743c987e5ef920bdbafbae1be9eadbc3129cf85
         {% block header %}{% endblock %}
     </header>
 
     <nav>
         <a href="/">Inicio</a>
+<<<<<<< HEAD
 
         {% if not user_authenticated %}
             <!-- Solo se muestran si NO hay sesión iniciada -->
@@ -25,12 +34,19 @@
             <!-- Solo se muestran si HAY sesión iniciada -->
             <a href="/logout">Cerrar Sesión</a>
         {% endif %}
+=======
+        <a href="/login">Login</a>
+        <a href="/register">Registro</a>
+        <a href="#">Opción 4</a>
+        <a href="#">Opción 5</a>
+>>>>>>> 0743c987e5ef920bdbafbae1be9eadbc3129cf85
     </nav>
 
     <main>
         {% if show_aside %}
         <aside>
             <div id="menuAside">
+<<<<<<< HEAD
                 <a href="#half-life">Half-Life</a>
                 <a href="#cs">Counter-Strike</a>
                 <a href="#portal">Portal</a>
@@ -40,11 +56,19 @@
                     <a href="#dota2">Dota 2</a>
                     <a href="#alyx">Half-Life: Alyx</a>
                 {% endif %}
+=======
+                <a href="#">option1</a> 
+                <a href="#">option2</a> 
+                <a href="#">option3</a> 
+                <a href="#">option4</a> 
+                <a href="#">option5</a> 
+>>>>>>> 0743c987e5ef920bdbafbae1be9eadbc3129cf85
             </div>
         </aside>
         {% endif %}
 
         <div>
+<<<<<<< HEAD
             <!-- Half-Life -->
             <section id="half-life" class="card">
                 <h2>Half-Life</h2>
@@ -149,11 +173,25 @@
                 </p>
             </section>
             {% endif %}
+=======
+            {% block content %}
+            <article>
+                <h2>Título del Artículo</h2>
+                <p>Aquí va el contenido de tu blog. Puedes escribir sobre campañas, estrategias, personajes favoritos o los momentos más épicos que has vivido en el juego.</p>
+            </article>
+            {% endblock %}
+>>>>>>> 0743c987e5ef920bdbafbae1be9eadbc3129cf85
         </div>
     </main>
 
     <footer>
+<<<<<<< HEAD
         &copy; 2025 Blog | Hecho por Sarduño, Lalocura, Sergey y Neto  
+=======
+        &copy; 2025 Blog Left 4 Dead | Hecho por sergio  
+        <br>
+        by.Sarduño, Lalocura, Sergey y Neto
+>>>>>>> 0743c987e5ef920bdbafbae1be9eadbc3129cf85
         {% block footer %}{% endblock %}
     </footer>
 

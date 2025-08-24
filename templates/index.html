@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+<<<<<<< HEAD
 {% block Titulo %}Inicio{% endblock %}
 
 {% block content %}
@@ -76,3 +77,15 @@
 {% endif %}
 
 {% endblock %}
+=======
+{% block Titulo %}
+    Inicio
+{% endblock %}
+{% block content %}
+    <h2>Bienvenido a esta pagina de prueba</h2>
+    <p>{{ lipsum(n=5, html=True, min=20, max=100) }}</p>
+    <p>{{ lipsum(n=5, html=True, min=20, max=100) }}</p>
+    <img src="/static/img/Lefito.jpg" alt="Foto del lefito">
+    <p>{{ lipsum(n=5, html=True, min=20, max=100) }}</p>
+{% endblock %}
+>>>>>>> 0743c987e5ef920bdbafbae1be9eadbc3129cf85
