@@ -5,14 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/static/style.css" type="text/css">
     <title>{% block Titulo %}Echoes of Valve{% endblock %}</title>
+    <link rel="icon" type="image/png" href="/static/img/Jockey.png">
 </head>
 <body>
-
-    <head>
-    <meta charset="UTF-8">
-    <title>Mi Página</title>
-    <link rel="icon" type="image/png" href="/static/img/Jockey.png">
-    </head>
 
     <header>
         <h1>Echoes of Valve</h1>
@@ -21,32 +16,139 @@
 
     <nav>
         <a href="/">Inicio</a>
-        <a href="/login">Login</a>
-        <a href="/register">Registro</a>
-        <a href="#">Opción 4</a>
-        <a href="#">Opción 5</a>
+
+        {% if not user_authenticated %}
+            <!-- Solo se muestran si NO hay sesión iniciada -->
+            <a href="/login">Login</a>
+            <a href="/register">Registro</a>
+        {% else %}
+            <!-- Solo se muestran si HAY sesión iniciada -->
+            <a href="/logout">Cerrar Sesión</a>
+        {% endif %}
     </nav>
 
     <main>
         {% if show_aside %}
         <aside>
             <div id="menuAside">
-                <a href="#">option1</a> 
-                <a href="#">option2</a> 
-                <a href="#">option3</a> 
-                <a href="#">option4</a> 
-                <a href="#">option5</a> 
+                <a href="#half-life">Half-Life</a>
+                <a href="#cs">Counter-Strike</a>
+                <a href="#portal">Portal</a>
+                <a href="#tf2">Team Fortress 2</a>
+                {% if user_authenticated %}
+                    <a href="#l4d">Left 4 Dead</a>
+                    <a href="#dota2">Dota 2</a>
+                    <a href="#alyx">Half-Life: Alyx</a>
+                {% endif %}
             </div>
         </aside>
         {% endif %}
 
         <div>
-            {% block content %}
-            <article>
-                <h2>Título del Artículo</h2>
-                <p>Aquí va el contenido de tu blog. Puedes escribir sobre campañas, estrategias, personajes favoritos o los momentos más épicos que has vivido en el juego.</p>
-            </article>
-            {% endblock %}
+            <!-- Half-Life -->
+            <section id="half-life" class="card">
+                <h2>Half-Life</h2>
+                <p>
+                    Lanzado en 1998, <strong>Half-Life</strong> marcó un antes y un después en los FPS. 
+                    Su narrativa en primera persona sin cortes y la atmósfera opresiva del complejo 
+                    Black Mesa introdujeron un nuevo estándar en inmersión. 
+                    <em>Half-Life 2</em> expandió este legado con el motor Source, 
+                    físicas realistas y el icónico Gravity Gun.
+                </p>
+                <p>
+                    La saga también incluye expansiones como <em>Opposing Force</em>, <em>Blue Shift</em> 
+                    y <em>Decay</em>, cada una mostrando la catástrofe desde perspectivas distintas. 
+                    A pesar de los años, sigue siendo una obra maestra que define el género.
+                </p>
+            </section>
+
+            <!-- Counter-Strike -->
+            <section id="cs" class="card">
+                <h2>Counter-Strike</h2>
+                <p>
+                    De un mod de Half-Life a fenómeno mundial. 
+                    <strong>Counter-Strike</strong> estableció la base de los shooters tácticos competitivos. 
+                    Con rondas de ataque y defensa entre terroristas y antiterroristas, la gestión de economía 
+                    y la puntería precisa lo convirtieron en el pilar de los eSports.
+                </p>
+                <p>
+                    Desde <em>CS 1.6</em>, pasando por <em>Source</em> y <em>Global Offensive</em>, 
+                    hasta <em>Counter-Strike 2</em> con Source 2, la saga mantiene millones de jugadores activos 
+                    y torneos internacionales con los mayores premios en la industria.
+                </p>
+            </section>
+
+            <!-- Portal -->
+            <section id="portal" class="card">
+                <h2>Portal</h2>
+                <p>
+                    <strong>Portal</strong> (2007) sorprendió con su minimalismo: un laboratorio, 
+                    un arma que abre portales, y la misteriosa GLaDOS. Su mezcla de humor negro, 
+                    puzzles brillantes y narrativa implícita lo convirtió en un clásico instantáneo.
+                </p>
+                <p>
+                    <em>Portal 2</em> expandió el universo con una historia más rica, 
+                    doblaje estelar y mecánicas innovadoras como geles de propulsión y luz dura. 
+                    Hoy sigue siendo uno de los videojuegos de puzzles más influyentes jamás creados.
+                </p>
+            </section>
+
+            <!-- Team Fortress 2 -->
+            <section id="tf2" class="card">
+                <h2>Team Fortress 2</h2>
+                <p>
+                    Estrenado en 2007, <strong>Team Fortress 2</strong> definió el shooter multijugador basado en clases. 
+                    Su estética caricaturesca y sus nueve clases únicas (desde el veloz Scout hasta el poderoso Heavy) 
+                    lo hicieron inolvidable.
+                </p>
+                <p>
+                    Valve mantuvo TF2 vivo durante años con actualizaciones, mapas y un sistema de economía 
+                    basado en ítems y cosméticos. A pesar de su antigüedad, sigue teniendo una comunidad fiel y activa.
+                </p>
+            </section>
+
+            {% if user_authenticated %}
+            <!-- Left 4 Dead -->
+            <section id="l4d" class="card">
+                <h2>Left 4 Dead</h2>
+                <p>
+                    En 2008, Valve lanzó <strong>Left 4 Dead</strong>, un shooter cooperativo que enfrentaba a los jugadores 
+                    contra hordas de zombis con la ayuda de un sistema dinámico llamado <em>Director IA</em>, 
+                    que ajustaba la dificultad en tiempo real.
+                </p>
+                <p>
+                    <em>Left 4 Dead 2</em> amplió la fórmula con más campañas, armas y modos de juego. 
+                    Su énfasis en la cooperación lo convirtió en un referente para los juegos multijugador.
+                </p>
+            </section>
+
+            <!-- Dota 2 -->
+            <section id="dota2" class="card">
+                <h2>Dota 2</h2>
+                <p>
+                    Basado en el famoso mod de Warcraft III, <strong>Dota 2</strong> se consolidó en 2013 como el MOBA de referencia. 
+                    Su enorme variedad de héroes, estrategias y constante actualización lo mantienen vigente.
+                </p>
+                <p>
+                    <em>The International</em>, su torneo anual, reparte los premios más grandes en la historia de los eSports. 
+                    Es un fenómeno cultural que define la escena competitiva.
+                </p>
+            </section>
+
+            <!-- Half-Life Alyx -->
+            <section id="alyx" class="card">
+                <h2>Half-Life: Alyx</h2>
+                <p>
+                    En 2020, Valve regresó a su saga estrella con <strong>Half-Life: Alyx</strong>, 
+                    exclusivo para realidad virtual. El juego llevó la inmersión al siguiente nivel, 
+                    permitiendo a los jugadores interactuar con el mundo de City 17 de manera directa y física.
+                </p>
+                <p>
+                    Su éxito confirmó a Valve como pionera también en VR, y demostró que la saga Half-Life 
+                    sigue siendo un referente tecnológico y narrativo.
+                </p>
+            </section>
+            {% endif %}
         </div>
     </main>
 

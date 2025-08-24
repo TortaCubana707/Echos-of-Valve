@@ -9,25 +9,41 @@
 
 body {
     font-family: 'Segoe UI', sans-serif;
-    background-color: #1c1c1c;
+    background: linear-gradient(135deg, #1c1c1c, #2a2a2a);
     color: #e0e0e0;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
+    animation: fadeIn 1s ease-in-out;
+}
+
+/* Animación global de entrada */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 /* ================================
    CABECERA
 ================================ */
 header {
-    background-color: #4b0c0c;
+    background: linear-gradient(90deg, #4b0c0c, #800000);
     text-align: center;
     padding: 20px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+    animation: slideDown 0.8s ease;
 }
 
 header h1 {
     font-size: 2.5rem;
     color: #fff;
+    letter-spacing: 2px;
+}
+
+/* Animación bajando */
+@keyframes slideDown {
+    from { transform: translateY(-50px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
 }
 
 /* ================================
@@ -37,29 +53,44 @@ nav {
     background-color: #262626;
     display: flex;
     justify-content: center;
-    padding: 10px;
+    padding: 12px;
     flex-wrap: wrap;
+    gap: 15px;
+    animation: fadeIn 1.2s ease;
 }
 
 nav a {
     color: #e0e0e0;
     text-decoration: none;
-    margin: 0 15px;
     font-weight: bold;
+    padding: 10px 18px;
+    border-radius: 20px;
+    transition: all 0.3s ease;
 }
 
 nav a:hover {
-    color: #ff5050;
+    color: #fff;
+    background: #ff5050;
+    box-shadow: 0 0 15px rgba(255,80,80,0.7);
+    transform: scale(1.05);
 }
 
 /* ================================
    TARJETAS / CARDS
 ================================ */
 .card {
-    background-color: gray;
-    border-radius: 8px;
+    background: linear-gradient(145deg, #3a3a3a, #2a2a2a);
+    border-radius: 12px;
     margin: 16px;
     padding: 16px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+    transition: all 0.3s ease-in-out;
+    animation: fadeIn 1s ease;
+}
+
+.card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.7);
 }
 
 /* ================================
@@ -71,16 +102,24 @@ main {
     padding: 40px;
     max-width: 1200px;
     margin: auto;
+    flex: 1;
 }
 
 main aside {
     display: flex;
     flex-direction: column;
     width: 20%;
+    animation: slideIn 0.8s ease;
 }
 
 main div {
     width: 80%;
+}
+
+/* Animación lateral */
+@keyframes slideIn {
+    from { transform: translateX(-40px); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
 }
 
 /* ================================
@@ -89,49 +128,61 @@ main div {
 #menuAside {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 10px;
 }
 
 #menuAside a {
     text-decoration: none;
-    color: inherit;
+    color: #fff;
     border-radius: 15px;
-    background-color: darkgoldenrod;
+    background: linear-gradient(135deg, darkgoldenrod, goldenrod);
     text-align: center;
     font-weight: 700;
-    padding: 10px;
+    padding: 12px;
+    transition: all 0.3s ease;
 }
 
 #menuAside a:hover {
-    background-color: aliceblue;
+    background: #ff5050;
     border: 3px solid orange;
+    color: #000;
+    transform: translateX(8px);
 }
 
 /* ================================
    ARTÍCULOS
 ================================ */
 article {
-    background-color: #2e2e2e;
+    background: #2e2e2e;
     border-left: 5px solid #ff5050;
     padding: 20px;
     margin-bottom: 30px;
-    box-shadow: 0 0 10px #000;
+    box-shadow: 0 0 15px rgba(0,0,0,0.8);
     flex: 3;
+    border-radius: 10px;
+    animation: fadeIn 1.2s ease;
 }
 
 article h2 {
     color: #ff5050;
+    margin-bottom: 10px;
+    transition: color 0.3s ease;
+}
+
+article h2:hover {
+    color: #ffa07a;
 }
 
 /* ================================
    PIE DE PÁGINA
 ================================ */
 footer {
-    background-color: #4b0c0c;
+    background: linear-gradient(90deg, #4b0c0c, #800000);
     text-align: center;
     padding: 15px;
     color: #ccc;
     font-size: 0.9em;
+    margin-top: auto;
 }
 
 /* ================================
@@ -142,24 +193,31 @@ footer {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 40px; /* espacio alrededor */
+    padding: 40px;
+    animation: fadeIn 1s ease;
 }
 
 /* ================================
-   FORMULARIOS GENERALES (AJUSTE LOGIN/REGISTRO)
+   FORMULARIOS
 ================================ */
 form {
     display: flex;
     flex-direction: column;
     gap: 16px;
-    background-color: #fff;
+    background: #fff;
     color: #000;
     padding: 40px 35px;
     border-radius: 12px;
-    box-shadow: 0 4px 25px rgba(0,0,0,0.4);
+    box-shadow: 0 6px 30px rgba(0,0,0,0.5);
     width: 100%;
-    max-width: 450px; /* más ancho para mejor proporción */
-    min-width: 300px; /* que no se achique demasiado */
+    max-width: 450px;
+    min-width: 300px;
+    animation: zoomIn 0.8s ease;
+}
+
+@keyframes zoomIn {
+    from { transform: scale(0.9); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
 }
 
 form h2 {
@@ -174,10 +232,17 @@ form input {
     padding: 12px;
     border: 1px solid #ccc;
     font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+form input:focus {
+    border-color: #ff5050;
+    box-shadow: 0 0 8px rgba(255,80,80,0.7);
+    outline: none;
 }
 
 form button {
-    background-color: #4b0c0c;
+    background: linear-gradient(90deg, #4b0c0c, #800000);
     color: #fff;
     padding: 14px;
     border: none;
@@ -185,10 +250,13 @@ form button {
     cursor: pointer;
     font-weight: bold;
     font-size: 1rem;
+    transition: all 0.3s ease;
 }
 
 form button:hover {
-    background-color: #ff5050;
+    background: #ff5050;
+    transform: translateY(-3px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.4);
 }
 
 /* ================================
@@ -202,5 +270,34 @@ form button:hover {
     main aside,
     main div {
         width: 100%;
+    }
+}
+
+/* ================================
+   ANIMACIÓN DEL TÍTULO DEL HEADER
+================================ */
+header h1 {
+    font-size: 2.5rem;
+    color: #fff;
+    letter-spacing: 2px;
+    animation: titleBounce 1.2s ease-out forwards;
+    opacity: 0; /* parte invisible antes de la animación */
+}
+
+/* Animación de rebote y aparición */
+@keyframes titleBounce {
+    0% {
+        opacity: 0;
+        transform: translateY(-50px) scale(0.8);
+    }
+    50% {
+        opacity: 1;
+        transform: translateY(10px) scale(1.1);
+    }
+    70% {
+        transform: translateY(-5px) scale(1);
+    }
+    100% {
+        transform: translateY(0) scale(1);
     }
 }

@@ -1,10 +1,78 @@
 {% extends 'base.html' %}
-{% block Titulo %}
-    Inicio
-{% endblock %}
+{% block Titulo %}Inicio{% endblock %}
+
 {% block content %}
-    <h2>Bienvenidos</h2>
-    <p>{{ lipsum(n=5, html=True, min=20, max=100) }}</p>
-    <img src="/static/img/Lefito.jpg" alt="Foto del lefito">
-    <p>{{ lipsum(n=5, html=True, min=20, max=100) }}</p>
+
+<section class="card" id="half-life">
+    <h2>Half-Life</h2>
+    <p>
+        Lanzado en 1998, <strong>Half-Life</strong> revolucionó los FPS con su narrativa inmersiva 
+        y la atmósfera de Black Mesa. Su secuela, <em>Half-Life 2</em> (2004), integró el motor Source, 
+        físicas avanzadas y el icónico Gravity Gun.
+    </p>
+    <p>
+        Expansiones como <em>Opposing Force</em>, <em>Blue Shift</em> y <em>Decay</em> ampliaron la historia
+        desde diferentes perspectivas, manteniendo a la saga como referencia en narrativa interactiva.
+    </p>
+</section>
+
+<section class="card" id="cs">
+    <h2>Counter-Strike</h2>
+    <p>
+        De mod de Half-Life a fenómeno global, <strong>Counter-Strike</strong> definió el género de shooters tácticos competitivos.
+        Con rondas de ataque y defensa, gestión de economía y precisión, sentó las bases de los eSports.
+    </p>
+    <p>
+        Desde <em>CS 1.6</em> hasta <em>CS2</em>, mantiene millones de jugadores activos y torneos internacionales.
+    </p>
+</section>
+
+<section class="card" id="portal">
+    <h2>Portal</h2>
+    <p>
+        <strong>Portal</strong> (2007) sorprendió con mecánicas de puzzles y el humor de GLaDOS.
+        <em>Portal 2</em> expandió la historia con modos cooperativos, geles de propulsión y narrativa profunda.
+    </p>
+</section>
+
+<section class="card" id="tf2">
+    <h2>Team Fortress 2</h2>
+    <p>
+        Estrenado en 2007, <strong>Team Fortress 2</strong> definió el shooter multijugador por clases.
+        Nueve clases únicas, estética caricaturesca y actualizaciones constantes lo mantienen relevante.
+    </p>
+</section>
+
+{% if user_authenticated %}
+<section class="card" id="l4d">
+    <h2>Left 4 Dead</h2>
+    <p>
+        Lanzado en 2008, <strong>Left 4 Dead</strong> presentó un shooter cooperativo con hordas de zombis
+        y el sistema dinámico <em>Director IA</em> para ajustar la dificultad.
+    </p>
+    <p>
+        Su secuela amplió contenido y modos de juego, siendo un referente de la cooperación en línea.
+    </p>
+</section>
+
+<section class="card" id="dota2">
+    <h2>Dota 2</h2>
+    <p>
+        Basado en el mod de Warcraft III, <strong>Dota 2</strong> (2013) es uno de los MOBAs más influyentes,
+        con héroes variados, estrategias complejas y actualizaciones constantes.
+    </p>
+    <p>
+        <em>The International</em> es su torneo anual con los premios más altos de los eSports.
+    </p>
+</section>
+
+<section class="card" id="alyx">
+    <h2>Half-Life: Alyx</h2>
+    <p>
+        En 2020, Valve volvió a Half-Life con <strong>Alyx</strong>, exclusivo para VR. 
+        Interacción física total, gráficos avanzados y narrativa inmersiva redefinieron el género.
+    </p>
+</section>
+{% endif %}
+
 {% endblock %}
