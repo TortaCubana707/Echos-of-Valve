@@ -1,91 +1,59 @@
 {% extends 'base.html' %}
-<<<<<<< HEAD
-{% block Titulo %}Inicio{% endblock %}
+
+{% block Titulo %}Valve: Innovación en Videojuegos{% endblock %}
 
 {% block content %}
+    <section class="intro">
+        <h2>¿Quién es Valve Corporation?</h2>
+        <p>
+            Valve Corporation es una empresa estadounidense fundada en 1996 por Gabe Newell y Mike Harrington, ex empleados de Microsoft. Su primer juego, <strong>Half-Life</strong>, revolucionó el género de los shooters en primera persona con su narrativa inmersiva y jugabilidad innovadora. Desde entonces, Valve ha sido responsable de títulos icónicos como <strong>Portal</strong>, <strong>Team Fortress</strong>, <strong>Left 4 Dead</strong>, <strong>Counter-Strike</strong> y <strong>Dota 2</strong>.
+        </p>
+        <p>
+            Además de su éxito en el desarrollo de videojuegos, Valve ha transformado la distribución digital con <strong>Steam</strong>, una plataforma que permite a los jugadores comprar, descargar y jugar videojuegos en PC. Steam ha sido fundamental en la popularización de los videojuegos en PC y sigue siendo una de las plataformas más utilizadas en la actualidad.
+        </p>
+    </section>
 
-<section class="card" id="half-life">
-    <h2>Half-Life</h2>
-    <p>
-        Lanzado en 1998, <strong>Half-Life</strong> revolucionó los FPS con su narrativa inmersiva 
-        y la atmósfera de Black Mesa. Su secuela, <em>Half-Life 2</em> (2004), integró el motor Source, 
-        físicas avanzadas y el icónico Gravity Gun.
-    </p>
-    <p>
-        Expansiones como <em>Opposing Force</em>, <em>Blue Shift</em> y <em>Decay</em> ampliaron la historia
-        desde diferentes perspectivas, manteniendo a la saga como referencia en narrativa interactiva.
-    </p>
-</section>
+    <section class="valve-history">
+        <h2>Historia de Valve</h2>
+        <p>
+            La historia de Valve comienza en 1996, cuando Gabe Newell y Mike Harrington decidieron fundar la empresa en Kirkland, Washington. Inspirados por el éxito de juegos como <em>Doom</em> y <em>Quake</em>, buscaron crear una experiencia de juego que combinara una narrativa profunda con una jugabilidad fluida. El resultado fue <strong>Half-Life</strong>, lanzado en 1998, que recibió más de 50 premios al Juego del Año y es considerado uno de los mejores videojuegos de todos los tiempos.
+        </p>
+        <p>
+            Tras el éxito de <strong>Half-Life</strong>, Valve continuó innovando con títulos como <strong>Portal</strong>, un juego de puzzles que introdujo mecánicas únicas de portales, y <strong>Team Fortress 2</strong>, un shooter multijugador por equipos que destacó por su estilo artístico y jugabilidad estratégica. En 2003, Valve lanzó <strong>Steam</strong>, una plataforma de distribución digital que cambió la forma en que los jugadores acceden a los videojuegos.
+        </p>
+    </section>
 
-<section class="card" id="cs">
-    <h2>Counter-Strike</h2>
-    <p>
-        De mod de Half-Life a fenómeno global, <strong>Counter-Strike</strong> definió el género de shooters tácticos competitivos.
-        Con rondas de ataque y defensa, gestión de economía y precisión, sentó las bases de los eSports.
-    </p>
-    <p>
-        Desde <em>CS 1.6</em> hasta <em>CS2</em>, mantiene millones de jugadores activos y torneos internacionales.
-    </p>
-</section>
+    <section class="valve-impact">
+        <h2>Impacto en la Industria</h2>
+        <p>
+            Valve ha sido una fuerza impulsora en la evolución de la industria de los videojuegos. Con su enfoque en la innovación y la calidad, ha establecido nuevos estándares en el diseño de videojuegos y la distribución digital. Steam ha permitido a desarrolladores independientes llegar a una audiencia global, mientras que los juegos de Valve han influido en generaciones de jugadores y desarrolladores.
+        </p>
+        <p>
+            La estructura empresarial única de Valve, sin jerarquías tradicionales, fomenta la creatividad y la colaboración, permitiendo a los empleados trabajar en proyectos que les apasionan. Esta filosofía ha sido clave en el éxito continuo de la empresa y su capacidad para mantenerse a la vanguardia de la industria.
+        </p>
+    </section>
 
-<section class="card" id="portal">
-    <h2>Portal</h2>
-    <p>
-        <strong>Portal</strong> (2007) sorprendió con mecánicas de puzzles y el humor de GLaDOS.
-        <em>Portal 2</em> expandió la historia con modos cooperativos, geles de propulsión y narrativa profunda.
-    </p>
-</section>
-
-<section class="card" id="tf2">
-    <h2>Team Fortress 2</h2>
-    <p>
-        Estrenado en 2007, <strong>Team Fortress 2</strong> definió el shooter multijugador por clases.
-        Nueve clases únicas, estética caricaturesca y actualizaciones constantes lo mantienen relevante.
-    </p>
-</section>
-
-{% if user_authenticated %}
-<section class="card" id="l4d">
-    <h2>Left 4 Dead</h2>
-    <p>
-        Lanzado en 2008, <strong>Left 4 Dead</strong> presentó un shooter cooperativo con hordas de zombis
-        y el sistema dinámico <em>Director IA</em> para ajustar la dificultad.
-    </p>
-    <p>
-        Su secuela amplió contenido y modos de juego, siendo un referente de la cooperación en línea.
-    </p>
-</section>
-
-<section class="card" id="dota2">
-    <h2>Dota 2</h2>
-    <p>
-        Basado en el mod de Warcraft III, <strong>Dota 2</strong> (2013) es uno de los MOBAs más influyentes,
-        con héroes variados, estrategias complejas y actualizaciones constantes.
-    </p>
-    <p>
-        <em>The International</em> es su torneo anual con los premios más altos de los eSports.
-    </p>
-</section>
-
-<section class="card" id="alyx">
-    <h2>Half-Life: Alyx</h2>
-    <p>
-        En 2020, Valve volvió a Half-Life con <strong>Alyx</strong>, exclusivo para VR. 
-        Interacción física total, gráficos avanzados y narrativa inmersiva redefinieron el género.
-    </p>
-</section>
-{% endif %}
-
+    <section class="valve-games">
+        <h2>Juegos Destacados de Valve</h2>
+        <ul>
+            <li>
+                <strong>Half-Life</strong>: Un revolucionario shooter en primera persona que combinó acción intensa con una narrativa envolvente.
+            </li>
+            <li>
+                <strong>Portal</strong>: Un juego de puzzles que introdujo la mecánica de los portales, desafiando las leyes de la física y la lógica.
+            </li>
+            <li>
+                <strong>Team Fortress 2</strong>: Un shooter multijugador por equipos con un estilo artístico único y jugabilidad estratégica.
+            </li>
+            <li>
+                <strong>Left 4 Dead</strong>: Un juego cooperativo de supervivencia contra hordas de zombis, centrado en la cooperación entre jugadores.
+            </li>
+            <li>
+                <strong>Counter-Strike</strong>: Un juego de disparos táctico por equipos que se ha convertido en un referente en los eSports.
+            </li>
+            <li>
+                <strong>Dota 2</strong>: Un juego de estrategia en tiempo real que ha sido el centro de una de las comunidades de eSports más grandes del mundo.
+            </li>
+        </ul>
+    </section>
 {% endblock %}
-=======
-{% block Titulo %}
-    Inicio
-{% endblock %}
-{% block content %}
-    <h2>Bienvenido a esta pagina de prueba</h2>
-    <p>{{ lipsum(n=5, html=True, min=20, max=100) }}</p>
-    <p>{{ lipsum(n=5, html=True, min=20, max=100) }}</p>
-    <img src="/static/img/Lefito.jpg" alt="Foto del lefito">
-    <p>{{ lipsum(n=5, html=True, min=20, max=100) }}</p>
-{% endblock %}
->>>>>>> 0743c987e5ef920bdbafbae1be9eadbc3129cf85

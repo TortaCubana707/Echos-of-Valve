@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Subir imágenes de videojuegos</h2>
+<form method="POST" enctype="multipart/form-data">
+    <input type="file" name="imagen" required>
+    <button type="submit">Subir</button>
+</form>
+{% endblock %}

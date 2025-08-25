@@ -9,69 +9,85 @@
 
 body {
     font-family: 'Segoe UI', sans-serif;
-    background: linear-gradient(135deg, #1c1c1c, #2a2a2a);
-    color: #e0e0e0;
+    color: #f5f5f5;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    animation: fadeIn 1s ease-in-out;
-}
-
-/* Animación global de entrada */
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
+    background: url('/static/img/Fondo.gif') no-repeat center center fixed;
+    background-size: cover;
+    overflow-x: hidden;
 }
 
 /* ================================
-   CABECERA
+   CABECERA CON FONDO SUPERIOR
 ================================ */
-header {
-    background: linear-gradient(90deg, #4b0c0c, #800000);
+header.site-header {
     text-align: center;
-    padding: 20px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.5);
-    animation: slideDown 0.8s ease;
+    padding: 40px 20px;
+    background: url('/static/img/FondoSup.gif') no-repeat center center;
+    background-size: cover;
+    border-bottom: 3px solid #ffcc00;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.7);
+    position: relative;
+    z-index: 10;
 }
 
-header h1 {
-    font-size: 2.5rem;
-    color: #fff;
-    letter-spacing: 2px;
+header.site-header::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.45); /* oscurece un poco el gif para que el texto se lea */
+    z-index: 1;
 }
 
-/* Animación bajando */
-@keyframes slideDown {
-    from { transform: translateY(-50px); opacity: 0; }
-    to { transform: translateY(0); opacity: 1; }
+.main-title {
+    position: relative;
+    z-index: 2;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 3.5rem;
+    color: #ffcc00;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    text-shadow: 0px 0px 8px rgba(255, 204, 0, 0.8),
+                 0px 0px 16px rgba(255, 204, 0, 0.6);
+    animation: glowPulse 2s infinite alternate;
+}
+
+@keyframes glowPulse {
+    from { text-shadow: 0px 0px 6px #ffcc00, 0px 0px 12px #ffcc00; }
+    to   { text-shadow: 0px 0px 16px #fff, 0px 0px 32px #ffcc00; }
 }
 
 /* ================================
    NAVEGACIÓN PRINCIPAL
 ================================ */
-nav {
-    background-color: #262626;
+nav.main-nav {
     display: flex;
-    justify-content: center;
-    padding: 12px;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgba(10, 10, 10, 0.85); /* más oscuro para contraste */
+    padding: 12px 20px;
     flex-wrap: wrap;
-    gap: 15px;
-    animation: fadeIn 1.2s ease;
+    border-bottom: 3px solid #ff5050;
+    backdrop-filter: blur(6px);
 }
 
-nav a {
-    color: #e0e0e0;
+.nav-left a,
+.nav-right a {
+    color: #f0f0f0;
     text-decoration: none;
     font-weight: bold;
     padding: 10px 18px;
     border-radius: 20px;
     transition: all 0.3s ease;
+    margin: 0 5px;
 }
 
-nav a:hover {
-    color: #fff;
-    background: #ff5050;
-    box-shadow: 0 0 15px rgba(255,80,80,0.7);
+.nav-left a:hover,
+.nav-right a:hover {
+    color: #000;
+    background: #ffcc00;
+    box-shadow: 0 0 15px rgba(255,204,0,0.8);
     transform: scale(1.05);
 }
 
@@ -79,18 +95,18 @@ nav a:hover {
    TARJETAS / CARDS
 ================================ */
 .card {
-    background: linear-gradient(145deg, #3a3a3a, #2a2a2a);
+    background: rgba(0, 0, 0, 0.7); /* menos gris, más transparente */
     border-radius: 12px;
     margin: 16px;
     padding: 16px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.6);
     transition: all 0.3s ease-in-out;
-    animation: fadeIn 1s ease;
+    color: #fff;
 }
 
 .card:hover {
     transform: translateY(-8px);
-    box-shadow: 0 8px 20px rgba(0,0,0,0.7);
+    box-shadow: 0 8px 20px rgba(255,204,0,0.5);
 }
 
 /* ================================
@@ -109,17 +125,10 @@ main aside {
     display: flex;
     flex-direction: column;
     width: 20%;
-    animation: slideIn 0.8s ease;
 }
 
 main div {
     width: 80%;
-}
-
-/* Animación lateral */
-@keyframes slideIn {
-    from { transform: translateX(-40px); opacity: 0; }
-    to { transform: translateX(0); opacity: 1; }
 }
 
 /* ================================
@@ -128,135 +137,147 @@ main div {
 #menuAside {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 12px;
+    padding: 10px;
+    background: rgba(0,0,0,0.6);
+    border-radius: 12px;
+    animation: fadeIn 1s ease;
+    color: #fff;
+}
+
+#menuAside h3 {
+    text-align: center;
+    color: #ffcc00;
+    margin-bottom: 12px;
+    font-size: 1.2rem;
+    letter-spacing: 1px;
+    text-shadow: 0 0 6px #ffcc00;
 }
 
 #menuAside a {
     text-decoration: none;
     color: #fff;
-    border-radius: 15px;
-    background: linear-gradient(135deg, darkgoldenrod, goldenrod);
-    text-align: center;
-    font-weight: 700;
+    background: rgba(30,30,30,0.9);
     padding: 12px;
-    transition: all 0.3s ease;
+    border-radius: 10px;
+    font-weight: bold;
+    text-align: center;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.6);
 }
 
 #menuAside a:hover {
-    background: #ff5050;
-    border: 3px solid orange;
+    background: #ffcc00;
     color: #000;
-    transform: translateX(8px);
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: 0 8px 20px rgba(255,204,0,0.6);
 }
 
 /* ================================
-   ARTÍCULOS
+   FORMULARIOS LOGIN Y REGISTRO
 ================================ */
-article {
-    background: #2e2e2e;
-    border-left: 5px solid #ff5050;
-    padding: 20px;
-    margin-bottom: 30px;
-    box-shadow: 0 0 15px rgba(0,0,0,0.8);
-    flex: 3;
+.form-container {
+    background: rgba(0, 0, 0, 0.85);
+    padding: 30px 40px;
+    border-radius: 20px;
+    box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.5);
+    width: 350px;
+    margin: 100px auto;
+    text-align: center;
+}
+
+.form-container h2 {
+    color: #FFD700; /* amarillo */
+    margin-bottom: 20px;
+    font-size: 24px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.form-group label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #fff;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 8px;
+    outline: none;
+    font-size: 14px;
+}
+
+button {
+    width: 100%;
+    background: #FFD700;
+    color: #000;
+    padding: 12px;
+    font-size: 16px;
+    border: none;
     border-radius: 10px;
-    animation: fadeIn 1.2s ease;
+    cursor: pointer;
+    transition: background 0.3s ease;
 }
 
-article h2 {
-    color: #ff5050;
-    margin-bottom: 10px;
-    transition: color 0.3s ease;
-}
-
-article h2:hover {
-    color: #ffa07a;
+button:hover {
+    background: #ffcc00;
 }
 
 /* ================================
    PIE DE PÁGINA
 ================================ */
 footer {
-    background: linear-gradient(90deg, #4b0c0c, #800000);
+    background: rgba(0, 0, 0, 0.7);
     text-align: center;
     padding: 15px;
-    color: #ccc;
+    color: #ddd;
     font-size: 0.9em;
     margin-top: auto;
 }
 
 /* ================================
-   LOGIN / REGISTRO - CONTENEDOR
+   COMENTARIOS
 ================================ */
-.form-container {
-    flex: 1;
+.comentarios-lista {
+    margin-top: 20px;
     display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 40px;
-    animation: fadeIn 1s ease;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.comentario {
+    background: rgba(0,0,0,0.65);
+    padding: 12px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+    transition: all 0.3s ease-in-out;
+    color: #fff;
+}
+
+.comentario:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 15px rgba(255,204,0,0.5);
 }
 
 /* ================================
-   FORMULARIOS
+   FLASH MESSAGES
 ================================ */
-form {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    background: #fff;
-    color: #000;
-    padding: 40px 35px;
-    border-radius: 12px;
-    box-shadow: 0 6px 30px rgba(0,0,0,0.5);
-    width: 100%;
-    max-width: 450px;
-    min-width: 300px;
-    animation: zoomIn 0.8s ease;
-}
-
-@keyframes zoomIn {
-    from { transform: scale(0.9); opacity: 0; }
-    to { transform: scale(1); opacity: 1; }
-}
-
-form h2 {
-    text-align: center;
-    margin-bottom: 10px;
-    color: #4b0c0c;
-    font-size: 1.8rem;
-}
-
-form input {
-    border-radius: 8px;
-    padding: 12px;
-    border: 1px solid #ccc;
-    font-size: 1rem;
-    transition: all 0.3s ease;
-}
-
-form input:focus {
-    border-color: #ff5050;
-    box-shadow: 0 0 8px rgba(255,80,80,0.7);
-    outline: none;
-}
-
-form button {
-    background: linear-gradient(90deg, #4b0c0c, #800000);
-    color: #fff;
-    padding: 14px;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    font-weight: bold;
-    font-size: 1rem;
-    transition: all 0.3s ease;
-}
-
-form button:hover {
+.flash-messages {
     background: #ff5050;
-    transform: translateY(-3px);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+    color: #fff;
+    padding: 12px 20px;
+    border-radius: 8px;
+    margin: 15px auto;
+    max-width: 500px;
+    text-align: center;
+    animation: fadeIn 0.5s ease;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.6);
 }
 
 /* ================================
@@ -271,33 +292,17 @@ form button:hover {
     main div {
         width: 100%;
     }
+
+    nav.main-nav {
+        flex-direction: column;
+        gap: 10px;
+    }
 }
 
 /* ================================
-   ANIMACIÓN DEL TÍTULO DEL HEADER
+   ANIMACIONES
 ================================ */
-header h1 {
-    font-size: 2.5rem;
-    color: #fff;
-    letter-spacing: 2px;
-    animation: titleBounce 1.2s ease-out forwards;
-    opacity: 0; /* parte invisible antes de la animación */
-}
-
-/* Animación de rebote y aparición */
-@keyframes titleBounce {
-    0% {
-        opacity: 0;
-        transform: translateY(-50px) scale(0.8);
-    }
-    50% {
-        opacity: 1;
-        transform: translateY(10px) scale(1.1);
-    }
-    70% {
-        transform: translateY(-5px) scale(1);
-    }
-    100% {
-        transform: translateY(0) scale(1);
-    }
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
 }

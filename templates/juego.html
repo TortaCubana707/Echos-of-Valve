@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block Titulo %}{{ juego.titulo }}{% endblock %}
+
+{% block content %}
+<section class="card">
+    <h2>{{ juego.titulo }}</h2>
+
+    {% if juego.nombre == "half-life" %}
+        <p>Lanzado en 1998, <strong>Half-Life</strong> revolucionó los FPS con su narrativa inmersiva y atmósfera de Black Mesa. Su secuela, <em>Half-Life 2</em> (2004), incorporó físicas avanzadas y el icónico Gravity Gun.</p>
+        <p>Expansiones como <em>Opposing Force</em>, <em>Blue Shift</em> y <em>Decay</em> ampliaron la historia desde perspectivas diferentes, manteniendo a la saga como referencia en narrativa interactiva.</p>
+        <p>Impacto: Fue pionero en integrar narrativa y acción de manera fluida en FPS.</p>
+
+    {% elif juego.nombre == "cs" %}
+        <p><strong>Counter-Strike</strong> empezó como un mod de Half-Life y se convirtió en un fenómeno global. Definió los shooters tácticos competitivos, con gestión de economía, precisión y trabajo en equipo.</p>
+        <p>Desde <em>CS 1.6</em> hasta <em>CS2</em>, mantiene millones de jugadores activos y torneos internacionales.</p>
+        <p>Impacto: Base de los eSports y torneos competitivos de shooter.</p>
+
+    {% elif juego.nombre == "portal" %}
+        <p><strong>Portal</strong> (2007) sorprendió con puzzles innovadores y humor de GLaDOS. <em>Portal 2</em> expandió la historia, introdujo modos cooperativos y mecánicas de geles de propulsión.</p>
+        <p>Impacto: Popularizó puzzles integrados en narrativa de videojuegos.</p>
+
+    {% elif juego.nombre == "tf2" %}
+        <p><strong>Team Fortress 2</strong> (2007) definió el shooter multijugador por clases, con nueve clases únicas y estética caricaturesca.</p>
+        <p>Impacto: Innovación en shooters por clases y actualización continua con comunidad activa.</p>
+
+    {% elif juego.nombre == "l4d" %}
+        <p><strong>Left 4 Dead</strong> (2008) presentó un shooter cooperativo con hordas de zombis y el sistema dinámico <em>Director IA</em> para ajustar la dificultad.</p>
+        <p>Impacto: Estableció estándares de cooperación en línea y replayability mediante IA adaptativa.</p>
+
+    {% elif juego.nombre == "l4d2" %}
+        <p><strong>Left 4 Dead 2</strong> es la secuela que amplió campañas, armas y modos cooperativos. Introdujo nuevas infectados especiales y mapas más complejos.</p>
+        <p>Impacto: Mantiene una comunidad activa gracias a su cooperación en línea y mods creados por usuarios.</p>
+
+    {% elif juego.nombre == "dota2" %}
+        <p><strong>Dota 2</strong> (2013) es un MOBA basado en el mod de Warcraft III, con héroes variados y estrategias complejas.</p>
+        <p><em>The International</em> es su torneo anual con los premios más altos en eSports.</p>
+        <p>Impacto: Revolucionó los MOBAs competitivos y escenas de eSports globales.</p>
+
+    {% elif juego.nombre == "alyx" %}
+        <p><strong>Half-Life: Alyx</strong> (2020) es exclusivo para VR, con interacción física total y narrativa inmersiva.</p>
+        <p>Impacto: Marcó un nuevo estándar para la narrativa e interacción en realidad virtual.</p>
+
+    {% else %}
+        <p>{{ juego.descripcion }}</p>
+    {% endif %}
+</section>
+{% endblock %}

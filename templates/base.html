@@ -4,38 +4,61 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/static/style.css" type="text/css">
-    <title>{% block Titulo %}Echoes of Valve{% endblock %}</title>
+    <title>{% block Titulo %}Blog Videojuegos{% endblock %}</title>
     <link rel="icon" type="image/png" href="/static/img/Jockey.png">
 </head>
 <body>
 
-    <header>
-        <h1>Echoes of Valve</h1>
+    <header class="site-header">
+        <h1 class="main-title">🎮 Echoes of Valve 🎶</h1>
         {% block header %}{% endblock %}
     </header>
 
-    <nav>
-        <a href="/">Inicio</a>
-        {% if not user_authenticated %}
+
+    <nav class="main-nav">
+        <div class="nav-left">
+            <a href="/">Inicio</a>
             <a href="/login">Login</a>
             <a href="/register">Registro</a>
-        {% else %}
-            <a href="/logout">Cerrar Sesión</a>
-        {% endif %}
+        </div>
+        <div class="nav-right">
+            {% if user_authenticated %}
+                <a href="/logout">Cerrar Sesión</a>
+            {% endif %}
+        </div>
     </nav>
+
+    <!-- Flash Messages -->
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <div class="flash-messages">
+          {% for message in messages %}
+            <p>{{ message }}</p>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
 
     <main>
         {% if show_aside %}
         <aside>
             <div id="menuAside">
-                <a href="#half-life">Half-Life</a>
-                <a href="#cs">Counter-Strike</a>
-                <a href="#portal">Portal</a>
-                <a href="#tf2">Team Fortress 2</a>
+                <a href="{{ url_for('juego', nombre='half-life') }}">Half-Life</a>
+                <a href="{{ url_for('juego', nombre='cs') }}">Counter-Strike</a>
+                <a href="{{ url_for('juego', nombre='portal') }}">Portal</a>
+                <a href="{{ url_for('juego', nombre='tf2') }}">Team Fortress 2</a>
+
                 {% if user_authenticated %}
-                    <a href="#l4d">Left 4 Dead</a>
-                    <a href="#dota2">Dota 2</a>
-                    <a href="#alyx">Half-Life: Alyx</a>
+                    <a href="{{ url_for('juego', nombre='l4d') }}">Left 4 Dead</a>
+                    <a href="{{ url_for('juego', nombre='l4d2') }}">Left 4 Dead 2</a>
+                    <a href="{{ url_for('juego', nombre='dota2') }}">Dota 2</a>
+                    <a href="{{ url_for('juego', nombre='alyx') }}">Half-Life: Alyx</a>
+
+                    <!-- Secciones multimedia -->
+                    <hr style="border:1px solid #ff5050;">
+                    <h3>Multimedia</h3>
+                    <a href="{{ url_for('subir_imagen') }}">Subir Imágenes</a>
+                    <a href="{{ url_for('comentarios') }}">Comentarios del público</a>
                 {% endif %}
             </div>
         </aside>
@@ -43,13 +66,13 @@
 
         <div>
             {% block content %}
-            <!-- Aquí va tu contenido principal -->
+            <!-- Aquí se mostrará la información del juego seleccionado -->
             {% endblock %}
         </div>
     </main>
 
     <footer>
-        &copy; 2025 Blog | Hecho por Sarduño, Lalocura, Sergey y Neto  
+        &copy; 2025 Blog | Hecho por Sarduño, Lalocura, Sergey y Neto
         {% block footer %}{% endblock %}
     </footer>
 

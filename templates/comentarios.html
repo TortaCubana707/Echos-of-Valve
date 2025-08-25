@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Comentarios del público</h2>
+<form method="POST">
+    <textarea name="comentario" rows="4" required></textarea>
+    <button type="submit">Enviar</button>
+</form>
+
+<div class="comentarios-lista">
+    {% for c in comentarios %}
+        <div class="comentario">
+            <p>{{ c }}</p>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}
