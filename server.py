@@ -19,7 +19,6 @@ def login():
     if request.method == 'POST':
         usuario = request.form['usuario']
         password = request.form['password']
-        # Lógica simple de verificación (puedes reemplazar con base de datos)
         if usuario == "admin" and password == "1234":
             session["logged_in"] = True
             flash("Has iniciado sesión correctamente")
@@ -37,6 +36,7 @@ def register():
         return redirect(url_for('index'))
     return render_template('forms/register.html', user_authenticated=user_authenticated(), show_aside=False)
 
+
 @app.route('/logout')
 def logout():
     session.pop("logged_in", None)
@@ -48,25 +48,75 @@ def logout():
 # ----------------------
 @app.route('/')
 def index():
-    show_aside = True
-    return render_template('index.html', user_authenticated=user_authenticated(), show_aside=show_aside)
+    return render_template(
+        'index.html',
+        user_authenticated=user_authenticated(),
+        show_aside=True,
+        fondo="Fondo.gif"
+    )
 
 # ----------------------
 # Página de juegos
 # ----------------------
-@app.route('/juego/<nombre>')
+@app.route("/juego/<nombre>")
 def juego(nombre):
-    juegos = {
-        "half-life": {"titulo": "Half-Life", "descripcion": "Lanzado en 1998, revolucionó los FPS con su narrativa inmersiva..."},
-        "cs": {"titulo": "Counter-Strike", "descripcion": "De mod de Half-Life a fenómeno global, definió los shooters tácticos..."},
-        "portal": {"titulo": "Portal", "descripcion": "Introdujo mecánicas de puzzles únicas y humor de GLaDOS..."},
-        "tf2": {"titulo": "Team Fortress 2", "descripcion": "Shooter multijugador por clases con estilo único..."},
-        "l4d": {"titulo": "Left 4 Dead", "descripcion": "Shooter cooperativo con hordas de zombis y Director IA..."},
-        "l4d2": {"titulo": "Left 4 Dead 2", "descripcion": "Secuela con más campañas, armas y modos de juego cooperativos..."},
-        "dota2": {"titulo": "Dota 2", "descripcion": "MOBA influyente con héroes variados y actualizaciones constantes..."},
-        "alyx": {"titulo": "Half-Life: Alyx", "descripcion": "Exclusivo para VR, interacción física y narrativa inmersiva..."}
+    fondos = {
+        "half-life": "FondoHL.jpg",
+        "cs": "FondoCS.jpg",
+        "portal": "FondoPortal.jpg",
+        "tf2": "FondoTF2.jpg",
+        "l4d": "FondoL4D.jpg",
+        "l4d2": "FondoL4D2.jpg",
+        "dota2": "FondoDota2.jpg",
+        "alyx": "FondoAlyx.jpg"
     }
-    juego_info = juegos.get(nombre, {"titulo": "Juego no encontrado", "descripcion": "No hay información disponible."})
-    juego_info['nombre'] = nombre
-    return render_template("juego.html", show_aside=True, user_authenticated=user_authenticated(), juego=juego_info)
+
+    fondo = fondos.get(nombre, "Fondo.gif")
+    juego = {
+        "nombre": nombre,
+        "titulo": nombre.capitalize(),
+        "descripcion": "Aquí puedes poner una descripción detallada del juego, su historia, desarrollo y curiosidades."
+    }
+
+    return render_template(
+        "juego.html",
+        juego=juego,
+        fondo=fondo,
+        user_authenticated=user_authenticated(),
+        show_aside=True
+    )
+
+# ----------------------
+# Subida de imágenes
+# ----------------------
+@app.route('/upload', methods=['GET', 'POST'])
+def upload():
+    if request.method == 'POST':
+        if "imagen" not in request.files:
+            flash("No se seleccionó archivo")
+            return redirect(request.url)
+
+        file = request.files["imagen"]
+
+        if file.filename == "":
+            flash("Nombre de archivo vacío")
+            return redirect(request.url)
+
+        if file:
+            upload_folder = os.path.join(app.root_path, "static/uploads")
+            if not os.path.exists(upload_folder):
+                os.makedirs(upload_folder)
+            filepath = os.path.join(upload_folder, file.filename)
+            file.save(filepath)
+            flash("Imagen subida exitosamente")
+            return redirect(url_for("upload", filename=file.filename))
+
+    filename = request.args.get("filename")
+    return render_template(
+        "upload.html",
+        user_authenticated=user_authenticated(),
+        show_aside=True,
+        filename=filename
+    )
+
 

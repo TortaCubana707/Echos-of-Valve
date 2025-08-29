@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/static/style.css" type="text/css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" type="text/css">
     <title>{% block Titulo %}Blog Videojuegos{% endblock %}</title>
-    <link rel="icon" type="image/png" href="/static/img/Jockey.png">
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='img/Jockey.png') }}">
 </head>
 <body>
 
@@ -14,21 +14,21 @@
         {% block header %}{% endblock %}
     </header>
 
-
     <nav class="main-nav">
         <div class="nav-left">
-            <a href="/">Inicio</a>
-            <a href="/login">Login</a>
-            <a href="/register">Registro</a>
+            <a href="{{ url_for('index') }}">Inicio</a>
+            {% if not user_authenticated %}
+                <a href="{{ url_for('login') }}">Login</a>
+                <a href="{{ url_for('register') }}">Registro</a>
+            {% endif %}
         </div>
         <div class="nav-right">
             {% if user_authenticated %}
-                <a href="/logout">Cerrar Sesión</a>
+                <a href="{{ url_for('logout') }}">Cerrar Sesión</a>
             {% endif %}
         </div>
     </nav>
 
-    <!-- Flash Messages -->
     {% with messages = get_flashed_messages() %}
       {% if messages %}
         <div class="flash-messages">
@@ -39,9 +39,9 @@
       {% endif %}
     {% endwith %}
 
-    <main>
+    <main style="display:flex; gap:20px; padding:20px;">
         {% if show_aside %}
-        <aside>
+        <aside style="width:20%;">
             <div id="menuAside">
                 <a href="{{ url_for('juego', nombre='half-life') }}">Half-Life</a>
                 <a href="{{ url_for('juego', nombre='cs') }}">Counter-Strike</a>
@@ -54,20 +54,17 @@
                     <a href="{{ url_for('juego', nombre='dota2') }}">Dota 2</a>
                     <a href="{{ url_for('juego', nombre='alyx') }}">Half-Life: Alyx</a>
 
-                    <!-- Secciones multimedia -->
                     <hr style="border:1px solid #ff5050;">
                     <h3>Multimedia</h3>
-                    <a href="{{ url_for('subir_imagen') }}">Subir Imágenes</a>
+                    <a href="{{ url_for('upload') }}">Subir Imágenes</a>
                     <a href="{{ url_for('comentarios') }}">Comentarios del público</a>
                 {% endif %}
             </div>
         </aside>
         {% endif %}
 
-        <div>
-            {% block content %}
-            <!-- Aquí se mostrará la información del juego seleccionado -->
-            {% endblock %}
+        <div style="flex:1;">
+            {% block content %}{% endblock %}
         </div>
     </main>
 
@@ -78,5 +75,3 @@
 
 </body>
 </html>
-
-<!-- Comentario para commit -->

@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block titulo %}Subir Imagen{% endblock %}
+
+{% block content %}
+<div class="form-container">
+    <h2>Subir Imagen</h2>
+    <form method="POST" enctype="multipart/form-data">
+        <input type="file" name="imagen" accept="image/*" required>
+        <button type="submit">Subir</button>
+    </form>
+</div>
+{% endblock %}

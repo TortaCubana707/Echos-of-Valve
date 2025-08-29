@@ -1,48 +1,101 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
 
-{% block Titulo %}{{ juego.titulo }}{% endblock %}
+{% block titulo %}{{ juego.titulo }}{% endblock %}
 
 {% block content %}
-<section class="card">
+
+{# Solo mostramos la información del juego actual #}
+<section class="card card-bg" data-bg="{{ url_for('static', filename='img/' ~ (fondo|default('default.jpg'))) }}">
     <h2>{{ juego.titulo }}</h2>
+    <h3>{{ juego.nombre }}</h3>
 
     {% if juego.nombre == "half-life" %}
-        <p>Lanzado en 1998, <strong>Half-Life</strong> revolucionó los FPS con su narrativa inmersiva y atmósfera de Black Mesa. Su secuela, <em>Half-Life 2</em> (2004), incorporó físicas avanzadas y el icónico Gravity Gun.</p>
-        <p>Expansiones como <em>Opposing Force</em>, <em>Blue Shift</em> y <em>Decay</em> ampliaron la historia desde perspectivas diferentes, manteniendo a la saga como referencia en narrativa interactiva.</p>
-        <p>Impacto: Fue pionero en integrar narrativa y acción de manera fluida en FPS.</p>
+        <p><strong>Historia:</strong> Half-Life fue desarrollado por Valve y lanzado en 1998. Revolucionó los shooters con su narrativa integrada.</p>
+        <p><strong>Desarrollo:</strong> Se creó con el motor GoldSrc, basado en Quake, usando IA avanzada para enemigos y física realista.</p>
+        <p><strong>Preguntas:</strong></p>
+        <ul>
+            <li>¿Quién es Gordon Freeman?</li>
+            <li>¿Qué es Black Mesa?</li>
+        </ul>
 
     {% elif juego.nombre == "cs" %}
-        <p><strong>Counter-Strike</strong> empezó como un mod de Half-Life y se convirtió en un fenómeno global. Definió los shooters tácticos competitivos, con gestión de economía, precisión y trabajo en equipo.</p>
-        <p>Desde <em>CS 1.6</em> hasta <em>CS2</em>, mantiene millones de jugadores activos y torneos internacionales.</p>
-        <p>Impacto: Base de los eSports y torneos competitivos de shooter.</p>
+        <p><strong>Historia:</strong> Counter-Strike nació como un mod de Half-Life en 1999 y se convirtió en un referente de los FPS competitivos.</p>
+        <p><strong>Desarrollo:</strong> Desarrollado por Minh “Gooseman” Le y Jess Cliffe, centrado en tácticas de equipo y mapas equilibrados.</p>
+        <p><strong>Preguntas:</strong></p>
+        <ul>
+            <li>¿Cuáles son los objetivos de cada equipo?</li>
+            <li>¿Qué arma es icónica del juego?</li>
+        </ul>
 
     {% elif juego.nombre == "portal" %}
-        <p><strong>Portal</strong> (2007) sorprendió con puzzles innovadores y humor de GLaDOS. <em>Portal 2</em> expandió la historia, introdujo modos cooperativos y mecánicas de geles de propulsión.</p>
-        <p>Impacto: Popularizó puzzles integrados en narrativa de videojuegos.</p>
+        <p><strong>Historia:</strong> Portal se lanzó en 2007, destacando por su innovador juego de puzles y narrativa con humor negro.</p>
+        <p><strong>Desarrollo:</strong> Usa el motor Source de Valve y combina física con resolución de puzzles a través del portal gun.</p>
+        <p><strong>Preguntas:</strong></p>
+        <ul>
+            <li>¿Quién es GLaDOS?</li>
+            <li>¿Cuál es el objetivo final de Chell?</li>
+        </ul>
 
     {% elif juego.nombre == "tf2" %}
-        <p><strong>Team Fortress 2</strong> (2007) definió el shooter multijugador por clases, con nueve clases únicas y estética caricaturesca.</p>
-        <p>Impacto: Innovación en shooters por clases y actualización continua con comunidad activa.</p>
+        <p><strong>Historia:</strong> TF2 salió en 2007 y es famoso por sus clases distintas y estilo gráfico caricaturesco.</p>
+        <p><strong>Desarrollo:</strong> Diseñado para multijugador en línea, con clases balanceadas y enfoque en trabajo en equipo.</p>
+        <p><strong>Preguntas:</strong></p>
+        <ul>
+            <li>¿Cuántas clases existen?</li>
+            <li>¿Cuál es tu clase favorita y por qué?</li>
+        </ul>
 
     {% elif juego.nombre == "l4d" %}
-        <p><strong>Left 4 Dead</strong> (2008) presentó un shooter cooperativo con hordas de zombis y el sistema dinámico <em>Director IA</em> para ajustar la dificultad.</p>
-        <p>Impacto: Estableció estándares de cooperación en línea y replayability mediante IA adaptativa.</p>
+        <p><strong>Historia:</strong> L4D se lanzó en 2008, centrado en cooperativo y supervivencia frente a hordas de zombis.</p>
+        <p><strong>Desarrollo:</strong> IA Director ajusta la dificultad dinámicamente y promueve el trabajo en equipo.</p>
+        <p><strong>Preguntas:</strong></p>
+        <ul>
+            <li>¿Cuántos supervivientes hay?</li>
+            <li>¿Qué papel juega el Director IA?</li>
+        </ul>
 
     {% elif juego.nombre == "l4d2" %}
-        <p><strong>Left 4 Dead 2</strong> es la secuela que amplió campañas, armas y modos cooperativos. Introdujo nuevas infectados especiales y mapas más complejos.</p>
-        <p>Impacto: Mantiene una comunidad activa gracias a su cooperación en línea y mods creados por usuarios.</p>
+        <p><strong>Historia:</strong> Secuela de L4D lanzada en 2009 con más mapas, armas y enemigos especiales.</p>
+        <p><strong>Desarrollo:</strong> Mejora IA y variedad de campañas cooperativas, fomentando rejugabilidad.</p>
+        <p><strong>Preguntas:</strong></p>
+        <ul>
+            <li>¿Qué nuevas armas trae?</li>
+            <li>¿Cuál es el enemigo más peligroso?</li>
+        </ul>
 
     {% elif juego.nombre == "dota2" %}
-        <p><strong>Dota 2</strong> (2013) es un MOBA basado en el mod de Warcraft III, con héroes variados y estrategias complejas.</p>
-        <p><em>The International</em> es su torneo anual con los premios más altos en eSports.</p>
-        <p>Impacto: Revolucionó los MOBAs competitivos y escenas de eSports globales.</p>
+        <p><strong>Historia:</strong> Dota 2 es un MOBA lanzado en 2013 por Valve, basado en el mod original de Warcraft III.</p>
+        <p><strong>Desarrollo:</strong> Requiere estrategia, coordinación y habilidades de héroe únicas para cada jugador.</p>
+        <p><strong>Preguntas:</strong></p>
+        <ul>
+            <li>¿Qué es un “carry”?</li>
+            <li>¿Cuál es el objetivo del juego?</li>
+        </ul>
 
     {% elif juego.nombre == "alyx" %}
-        <p><strong>Half-Life: Alyx</strong> (2020) es exclusivo para VR, con interacción física total y narrativa inmersiva.</p>
-        <p>Impacto: Marcó un nuevo estándar para la narrativa e interacción en realidad virtual.</p>
+        <p><strong>Historia:</strong> Lanzado en 2020 como precuela de Half-Life 2, exclusivo de VR.</p>
+        <p><strong>Desarrollo:</strong> Innovó la interacción en VR, usando físicas realistas y narrativa inmersiva.</p>
+        <p><strong>Preguntas:</strong></p>
+        <ul>
+            <li>¿Quién es Alyx Vance?</li>
+            <li>¿Cómo interactúas con el entorno en VR?</li>
+        </ul>
 
     {% else %}
         <p>{{ juego.descripcion }}</p>
     {% endif %}
 </section>
+
+{# Script que aplica el background desde el atributo data-bg #}
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  document.querySelectorAll('.card-bg').forEach(function(el){
+    var bg = el.dataset.bg;
+    if (bg) {
+      el.style.backgroundImage = "url('" + bg + "')";
+    }
+  });
+});
+</script>
+
 {% endblock %}
