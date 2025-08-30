@@ -7,15 +7,46 @@
 {# Solo mostramos la información del juego actual #}
 <section class="card card-bg" data-bg="{{ url_for('static', filename='img/' ~ (fondo|default('default.jpg'))) }}">
     <h2>{{ juego.titulo }}</h2>
-    <h3>{{ juego.nombre }}</h3>
+    <h3 style="display:none;">{{ juego.nombre }}</h3>
+    
 
     {% if juego.nombre == "half-life" %}
-        <p><strong>Historia:</strong> Half-Life fue desarrollado por Valve y lanzado en 1998. Revolucionó los shooters con su narrativa integrada.</p>
-        <p><strong>Desarrollo:</strong> Se creó con el motor GoldSrc, basado en Quake, usando IA avanzada para enemigos y física realista.</p>
-        <p><strong>Preguntas:</strong></p>
+        <p><strong><br>Historia:</strong><br>Half-Life fue desarrollado por Valve Corporation y lanzado el 19 de noviembre de 1998. Desde su salida, revolucionó el género de los first-person shooters (FPS) gracias a la manera en que integraba la narrativa con la jugabilidad, sin usar cinemáticas tradicionales.
+            La historia sigue a Gordon Freeman, un físico teórico que trabaja en el complejo de investigación secreto Black Mesa, en Nuevo México. Durante un experimento con un cristal proveniente de un mundo alienígena, ocurre una resonancia en cascada, lo que abre portales hacia otra dimensión llamada Xen. De estos portales emergen criaturas hostiles que invaden el complejo.
+            El jugador, en el papel de Freeman, debe abrirse paso para sobrevivir, enfrentándose no solo a los alienígenas, sino también al ejército estadounidense, que llega para encubrir el incidente eliminando a los testigos, incluidos los científicos y guardias del complejo. La historia se desarrolla sin pausas narrativas, lo que genera una inmersión única: el jugador nunca deja de estar en el papel de Gordon. </p>
+
+        <p><strong><br>Desarrollo:</strong><br><p>Half-Life fue creado con el motor gráfico GoldSrc, una modificación del motor de Quake de id Software. Valve no se limitó a copiar el estilo de los FPS de la época, sino que innovó en varios aspectos:</p>
+            <ol><br>
+                <br><li>Narrativa integrada: La historia se cuenta a través de los sucesos en tiempo real y las interacciones con el entorno, en lugar de cinemáticas.</li>
+                <br><li>IA avanzada: Los enemigos, tanto humanos como alienígenas, reaccionan de manera coordinada. Los soldados podían flanquear, pedir refuerzos y usar granadas estratégicamente.</li>
+                <br><li>Física y realismo: Aunque limitada para la época, la interacción con el entorno (botones, ascensores, explosiones, cajas rompibles) aumentó la inmersión.</li>
+                <br><li>Diseño de niveles: El juego es fluido, no está dividido en misiones aisladas, sino que simula un recorrido continuo dentro de Black Mesa.</li>
+            </ol>
+            <p><br>Gracias a estas innovaciones, Half-Life no solo fue un éxito de ventas, sino que marcó un antes y un después en la forma de contar historias dentro de los videojuegos.</p>
+        <p><strong><br>Preguntas:</strong></p>
         <ul>
-            <li>¿Quién es Gordon Freeman?</li>
-            <li>¿Qué es Black Mesa?</li>
+            <li>¿Quién es Gordon Freeman?</li> <p>Gordon Freeman es el protagonista de Half-Life. Es un joven físico teórico con doctorado en el MIT, que comienza el juego trabajando en el laboratorio de materiales anómalos de Black Mesa.
+            Durante el experimento fallido que provoca la resonancia en cascada, Freeman se convierte en un héroe accidental, enfrentándose tanto a criaturas alienígenas como a soldados que intentan encubrir la catástrofe.</p>
+
+            <p><br>Características clave:<br><ul>
+                <li>Nunca habla durante el juego (protagonista silencioso).</li>
+                <br><li>Utiliza el traje HEV Mark IV, que le da resistencia, oxígeno y capacidad para usar armas avanzadas.</li>
+                <br><li>Su arma icónica es la palanca, que se volvió símbolo de la saga.
+                Gordon representa al científico común que, sin preparación militar, debe adaptarse para sobrevivir y convertirse en el único capaz de enfrentar la crisis.</li>
+            </ul><br>
+            <li>¿Qué es Black Mesa?</li><p>El Black Mesa Research Facility es un gigantesco complejo de investigación ubicado en el desierto de Nuevo México. Inspirado en laboratorios reales como Los Álamos, Black Mesa es una instalación gubernamental donde se realizan experimentos secretos en campos como física cuántica, biotecnología y tecnología armamentística.</p>
+                <p><br>Rol en la historia:</p>
+                <ul>
+                    <li>Es el escenario principal de Half-Life.</li>
+                    <br><li>En sus laboratorios se realiza el experimento con un cristal alienígena de Xen que termina provocando la resonancia en cascada.</li>
+                    <br><li>Sus instalaciones incluyen trenes subterráneos, oficinas, áreas de seguridad, sectores de residuos, reactores nucleares y hasta portales interdimensionales.</li>
+                </ul>
+                <p><br>Importancia:</p>
+                <ul>
+                    <li>Representa el símbolo del peligro de la ciencia sin control.</li>
+                    <br><li>Tras el incidente, se convierte en un campo de batalla entre científicos supervivientes, fuerzas militares y criaturas alienígenas.</li>
+                </ul>
+                <p><br>Black Mesa es el punto de origen de toda la trama de la saga Half-Life, ya que sus experimentos abren la puerta a Xen y, en última instancia, a la invasión de los Combine en Half-Life 2.</p>
         </ul>
 
     {% elif juego.nombre == "cs" %}
