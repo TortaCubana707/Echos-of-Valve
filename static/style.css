@@ -220,18 +220,118 @@ main div {
     margin-right: 10px;
 }
 
+#menuAside a {
+    display: flex;               /* Permite que el ancho se adapte al contenido */
+    align-items: center;         /* Centra verticalmente iconos y texto */
+    justify-content: center;     /* Centra el texto */
+    width: 100%;                 /* Ocupa todo el ancho del div padre */
+    padding: 12px 16px;          /* Espacio interno proporcional */
+    box-sizing: border-box;      /* Para que padding no rompa el ancho */
+    min-width: 0;                /* Evita que el ancho se quede fijo */
+}
+
+/* Iconos dentro de los enlaces del menú */
+#menuAside a .icon {
+    margin-right: 10px;
+    flex-shrink: 0;              /* No se achican los iconos */
+    width: 20px;
+    height: 20px;
+}
+
+/* Responsive: celulares */
+@media (max-width: 500px) {
+    #menuAside a {
+        font-size: 1rem;         /* Texto más legible en móvil */
+        padding: 12px 14px;      /* Ajuste del padding */
+    }
+}
+
 /* ================================ */
-/*      FORMULARIOS / LOGIN          */
+/*      FORMULARIOS / LOGIN-REG     */
 /* ================================ */
+main .form-container {
+    margin: auto; /* centra dentro del main */
+}
+
 .form-container {
     background: rgba(0, 0, 0, 0.85);
-    padding: clamp(20px, 4vw, 40px);
-    border-radius: 20px;
-    box-shadow: 0px 8px 20px rgba(0,0,0,0.5);
+    padding: clamp(25px, 5vw, 45px);
+    border-radius: 25px;
+    box-shadow: 0px 12px 30px rgba(0,0,0,0.6);
     width: 100%;
-    max-width: 350px;
-    margin: 100px auto;
+    max-width: 420px;
     text-align: center;
+    color: #fff;
+    backdrop-filter: blur(8px);
+
+    /* Animación de entrada */
+    transform: translateY(-20px);
+    opacity: 0;
+    animation: fadeInUp 0.8s ease forwards;
+}
+
+.form-container h2 {
+    margin-bottom: 20px;
+    font-size: 1.6rem;
+    font-weight: 600;
+}
+
+/* Inputs */
+.form-container input {
+    width: 100%;
+    padding: 12px 15px;
+    margin: 12px 0;
+    border: none;
+    border-radius: 12px;
+    font-size: 15px;
+    outline: none;
+    transition: all 0.3s ease;
+    background: rgba(255,255,255,0.1);
+    color: #fff;
+}
+
+.form-container input::placeholder {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.form-container input:focus {
+    background: rgba(255,255,255,0.2);
+    box-shadow: 0 0 12px #00c3ff;
+    transform: scale(1.03);
+}
+
+/* Botón */
+.form-container button {
+    width: 100%;
+    padding: 14px;
+    margin-top: 15px;
+    background: linear-gradient(135deg, #00c3ff, #0066ff);
+    border: none;
+    border-radius: 12px;
+    color: #fff;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 6px 15px rgba(0, 195, 255, 0.4);
+}
+
+.form-container button:hover {
+    background: linear-gradient(135deg, #0066ff, #00c3ff);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0, 195, 255, 0.6);
+}
+
+/* Animaciones */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 /* ================================ */
@@ -251,11 +351,11 @@ button, .btn-link, .btn-download {
     justify-content: center;
     width: 90%;
     max-width: 480px;
-    min-width: 300px;
-    padding: 16px 24px;
+    min-width: 200px; /* 🔹 antes 300px */
+    padding: 14px 20px;
     border-radius: 16px;
     font-weight: bold;
-    font-size: clamp(16px, 1.5vw, 18px);
+    font-size: clamp(14px, 4vw, 18px); /* 🔹 más flexible en móviles */
     text-decoration: none;
     cursor: pointer;
     position: relative;
@@ -274,6 +374,7 @@ button, .btn-download {
     color: #fff;
 }
 
+/* Efectos hover */
 button:hover, .btn-download:hover {
     background: linear-gradient(135deg, #ffd966, #ffcc00);
     transform: scale(1.08) translateY(-2px);
@@ -286,6 +387,7 @@ button:hover, .btn-download:hover {
     box-shadow: 0 6px 18px rgba(0,170,255,0.7), 0 0 10px rgba(102,192,244,0.7);
 }
 
+/* Brillo dinámico */
 button::after, .btn-link::after, .btn-download::after {
     content: '';
     position: absolute;
@@ -304,9 +406,9 @@ button:hover::after, .btn-link:hover::after, .btn-download:hover::after {
 }
 
 button .icon, .btn-link .icon, .btn-download .icon {
-    width: clamp(24px, 2.2vw, 28px);
-    height: clamp(24px, 2.2vw, 28px);
-    margin-right: 14px;
+    width: clamp(20px, 6vw, 28px); /* 🔹 ajustado */
+    height: clamp(20px, 6vw, 28px);
+    margin-right: 10px;
     flex-shrink: 0;
     transition: transform 0.4s ease, filter 0.4s ease;
 }
@@ -338,16 +440,59 @@ button:hover, .btn-download:hover, .btn-link:hover {
 }
 
 /* ================================ */
-/*      RESPONSIVE / MEDIOS         */
+/*    BOTONES DEL MENÚ LATERAL      */
+/* ================================ */
+#menuAside a {
+    display: inline-flex;        /* Se ajusta al contenido del texto */
+    align-items: center;         /* Centra verticalmente iconos y texto */
+    justify-content: center;     /* Centra horizontalmente */
+    padding: 12px 16px;          /* Espacio interno proporcional */
+    box-sizing: border-box;      /* Padding no rompe el ancho */
+    border-radius: 12px;         /* Mantener bordes redondeados */
+    background: rgba(30,30,30,0.9);
+    color: #fff;
+    font-weight: bold;
+    text-decoration: none;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.6);
+    white-space: nowrap;         /* Evita que el texto se rompa */
+}
+
+/* Hover */
+#menuAside a:hover {
+    background: #ffcc00;
+    color: #000;
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: 0 8px 20px rgba(255,204,0,0.6);
+}
+
+/* Iconos dentro del menú */
+#menuAside a .icon {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+    flex-shrink: 0;
+}
+
+/* Responsive: celulares */
+@media (max-width: 500px) {
+    #menuAside a {
+        font-size: 1rem;         /* Texto más legible */
+        padding: 12px 14px;      /* Ajuste del padding */
+    }
+}
+
+/* ================================ */
+/*      RESPONSIVE / ADAPTATIVO     */
 /* ================================ */
 
-/* Pantallas medianas / PC y tablets */
-@media (max-width: 1024px) {
+/* Ajustes generales para pantallas medianas y grandes */
+@media (max-width: 1200px) {
     main {
         flex-direction: column;
         padding: 20px;
-        gap: 15px;
-        align-items: center; /* centra todo */
+        gap: 20px;
+        align-items: center;
     }
 
     main aside, main div {
@@ -356,75 +501,97 @@ button:hover, .btn-download:hover, .btn-link:hover {
         margin: 0 auto;
     }
 
-    button, .btn-link, .btn-download {
-        max-width: 100%;
-    }
-}
-
-/* Para pantallas pequeñas y móviles */
-@media (max-width: 768px) {
-
-    /* Centrar todo el main y los aside */
-    main {
-        flex-direction: column;
-        align-items: center;
-        padding: 20px;
-        gap: 20px;
-    }
-
-    main aside {
+    .card, .card-bg, #menuAside, .form-container {
         width: 95%;
-        max-width: 420px; /* un poco más ancho */
-        margin: 0 auto;
-    }
-
-    /* Menú lateral centrado y ancho del botón mayor */
-    #menuAside {
-        width: 100%;
-        max-width: 420px; /* ampliar ancho total */
-        margin: 0 auto;
-        text-align: center;
-    }
-
-    #menuAside a {
-        display: block;
-        width: 100%;          /* ocupa todo el contenedor */
-        max-width: 400px;     /* ancho máximo de botón */
-        padding: 14px 20px;   /* más espacio interno */
-        margin: 8px auto;     /* centrado horizontal */
-        text-align: center;   /* centra el texto */
-        white-space: normal;  /* permite que el texto haga wrap */
-        font-size: clamp(14px, 4vw, 18px); /* tamaño adaptable */
-        box-sizing: border-box;
-    }
-
-    /* Centrar botones de enlaces de interés */
-    .btn-container {
-        display: flex;
-        flex-direction: column;
-        align-items: center;  /* centra los botones */
-        width: 100%;
-        max-width: 420px;
-        gap: 16px;
-        margin: 0 auto;
-    }
-
-    button, .btn-link, .btn-download {
-        width: 100%;
-        max-width: 400px;     /* ancho máximo de botón */
-        text-align: center;   /* centra el texto */
-        padding: clamp(14px, 3vw, 18px);
-        margin: 8px auto;     /* centrado horizontal */
-        box-sizing: border-box;
-    }
-
-    button .icon, .btn-link .icon, .btn-download .icon {
-        width: clamp(24px, 5vw, 28px);
-        height: clamp(24px, 5vw, 28px);
-        margin-right: 12px;
+        max-width: 450px;
     }
 }
 
+/* Tablets y pantallas medianas */
+@media (max-width: 1024px) {
+    nav.main-nav {
+        flex-direction: column;
+        gap: 10px;
+        padding: 10px;
+    }
 
+    .nav-left, .nav-right {
+        justify-content: center;
+    }
 
+    header.site-header {
+        padding: clamp(30px, 6vw, 60px) 15px;
+    }
+}
 
+/* Pantallas pequeñas (menos de 800px) */
+@media (max-width: 800px) {
+    .principal {
+        width: 90%;
+        padding: 0;
+    }
+    .derecha {
+        width: 100%;
+    }
+}
+
+/* Celulares y dispositivos muy pequeños (menos de 500px) */
+/* ================================ */
+/*      RESPONSIVE / ADAPTATIVO     */
+/* ================================ */
+
+/* Celulares y dispositivos muy pequeños (menos de 500px) */
+@media (max-width: 500px) {
+    /* Contenedores principales */
+    main {
+        padding: 10px;
+        gap: 12px;
+    }
+
+    main aside, main div, .card, .card-bg, #menuAside, .form-container {
+        width: 100%;
+        max-width: 100%;
+        margin: 0 auto;
+    }
+
+    /* Botones adaptativos (incluyendo los del menú lateral) */
+    button, .btn-link, .btn-download, .menu button, .form-container button, #menuAside a {
+        width: 100%;            /* Ocupa todo el ancho disponible */
+        min-width: auto;        /* Se adapta automáticamente */
+        font-size: 1.2rem;      /* Texto legible */
+        padding: 14px 16px;     /* Espacio interno proporcional */
+        text-align: center;
+        border-radius: 12px;
+    }
+
+    /* Iconos dentro de botones */
+    button .icon, .btn-link .icon, .btn-download .icon, #menuAside a .icon {
+        width: 20px;
+        height: 20px;
+        margin-right: 8px;
+    }
+
+    /* Navegación */
+    nav.main-nav {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .nav-left, .nav-right {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 6px;
+    }
+
+    /* Header */
+    header.site-header h1 {
+        font-size: clamp(1.5rem, 6vw, 3rem);
+        letter-spacing: clamp(1px, 2vw, 2px);
+    }
+
+    .title-icon {
+        width: clamp(30px, 10vw, 60px);
+        height: clamp(30px, 10vw, 60px);
+        margin: 0 6px;
+    }
+}
