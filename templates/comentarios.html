@@ -9,7 +9,14 @@
 <div class="comentarios-lista">
     {% for c in comentarios %}
         <div class="comentario">
-            <p>{{ c }}</p>
+            <strong>{{ c['username'] }}:</strong>
+            <p>{{ c['comentario'] }}</p>
+
+            {% if session.get('rol') == 'admin' %}
+                <form method="POST" action="{{ url_for('borrar_comentario', id=c['id']) }}">
+                    <button type="submit" class="btn-borrar">Borrar</button>
+                </form>
+            {% endif %}
         </div>
     {% endfor %}
 </div>

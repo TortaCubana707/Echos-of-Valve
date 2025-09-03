@@ -247,6 +247,225 @@ main div {
 }
 
 /* ================================ */
+/*      MENSAJES FLASH / ALERTS     */
+/* ================================ */
+.flash-messages {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    z-index: 9999;
+    width: auto;
+    max-width: 300px;
+}
+
+.flash-messages p {
+    padding: 12px 20px;
+    border-radius: 12px;
+    font-weight: bold;
+    font-size: 1rem;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.6);
+    color: #fff;
+    background-color: rgba(255,80,80,0.9); /* rojo por defecto para errores */
+    animation: fadeIn 0.5s ease forwards;
+}
+
+/* Mensajes de éxito */
+.flash-messages p.success {
+    background-color: rgba(76,175,80,0.9); /* verde */
+}
+
+/* Mensajes de error */
+.flash-messages p.error {
+    background-color: rgba(255,80,80,0.9); /* rojo */
+}
+
+/* Animación */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsive */
+@media (max-width: 500px) {
+    .flash-messages {
+        top: 10px;
+        right: 10px;
+        max-width: 90%;
+    }
+    .flash-messages p {
+        font-size: 0.9rem;
+        padding: 10px 14px;
+    }
+}
+
+/* ================================ */
+/*      COMENTARIOS Y BORRAR        */
+/* ================================ */
+
+/* Lista de comentarios */
+.comentarios-lista {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 20px;
+    max-width: 600px;   /* ancho fijo del contenedor para que no se mueva */
+}
+
+/* Cada comentario */
+.comentario {
+    display: inline-block;        /* se ajusta al contenido */
+    padding: 10px 14px;
+    border-radius: 12px;
+    background: rgba(0, 0, 0, 0.8);
+    color: #fff;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+    border: 1px solid rgba(255,255,255,0.2);
+    word-wrap: break-word;        /* rompe palabras largas */
+    transition: all 0.3s ease-in-out;
+    max-width: 100%;              /* nunca sobresale del contenedor */
+    min-width: 60px;              /* ancho mínimo para comentarios muy cortos */
+}
+
+/* Hover del comentario */
+.comentario:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(255,204,0,0.6);
+    background: rgba(0,0,0,0.9);
+}
+
+.comentario p {
+    margin: 0;
+    font-size: 1rem;
+}
+
+/* Botón de borrar */
+.btn-borrar {
+    margin-top: 4px;
+    padding: 2px 6px;
+    border-radius: 6px;
+    border: none;
+    background: #ff4d4d;
+    color: #fff;
+    cursor: pointer;
+    font-size: 0.75rem;
+    width: fit-content;
+    max-width: 100%;
+    transition: all 0.3s ease;
+}
+
+.btn-borrar:hover {
+    background: #ff1a1a;
+    transform: scale(1.05);
+}
+
+/* Estilo del textarea para nuevos comentarios */
+form textarea {
+    width: 100%;
+    max-width: 600px;   /* igual que el contenedor principal */
+    min-height: 80px;
+    padding: 10px 12px;
+    border-radius: 10px;
+    border: 1px solid rgba(0,0,0,0.3);
+    background: rgba(255,255,255,0.95);
+    color: #333;
+    font-size: 1rem;
+    resize: vertical;
+    transition: all 0.3s ease;
+}
+
+form textarea:focus {
+    outline: none;
+    border-color: #ffcc00;
+    box-shadow: 0 0 8px rgba(255,204,0,0.6);
+}
+
+/* Botón de enviar comentario */
+form button {
+    margin-top: 8px;
+    padding: 6px 12px;
+    border-radius: 8px;
+    border: none;
+    background: #4caf50;
+    color: #fff;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+}
+
+form button:hover {
+    background: #45a049;
+}
+
+
+
+/* ================================ */
+/*          SUBIR IMAGENES          */
+/* ================================ */
+.form-container {
+    max-width: 500px;
+    margin: 30px auto;
+    padding: 20px;
+    background: #1f1f1f;
+    color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.6);
+    text-align: center;
+}
+
+.form-container input[type="file"] {
+    width: 100%;
+    padding: 8px;
+    margin: 12px 0;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    background: #fff;
+    color: #000;
+}
+
+.form-container button {
+    padding: 8px 16px;
+    border-radius: 6px;
+    border: none;
+    background: #4caf50;
+    color: #fff;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.form-container button:hover {
+    background: #45a049;
+}
+
+.multimedia-lista {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-top: 20px;
+    justify-content: center;
+}
+
+.item {
+    background: #2c2c2c;
+    border-radius: 12px;
+    padding: 10px;
+    color: #fff;
+    max-width: 300px;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+}
+
+.item img, .item video {
+    width: 100%;
+    border-radius: 8px;
+    margin-top: 8px;
+}
+
+
+/* ================================ */
 /*      FORMULARIOS / LOGIN-REG     */
 /* ================================ */
 main .form-container {

@@ -1,13 +1,32 @@
 {% extends "base.html" %}
 
-{% block titulo %}Subir Imagen{% endblock %}
+{% block titulo %}Subir Multimedia{% endblock %}
 
 {% block content %}
 <div class="form-container">
-    <h2>Subir Imagen</h2>
+    <h2>Subir Imagen o Video</h2>
     <form method="POST" enctype="multipart/form-data">
-        <input type="file" name="imagen" accept="image/*" required>
+        <input type="file" name="archivo" accept="image/*,video/*" required>
         <button type="submit">Subir</button>
     </form>
 </div>
+
+{% if multimedia %}
+<h3>Archivos Subidos</h3>
+<div class="multimedia-lista">
+    {% for m in multimedia %}
+        <div class="item">
+            <p><strong>{{ m.usuario }}</strong> subió el {{ m.fecha.strftime('%d/%m/%Y %H:%M') }}</p>
+            {% if m.tipo == 'imagen' %}
+                <img src="{{ url_for('static', filename=m.ruta) }}" alt="{{ m.nombre }}">
+            {% else %}
+                <video controls>
+                    <source src="{{ url_for('static', filename=m.ruta) }}" type="video/mp4">
+                    Tu navegador no soporta videos.
+                </video>
+            {% endif %}
+        </div>
+    {% endfor %}
+</div>
+{% endif %}
 {% endblock %}

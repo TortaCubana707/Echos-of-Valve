@@ -33,15 +33,16 @@
         </div>
     </nav>
 
-    {% with messages = get_flashed_messages() %}
-      {% if messages %}
-        <div class="flash-messages">
-          {% for message in messages %}
-            <p>{{ message }}</p>
-          {% endfor %}
-        </div>
-      {% endif %}
-    {% endwith %}
+    {% with messages = get_flashed_messages(with_categories=True) %}
+  {% if messages %}
+    <div class="flash-messages">
+      {% for category, message in messages %}
+        <p class="{{ category }}">{{ message }}</p>
+      {% endfor %}
+    </div>
+  {% endif %}
+{% endwith %}
+
 
     <main style="display:flex; gap:20px; padding:20px;">
         {% if show_aside %}
