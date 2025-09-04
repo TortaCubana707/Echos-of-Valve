@@ -11,7 +11,7 @@ conn = mysql.connector.connect(
 cursor = conn.cursor()
 
 # Datos del usuario de prueba
-usuario = "Emi123"
+usuario = "Mamor123"
 password = generate_password_hash("1234")
 
 # Inserta el usuario
@@ -19,7 +19,7 @@ try:
     cursor.execute("""
         INSERT INTO regis (nombre, apellidos, username, email, password)
         VALUES (%s, %s, %s, %s, %s)
-    """, ("Emilio", "Garduño", usuario, "emi@test.com", password))
+    """, ("Celia", "Hernandez", usuario, "Mujer@test.com", password))
     conn.commit()
     print("Usuario de prueba creado correctamente.")
 except mysql.connector.IntegrityError:

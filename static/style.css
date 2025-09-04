@@ -79,11 +79,6 @@ header.site-header h1::after {
     animation: rotateIcon 5s linear infinite;
 }
 
-@keyframes rotateIcon {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}
-
 /* ================================ */
 /*         NAVEGACIÓN / NAV         */
 /* ================================ */

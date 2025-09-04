@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for, flash, session
 import os
+import re
 import mysql.connector
 from werkzeug.security import generate_password_hash, check_password_hash
 
@@ -26,13 +27,25 @@ def user_authenticated():
     return session.get("logged_in", False)
 
 # ----------------------
+# Funciones auxiliares
+# ----------------------
+def user_authenticated():
+    """Verifica si el usuario está logueado"""
+    return session.get("logged_in", False)
+
+# ----------------------
 # Rutas de autenticación
 # ----------------------
 @app.route("/login", methods=["GET", "POST"])
 def login():
     if request.method == "POST":
-        usuario = request.form["usuario"]
+        usuario = request.form["usuario"].strip()
         password = request.form["password"]
+
+        # Validación básica
+        if not usuario or not password:
+            flash("Usuario y contraseña son obligatorios", "error")
+            return redirect(url_for("login"))
 
         conn = get_db_connection()
         cursor = conn.cursor(dictionary=True)
@@ -44,7 +57,7 @@ def login():
         if user and check_password_hash(user["password"], password):
             session["logged_in"] = True
             session["usuario"] = usuario
-            session["rol"] = user["rol"]  # <-- guardamos el rol
+            session["rol"] = user.get("rol", "usuario")  # por defecto usuario
             flash("Has iniciado sesión correctamente", "success")
             return redirect(url_for("index"))
         else:
@@ -58,19 +71,37 @@ def login():
 @app.route("/register", methods=["GET", "POST"])
 def register():
     if request.method == "POST":
-        usrname = request.form["usrname"]
-        usrln = request.form["usrln"]
-        usrn = request.form["usrn"]
-        usrmail = request.form["usrmail"]
+        usrname = request.form["usrname"].strip()
+        usrln = request.form["usrln"].strip()
+        usrn = request.form["usrn"].strip()
+        usrmail = request.form["usrmail"].strip()
         usrpass = request.form["usrpass"]
 
+        # === Validaciones ===
+        if not usrname or not usrln or not usrn or not usrmail or not usrpass:
+            flash("Todos los campos son obligatorios", "error")
+            return redirect(url_for("register"))
+
+        if len(usrn) < 4:
+            flash("El nombre de usuario debe tener al menos 4 caracteres", "error")
+            return redirect(url_for("register"))
+
+        if not re.match(r"[^@]+@[^@]+\.[^@]+", usrmail):
+            flash("Correo electrónico inválido", "error")
+            return redirect(url_for("register"))
+
+        if len(usrpass) < 6:
+            flash("La contraseña debe tener al menos 6 caracteres", "error")
+            return redirect(url_for("register"))
+
+        # === Guardar si pasa validaciones ===
         conn = get_db_connection()
         cursor = conn.cursor()
 
         try:
             cursor.execute(
-                "INSERT INTO regis (nombre, apellidos, username, email, password) VALUES (%s, %s, %s, %s, %s)",
-                (usrname, usrln, usrn, usrmail, generate_password_hash(usrpass))
+                "INSERT INTO regis (nombre, apellidos, username, email, password, rol) VALUES (%s, %s, %s, %s, %s, %s)",
+                (usrname, usrln, usrn, usrmail, generate_password_hash(usrpass), "usuario")
             )
             conn.commit()
             flash("Registro exitoso", "success")
