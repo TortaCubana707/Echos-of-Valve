@@ -4,22 +4,50 @@
     Iniciar Sesión
 {% endblock %}
 
+{% block head %}
+    {{ super() }}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/forms.css') }}">
+{% endblock %}
+
 {% block content %}
 <div class="form-container">
-    <form method="POST">
+    
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <ul class="flashes">
+            {% for category, message in messages %}
+                <li class="{{ category }}">{{ message }}</li>
+            {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+
+    <form method="POST" novalidate>
         <h2>Iniciar Sesión</h2>
 
+        {{ form.hidden_tag() }}
+
         <div class="form-group">
-            <label for="usuario">Usuario</label>
-            <input type="text" id="usuario" name="usuario" placeholder="Ingrese su usuario" required>
+            {{ form.usuario.label }}
+            {{ form.usuario(class="form-input", placeholder="Ingrese su usuario") }}
+            {% for error in form.usuario.errors %}
+                <span class="error-text">{{ error }}</span>
+            {% endfor %}
         </div>
 
         <div class="form-group">
-            <label for="password">Contraseña</label>
-            <input type="password" id="password" name="password" placeholder="Ingrese su contraseña" required>
+            {{ form.password.label }}
+            {{ form.password(class="form-input", placeholder="Ingrese su contraseña") }}
+            {% for error in form.password.errors %}
+                <span class="error-text">{{ error }}</span>
+            {% endfor %}
         </div>
 
-        <button type="submit">Entrar</button>
+        {{ form.submit(class="btn-submit", value="Iniciar Sesión") }}
     </form>
+    
+    <p class="register-link">
+        ¿No tienes una cuenta? <a href="{{ url_for('register') }}">Regístrate aquí</a>
+    </p>
 </div>
 {% endblock %}

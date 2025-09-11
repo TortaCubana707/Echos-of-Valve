@@ -1,40 +1,85 @@
 {% extends 'base.html' %}
 
 {% block titulo %}
-    Registro
+    Registro de Usuario
+{% endblock %}
+
+{% block head %}
+    {{ super() }}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/forms.css') }}">
 {% endblock %}
 
 {% block content %}
 <div class="form-container">
-    <form action="/register" method="post">
-        <h2>Registro</h2>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <ul class="flashes">
+            {% for category, message in messages %}
+                <li class="{{ category }}">{{ message }}</li>
+            {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+    
+    <form method="POST" novalidate>
+        <h2>Crear Cuenta</h2>
+
+        {{ form.hidden_tag() }}
 
         <div class="form-group">
-            <label for="usrname">Nombre</label>
-            <input type="text" id="usrname" name="usrname" placeholder="Ingrese Nombre(s)" required>
+            {{ form.usrname.label }}
+            {{ form.usrname(class="form-input", placeholder="Tu nombre") }}
+            {% for error in form.usrname.errors %}
+                <span class="error-text">{{ error }}</span>
+            {% endfor %}
+        </div>
+        
+        <div class="form-group">
+            {{ form.usrln.label }}
+            {{ form.usrln(class="form-input", placeholder="Tus apellidos") }}
+            {% for error in form.usrln.errors %}
+                <span class="error-text">{{ error }}</span>
+            {% endfor %}
         </div>
 
         <div class="form-group">
-            <label for="usrln">Apellidos</label>
-            <input type="text" id="usrln" name="usrln" placeholder="Ingrese sus Apellidos" required>
+            {{ form.usrn.label }}
+            {{ form.usrn(class="form-input", placeholder="Elige un nombre de usuario") }}
+            {% for error in form.usrn.errors %}
+                <span class="error-text">{{ error }}</span>
+            {% endfor %}
         </div>
 
         <div class="form-group">
-            <label for="usrn">Nombre de Usuario</label>
-            <input type="text" id="usrn" name="usrn" placeholder="Nickname" required>
+            {{ form.usrmail.label }}
+            {{ form.usrmail(class="form-input", placeholder="tu@correo.com") }}
+            {% for error in form.usrmail.errors %}
+                <span class="error-text">{{ error }}</span>
+            {% endfor %}
+        </div>
+        
+        <div class="form-group">
+            {{ form.usrpass.label }}
+            {{ form.usrpass(class="form-input", placeholder="Crea una contraseña segura") }}
+            {% for error in form.usrpass.errors %}
+                <span class="error-text">{{ error }}</span>
+            {% endfor %}
         </div>
 
         <div class="form-group">
-            <label for="usrmail">Correo</label>
-            <input type="email" id="usrmail" name="usrmail" placeholder="Ingrese Correo" required>
+            {{ form.confirm_pass.label }}
+            {{ form.confirm_pass(class="form-input", placeholder="Repite la contraseña") }}
+            {% for error in form.confirm_pass.errors %}
+                <span class="error-text">{{ error }}</span>
+            {% endfor %}
         </div>
 
-        <div class="form-group">
-            <label for="usrpass">Contraseña</label>
-            <input type="password" id="usrpass" name="usrpass" placeholder="Ingrese Contraseña" required>
-        </div>
-
-        <button type="submit">Crear cuenta</button>
+        {{ form.submit(class="btn-submit", value="Registrarse") }}
     </form>
+
+    <p class="login-link">
+        ¿Ya tienes una cuenta? <a href="{{ url_for('login') }}">Inicia sesión aquí</a>
+    </p>
 </div>
 {% endblock %}

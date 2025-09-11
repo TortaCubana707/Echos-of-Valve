@@ -463,8 +463,16 @@ form button:hover {
 /* ================================ */
 /*      FORMULARIOS / LOGIN-REG     */
 /* ================================ */
-main .form-container {
-    margin: auto; /* centra dentro del main */
+main {
+    display: flex;
+    flex-direction: row;     /* 🔹 vuelve a dos columnas (aside + contenido) */
+    align-items: flex-start; /* 🔹 menú se queda arriba, no centrado verticalmente */
+    justify-content: center; /* 🔹 mantiene centrado el contenedor general */
+    gap: 20px;
+    padding: 40px;
+    max-width: 1200px;
+    margin: auto;
+    flex: 1;
 }
 
 .form-container {
@@ -490,11 +498,22 @@ main .form-container {
     font-weight: 600;
 }
 
-/* Inputs */
-.form-container input {
+.form-group {
+    margin-bottom: 1rem;
+    text-align: left;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+}
+
+/* Inputs (clase genérica para todos los campos de texto/password/email) */
+.form-input {
     width: 100%;
     padding: 12px 15px;
-    margin: 12px 0;
+    margin-top: 5px;
     border: none;
     border-radius: 12px;
     font-size: 15px;
@@ -502,20 +521,21 @@ main .form-container {
     transition: all 0.3s ease;
     background: rgba(255,255,255,0.1);
     color: #fff;
+    box-sizing: border-box; /* Importante para que el padding no afecte el ancho */
 }
 
-.form-container input::placeholder {
+.form-input::placeholder {
     color: rgba(255, 255, 255, 0.6);
 }
 
-.form-container input:focus {
+.form-input:focus {
     background: rgba(255,255,255,0.2);
     box-shadow: 0 0 12px #00c3ff;
     transform: scale(1.03);
 }
 
-/* Botón */
-.form-container button {
+/* Botón de envío */
+.btn-submit {
     width: 100%;
     padding: 14px;
     margin-top: 15px;
@@ -530,17 +550,57 @@ main .form-container {
     box-shadow: 0 6px 15px rgba(0, 195, 255, 0.4);
 }
 
-.form-container button:hover {
+.btn-submit:hover {
     background: linear-gradient(135deg, #0066ff, #00c3ff);
     transform: translateY(-3px);
     box-shadow: 0 8px 20px rgba(0, 195, 255, 0.6);
+}
+
+/* Enlaces para ir de login a registro y viceversa */
+.register-link, .login-link {
+    margin-top: 1.5rem;
+    color: #ccc;
+}
+.register-link a, .login-link a {
+    color: #00c3ff;
+    text-decoration: none;
+    font-weight: bold;
+}
+.register-link a:hover, .login-link a:hover {
+    text-decoration: underline;
+}
+
+/* Mensajes Flash */
+.flashes {
+    list-style-type: none;
+    padding: 0;
+    margin-bottom: 1.5rem;
+}
+.flashes li {
+    padding: 1rem;
+    border-radius: 8px;
+    color: white;
+    font-weight: 500;
+}
+.flashes .error { background-color: rgba(255,80,80,0.9); }
+.flashes .success { background-color: rgba(76,175,80,0.9); }
+.flashes .info { background-color: rgba(23, 162, 184, 0.9); }
+.flashes .warning { background-color: rgba(255, 193, 7, 0.9); }
+
+
+/* Texto de error de validación de campos */
+.error-text {
+    color: #ff6b81;
+    font-size: 0.9em;
+    display: block;
+    margin-top: 5px;
 }
 
 /* Animaciones */
 @keyframes fadeInUp {
     from {
         opacity: 0;
-        transform: translateY(40px);
+        transform: translateY(20px);
     }
     to {
         opacity: 1;
