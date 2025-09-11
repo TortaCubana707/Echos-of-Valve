@@ -1,27 +1,18 @@
 from flask import Flask, render_template, redirect, url_for, flash, session, request
 import os
-import mysql.connector
+from config import AppConfig
 from werkzeug.security import generate_password_hash, check_password_hash
-from forms import LoginForm, RegisterForm  # 👈 Importamos los formularios
+from forms import LoginForm, RegisterForm
+from flask_mysqldb import MySQL
+from MySQLdb.cursors import DictCursor
 
 app = Flask(__name__)
-app.secret_key = "clave_secreta"
+app.config.from_object(AppConfig)
 
 # ----------------------
-# Conexión a la base de datos
+# Conexión a la base de datos con Flask-MySQLdb
 # ----------------------
-def get_db_connection():
-    try:
-        conn = mysql.connector.connect(
-            host="localhost",
-            user="root",
-            password="",
-            database="evalve"
-        )
-        return conn
-    except mysql.connector.Error as err:
-        print(f"Error al conectar a MySQL: {err}")
-        return None
+mysql = MySQL(app)
 
 # ----------------------
 # Función auxiliar
@@ -39,16 +30,12 @@ def login():
         usuario = form.usuario.data.strip()
         password = form.password.data
 
-        conn = get_db_connection()
-        if conn is None:
-            flash("No se pudo conectar a la base de datos", "error")
-            return redirect(url_for("login"))
-
-        cursor = conn.cursor(dictionary=True)
-        cursor.execute("SELECT * FROM regis WHERE username = %s", (usuario,))
-        user = cursor.fetchone()
-        cursor.close()
-        conn.close()
+        cursor = mysql.connection.cursor(DictCursor)  # ✅ Usar DictCursor
+        try:
+            cursor.execute("SELECT * FROM regis WHERE username = %s", (usuario,))
+            user = cursor.fetchone()
+        finally:
+            cursor.close()
 
         if user and check_password_hash(user["password"], password):
             session["logged_in"] = True
@@ -74,25 +61,19 @@ def register():
         usrmail = form.usrmail.data.strip()
         usrpass = form.usrpass.data
 
-        conn = get_db_connection()
-        if conn is None:
-            flash("No se pudo conectar a la base de datos", "error")
-            return redirect(url_for("register"))
-
-        cursor = conn.cursor()
+        cursor = mysql.connection.cursor()
         try:
             cursor.execute(
                 "INSERT INTO regis (nombre, apellidos, username, email, password, rol) VALUES (%s, %s, %s, %s, %s, %s)",
                 (usrname, usrln, usrn, usrmail, generate_password_hash(usrpass), "usuario")
             )
-            conn.commit()
+            mysql.connection.commit()
             flash("Registro exitoso", "success")
             return redirect(url_for("login"))
-        except mysql.connector.IntegrityError:
+        except Exception:  # Usuario o correo duplicado
             flash("El usuario o correo ya existe", "error")
         finally:
             cursor.close()
-            conn.close()
 
     return render_template("forms/register.html", form=form, user_authenticated=user_authenticated(), show_aside=False)
 
@@ -103,6 +84,7 @@ def register():
 def logout():
     session.pop("logged_in", None)
     session.pop("usuario", None)
+    session.pop("rol", None)
     flash("Has cerrado sesión")
     return redirect(url_for('index'))
 
@@ -133,7 +115,7 @@ def juego(nombre):
     return render_template("juego.html", juego=juego, fondo=fondo, user_authenticated=user_authenticated(), show_aside=True)
 
 # ----------------------
-# Subida de imágenes
+# Subida de archivos
 # ----------------------
 @app.route('/upload', methods=['GET', 'POST'])
 def upload():
@@ -141,45 +123,40 @@ def upload():
         flash("Debes iniciar sesión para subir archivos", "error")
         return redirect(url_for("login"))
 
-    conn = get_db_connection()
-    if conn is None:
-        flash("No se pudo conectar a la base de datos", "error")
-        return redirect(url_for("index"))
+    cursor = mysql.connection.cursor(DictCursor)
+    try:
+        if request.method == 'POST':
+            if "archivo" not in request.files:
+                flash("No se seleccionó archivo", "error")
+                return redirect(request.url)
 
-    cursor = conn.cursor(dictionary=True)
+            file = request.files["archivo"]
+            if file.filename == "":
+                flash("Nombre de archivo vacío", "error")
+                return redirect(request.url)
 
-    if request.method == 'POST':
-        if "archivo" not in request.files:
-            flash("No se seleccionó archivo", "error")
-            return redirect(request.url)
+            upload_folder = os.path.join(app.root_path, "static/uploads")
+            os.makedirs(upload_folder, exist_ok=True)
 
-        file = request.files["archivo"]
-        if file.filename == "":
-            flash("Nombre de archivo vacío", "error")
-            return redirect(request.url)
+            filepath = os.path.join(upload_folder, file.filename)
+            file.save(filepath)
 
-        upload_folder = os.path.join(app.root_path, "static/uploads")
-        os.makedirs(upload_folder, exist_ok=True)
+            tipo = "video" if file.filename.lower().endswith((".mp4", ".mov", ".avi")) else "imagen"
+            usuario = session.get("usuario")
 
-        filepath = os.path.join(upload_folder, file.filename)
-        file.save(filepath)
+            cursor.execute(
+                "INSERT INTO multimedia (tipo, nombre, ruta, usuario) VALUES (%s, %s, %s, %s)",
+                (tipo, file.filename, f"uploads/{file.filename}", usuario)
+            )
+            mysql.connection.commit()
 
-        tipo = "video" if file.filename.lower().endswith((".mp4", ".mov", ".avi")) else "imagen"
-        usuario = session.get("usuario")
+            flash("Archivo subido correctamente", "success")
+            return redirect(url_for("upload"))
 
-        cursor.execute(
-            "INSERT INTO multimedia (tipo, nombre, ruta, usuario) VALUES (%s, %s, %s, %s)",
-            (tipo, file.filename, f"uploads/{file.filename}", usuario)
-        )
-        conn.commit()
-
-        flash("Archivo subido correctamente", "success")
-        return redirect(url_for("upload"))
-
-    cursor.execute("SELECT * FROM multimedia ORDER BY fecha DESC")
-    multimedia = cursor.fetchall()
-    cursor.close()
-    conn.close()
+        cursor.execute("SELECT * FROM multimedia ORDER BY fecha DESC")
+        multimedia = cursor.fetchall()
+    finally:
+        cursor.close()
 
     return render_template("upload.html", multimedia=multimedia, user_authenticated=user_authenticated(), show_aside=True)
 
@@ -192,35 +169,37 @@ def comentarios():
         flash("Debes iniciar sesión para comentar", "error")
         return redirect(url_for("login"))
 
-    conn = get_db_connection()
-    cursor = conn.cursor(dictionary=True)
+    cursor = mysql.connection.cursor(DictCursor)
+    try:
+        if request.method == "POST":
+            texto = request.form["comentario"]
+            usuario = session.get("usuario")
+            cursor.execute("INSERT INTO comentarios (username, comentario) VALUES (%s, %s)", (usuario, texto))
+            mysql.connection.commit()
+            flash("Comentario publicado", "success")
 
-    if request.method == "POST":
-        texto = request.form["comentario"]
-        usuario = session.get("usuario")
-        cursor.execute("INSERT INTO comentarios (username, comentario) VALUES (%s, %s)", (usuario, texto))
-        conn.commit()
-        flash("Comentario publicado", "success")
-
-    cursor.execute("SELECT id, username, comentario FROM comentarios ORDER BY fecha DESC")
-    comentarios_db = cursor.fetchall()
-    cursor.close()
-    conn.close()
+        cursor.execute("SELECT id, username, comentario FROM comentarios ORDER BY fecha DESC")
+        comentarios_db = cursor.fetchall()
+    finally:
+        cursor.close()
 
     return render_template("comentarios.html", comentarios=comentarios_db, user_authenticated=user_authenticated(), show_aside=True)
 
+# ----------------------
+# Borrar comentario
+# ----------------------
 @app.route("/borrar_comentario/<int:id>", methods=["POST"])
 def borrar_comentario(id):
     if session.get("rol") != "admin":
         flash("No tienes permiso para borrar comentarios", "error")
         return redirect(url_for("comentarios"))
 
-    conn = get_db_connection()
-    cursor = conn.cursor()
-    cursor.execute("DELETE FROM comentarios WHERE id = %s", (id,))
-    conn.commit()
-    cursor.close()
-    conn.close()
-    flash("Comentario eliminado", "success")
-    return redirect(url_for("comentarios"))
+    cursor = mysql.connection.cursor()
+    try:
+        cursor.execute("DELETE FROM comentarios WHERE id = %s", (id,))
+        mysql.connection.commit()
+        flash("Comentario eliminado", "success")
+    finally:
+        cursor.close()
 
+    return redirect(url_for("comentarios"))
