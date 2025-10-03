@@ -757,6 +757,224 @@ button:hover, .btn-download:hover, .btn-link:hover {
 }
 
 /* ================================ */
+/*       TABLA Y BOTONES PRO        */
+/* ================================ */
+
+.table-container {
+    width: 100%;
+    overflow-x: auto; /* scroll horizontal si hace falta */
+    padding: 20px 0;
+}
+
+/* ------------------------------- */
+/*   BOTONES USUARIOS              */
+/* ------------------------------- */
+
+.btn {
+    padding: 6px 14px;
+    border-radius: 8px;
+    border: none;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.2);
+    margin-right: 6px;
+    font-size: 0.9rem;
+}
+
+/* Botón Agregar */
+.btn-agregar {
+    background-color: #28a745;
+    color: #fff;
+    margin-bottom: 15px;
+    padding: 6px 12px;
+}
+.btn-agregar:hover {
+    background-color: #218838;
+    transform: translateY(-1px);
+}
+
+/* Botón Modificar */
+.btn-modificar {
+    background-color: #ffc107;
+    color: #000;
+}
+.btn-modificar:hover {
+    background-color: #e0a800;
+    transform: translateY(-1px);
+}
+
+/* Botón Eliminar */
+.btn-eliminar {
+    background-color: #dc3545;
+    color: #fff;
+}
+.btn-eliminar:hover {
+    background-color: #b02a37;
+    transform: translateY(-1px);
+}
+
+/* ------------------------------- */
+/*   TABLA DE USUARIOS             */
+/* ------------------------------- */
+
+.table {
+    width: 100%;
+    min-width: 700px; /* ancho mínimo */
+    border-collapse: separate;
+    border-spacing: 0 12px; /* espacio vertical entre filas */
+    font-size: 0.95rem;
+    background-color: transparent;
+}
+
+/* Encabezados */
+.table th {
+    background-color: #333;
+    color: #ffc107;
+    font-weight: 600;
+    text-transform: uppercase;
+    padding: 14px 18px;
+    border-radius: 10px 10px 0 0; /* bordes redondeados superior */
+}
+
+/* Filas */
+.table tbody tr {
+    background-color: #2a2a2a;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+/* Celdas */
+.table td {
+    padding: 14px 18px;
+    border-bottom: 1px solid #333;
+    color: #fff;
+}
+
+/* Hover fila */
+.table tbody tr:hover {
+    background-color: #3a3a3a;
+    transition: background 0.3s ease;
+}
+
+/* Botones dentro de la fila */
+.table td .btn {
+    font-size: 0.85rem;
+    padding: 5px 10px;
+}
+
+/* ================================ */
+/*       FORMULARIO USUARIOS PRO    */
+/* ================================ */
+
+/* Contenedor del formulario */
+.form-container {
+    max-width: 500px;          /* ancho máximo */
+    margin: 40px auto;         /* centrado horizontal + espacio arriba */
+    padding: 30px 35px;        /* espacio interno */
+    background-color: #1f1f1f; /* fondo oscuro */
+    border-radius: 12px;       /* bordes redondeados */
+    border: 2px solid rgba(255, 204, 0, 0.8); /* borde dorado suave */
+    color: #fff;               /* color de texto */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+}
+
+/* Títulos */
+.form-container h2 {
+    text-align: center;
+    margin-bottom: 25px;
+    color: #ffc107;            /* color dorado */
+}
+
+/* Labels */
+.form-container .form-label {
+    font-weight: 600;
+    margin-bottom: 6px;
+    display: block;
+}
+
+/* Inputs y select */
+.form-container .form-control,
+.form-container .form-select {
+    width: 100%;
+    padding: 10px 12px;
+    border-radius: 8px;
+    border: 1px solid #555;
+    background-color: #2a2a2a;
+    color: #fff;
+    margin-bottom: 18px;
+    font-size: 0.95rem;
+    transition: border 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Focus en inputs */
+.form-container .form-control:focus,
+.form-container .form-select:focus {
+    border-color: #ffc107;
+    box-shadow: 0 0 8px rgba(255, 204, 0, 0.6);
+    outline: none;
+}
+
+/* Botones */
+.form-container .btn {
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.3);
+    margin-right: 10px;
+}
+
+/* Botón guardar */
+.form-container .btn-primary {
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+}
+.form-container .btn-primary:hover {
+    background-color: #218838;
+    transform: translateY(-1px);
+}
+
+/* Botón cancelar */
+.form-container .btn-secondary {
+    background-color: #dc3545;
+    color: #fff;
+    border: none;
+}
+.form-container .btn-secondary:hover {
+    background-color: #b02a37;
+    transform: translateY(-1px);
+}
+
+/* Contenedor de los botones */
+.form-container .form-buttons {
+    display: flex;
+    justify-content: flex-start; /* alineados a la izquierda */
+    gap: 12px;                  /* espacio horizontal entre botones */
+    margin-top: 10px;           /* espacio superior */
+    flex-wrap: wrap;             /* que los botones bajen en pantallas pequeñas */
+}
+
+/* Botones */
+.form-container .btn {
+    flex: 1 1 auto;             /* se adaptan al espacio */
+    min-width: 120px;           /* ancho mínimo para que no se encimen */
+    text-align: center;
+}
+
+/* Responsive */
+@media (max-width: 576px) {
+    .form-container {
+        padding: 20px 20px;
+        margin: 20px;
+    }
+}
+
+
+/* ================================ */
 /*      RESPONSIVE / ADAPTATIVO     */
 /* ================================ */
 

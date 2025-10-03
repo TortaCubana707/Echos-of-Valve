@@ -1,8 +1,32 @@
 {% extends "base.html" %}
 {% block content %}
 <h2>Subir imágenes de videojuegos</h2>
+
+<!-- Formulario para subir imágenes -->
 <form method="POST" enctype="multipart/form-data">
-    <input type="file" name="imagen" required>
+    <input type="file" name="archivo" required>
     <button type="submit">Subir</button>
 </form>
+
+<!-- Lista de imágenes subidas -->
+<div class="imagenes-lista">
+    {% for m in multimedia %}
+        <div class="imagen-publicacion">
+            <img src="{{ url_for('static', filename=m['ruta']) }}" alt="Archivo" width="200">
+            <p>
+                <strong>{{ m['usuario'] }}</strong> subió la imagen
+                {% if m['fecha'] %}
+                    el {{ m['fecha'].strftime('%d/%m/%Y %H:%M') }}
+                {% endif %}
+            </p>
+
+            {% if session.get('rol') == 'admin' %}
+                <form method="POST" action="{{ url_for('borrar_imagen', id=m['id']) }}">
+                    <button type="submit" class="btn-borrar">Borrar</button>
+                </form>
+            {% endif %}
+        </div>
+    {% endfor %}
+</div>
+
 {% endblock %}

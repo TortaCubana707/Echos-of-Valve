@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Modificar Usuario</h2>
+<form method="POST" class="form-container">
+  <div class="mb-3">
+    <label class="form-label">Nombre:</label>
+    <input type="text" name="nombre" value="{{ usuario.nombre }}" class="form-control" required>
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Apellidos:</label>
+    <input type="text" name="apellidos" value="{{ usuario.apellidos }}" class="form-control" required>
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Email:</label>
+    <input type="email" name="email" value="{{ usuario.email }}" class="form-control" required>
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Rol:</label>
+    <select name="rol" class="form-select">
+      <option value="usuario" {% if usuario.rol == "usuario" %}selected{% endif %}>Usuario</option>
+      <option value="admin" {% if usuario.rol == "admin" %}selected{% endif %}>Admin</option>
+    </select>
+  </div>
+    <div class="form-buttons">
+    <button type="submit" class="btn btn-primary">Guardar cambios</button>
+    <a href="{{ url_for('usuarios') }}" class="btn btn-secondary">Cancelar</a>
+    </div>
+</form>
+{% endblock %}

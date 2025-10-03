@@ -153,7 +153,8 @@ def upload():
             flash("Archivo subido correctamente", "success")
             return redirect(url_for("upload"))
 
-        cursor.execute("SELECT * FROM multimedia ORDER BY fecha DESC")
+        # Traer todas las imágenes/videos para mostrarlas, ordenando por ID descendente
+        cursor.execute("SELECT id, tipo, nombre, ruta, usuario, fecha FROM multimedia ORDER BY id DESC")
         multimedia = cursor.fetchall()
     finally:
         cursor.close()
@@ -188,13 +189,38 @@ def comentarios():
 # ----------------------
 # Borrar comentario
 # ----------------------
+@app.route("/borrar_imagen/<int:id>", methods=["POST"])
+def borrar_imagen(id):
+    if session.get("rol") != "admin":
+        flash("No tienes permiso para borrar esta imagen", "error")
+        return redirect(url_for("upload"))
+
+    cursor = mysql.connection.cursor(DictCursor)
+    try:
+        # Obtener ruta del archivo para borrarlo
+        cursor.execute("SELECT ruta FROM multimedia WHERE id = %s", (id,))
+        img = cursor.fetchone()
+        if img:
+            filepath = os.path.join(app.root_path, "static", img["ruta"])
+            if os.path.exists(filepath):
+                os.remove(filepath)
+
+            # Borrar registro de la base de datos
+            cursor.execute("DELETE FROM multimedia WHERE id = %s", (id,))
+            mysql.connection.commit()
+            flash("Imagen eliminada", "success")
+    finally:
+        cursor.close()
+
+    return redirect(url_for("upload"))
+
 @app.route("/borrar_comentario/<int:id>", methods=["POST"])
 def borrar_comentario(id):
     if session.get("rol") != "admin":
-        flash("No tienes permiso para borrar comentarios", "error")
+        flash("No tienes permiso para borrar este comentario", "error")
         return redirect(url_for("comentarios"))
 
-    cursor = mysql.connection.cursor()
+    cursor = mysql.connection.cursor(DictCursor)
     try:
         cursor.execute("DELETE FROM comentarios WHERE id = %s", (id,))
         mysql.connection.commit()
@@ -203,3 +229,65 @@ def borrar_comentario(id):
         cursor.close()
 
     return redirect(url_for("comentarios"))
+
+# ----------------------
+# Gestión de usuarios (solo admin)
+# ----------------------
+@app.route("/usuarios")
+def usuarios():
+    if session.get("rol") != "admin":
+        flash("No tienes permiso para acceder a esta página", "error")
+        return redirect(url_for("index"))
+
+    cursor = mysql.connection.cursor(DictCursor)
+    try:
+        cursor.execute("SELECT id, nombre, apellidos, username, email, rol FROM regis")
+        usuarios = cursor.fetchall()
+    finally:
+        cursor.close()
+
+    return render_template("usuarios.html", usuarios=usuarios, user_authenticated=user_authenticated(), show_aside=True)
+
+@app.route("/eliminar_usuario/<int:id>", methods=["POST"])
+def eliminar_usuario(id):
+    if session.get("rol") != "admin":
+        flash("No tienes permiso para eliminar usuarios", "error")
+        return redirect(url_for("usuarios"))
+
+    cursor = mysql.connection.cursor()
+    try:
+        cursor.execute("DELETE FROM regis WHERE id = %s", (id,))
+        mysql.connection.commit()
+        flash("Usuario eliminado correctamente", "success")
+    finally:
+        cursor.close()
+
+    return redirect(url_for("usuarios"))
+
+@app.route("/modificar_usuario/<int:id>", methods=["GET", "POST"])
+def modificar_usuario(id):
+    if session.get("rol") != "admin":
+        flash("No tienes permiso para modificar usuarios", "error")
+        return redirect(url_for("usuarios"))
+
+    cursor = mysql.connection.cursor(DictCursor)
+    try:
+        if request.method == "POST":
+            nombre = request.form["nombre"]
+            apellidos = request.form["apellidos"]
+            email = request.form["email"]
+            rol = request.form["rol"]
+
+            cursor.execute("""
+                UPDATE regis SET nombre=%s, apellidos=%s, email=%s, rol=%s WHERE id=%s
+            """, (nombre, apellidos, email, rol, id))
+            mysql.connection.commit()
+            flash("Usuario modificado correctamente", "success")
+            return redirect(url_for("usuarios"))
+
+        cursor.execute("SELECT id, nombre, apellidos, username, email, rol FROM regis WHERE id = %s", (id,))
+        usuario = cursor.fetchone()
+    finally:
+        cursor.close()
+
+    return render_template("modificar_usuario.html", usuario=usuario, user_authenticated=user_authenticated(), show_aside=True)

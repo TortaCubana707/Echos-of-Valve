@@ -4,24 +4,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" type="text/css">
-    <title>{% block Titulo %}Blog Videojuegos{% endblock %}</title>
+    <title>{% block Titulo %}Echoes of Valve{% endblock %}</title>
     <link rel="icon" type="image/png" href="{{ url_for('static', filename='img/Jockey.png') }}">
 </head>
 <body>
 
     <header class="site-header">
-    <h1 class="main-title">
-        <img src="/static/img/star-icon.gif" alt="Star" class="title-icon"> 
-        Echoes of V a l v e 
-        <img src="/static/img/star-icon.gif" alt="Star" class="title-icon">
-    </h1>
-    {% block header %}{% endblock %}
-</header>
+        <h1 class="main-title">
+            <img src="{{ url_for('static', filename='img/star-icon.gif') }}" alt="Star" class="title-icon"> 
+            Echoes of Valve
+            <img src="{{ url_for('static', filename='img/star-icon.gif') }}" alt="Star" class="title-icon">
+        </h1>
+        {% block header %}{% endblock %}
+    </header>
 
     <nav class="main-nav">
         <div class="nav-left">
             <a href="{{ url_for('index') }}">Inicio</a>
-            {% if not user_authenticated %}
+            {% if user_authenticated %}
+                <a href="{{ url_for('usuarios') }}">
+                    <h4>Usuarios</h4>
+                </a>
+            {% else %}
                 <a href="{{ url_for('login') }}">Login</a>
                 <a href="{{ url_for('register') }}">Registro</a>
             {% endif %}
@@ -34,19 +38,18 @@
     </nav>
 
     {% with messages = get_flashed_messages(with_categories=True) %}
-  {% if messages %}
-    <div class="flash-messages">
-      {% for category, message in messages %}
-        <p class="{{ category }}">{{ message }}</p>
-      {% endfor %}
-    </div>
-  {% endif %}
-{% endwith %}
+        {% if messages %}
+            <div class="flash-messages">
+                {% for category, message in messages %}
+                    <p class="{{ category }}">{{ message }}</p>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
 
-
-    <main style="display:flex; gap:20px; padding:20px;">
+    <main>
         {% if show_aside %}
-        <aside style="width:20%;">
+        <aside>
             <div id="menuAside">
                 <a href="{{ url_for('juego', nombre='half-life') }}">Half-Life</a>
                 <a href="{{ url_for('juego', nombre='cs') }}">Counter-Strike</a>
@@ -68,7 +71,7 @@
         </aside>
         {% endif %}
 
-        <div style="flex:1;">
+        <div class="main-content">
             {% block content %}{% endblock %}
         </div>
     </main>
