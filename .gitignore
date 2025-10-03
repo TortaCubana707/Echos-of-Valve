@@ -2,3 +2,12 @@
 *
 .plantilla
 .__pycache__
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.env
+*.venv
+venv/
+*.sqlite3
+*.log
