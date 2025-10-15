@@ -22,8 +22,10 @@
         <div class="nav-left">
             <a href="{{ url_for('index') }}">Inicio</a>
             {% if user_authenticated %}
+                {% if session.get('rol') == 'admin' %}
                 <a href="{{ url_for('usuarios') }}">
                     <h4>Usuarios</h4>
+                {% endif %}
                 </a>
             {% else %}
                 <a href="{{ url_for('login') }}">Login</a>

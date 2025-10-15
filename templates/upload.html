@@ -16,7 +16,11 @@
 <div class="multimedia-lista">
     {% for m in multimedia %}
         <div class="item">
-            <p><strong>{{ m.usuario }}</strong> subió el {{ m.fecha.strftime('%d/%m/%Y %H:%M') }}</p>
+            <p>
+                <strong>{{ m.usuario }}</strong> subió el 
+                {{ m.fecha.strftime('%d/%m/%Y %H:%M') }}
+            </p>
+
             {% if m.tipo == 'imagen' %}
                 <img src="{{ url_for('static', filename=m.ruta) }}" alt="{{ m.nombre }}">
             {% else %}
@@ -24,6 +28,14 @@
                     <source src="{{ url_for('static', filename=m.ruta) }}" type="video/mp4">
                     Tu navegador no soporta videos.
                 </video>
+            {% endif %}
+
+            {% if session.get('rol') == 'admin' %}
+            <form method="POST" 
+                  action="{{ url_for('borrar_imagen', id=m.id) }}" 
+                  onsubmit="return confirm('¿Seguro que deseas eliminar este archivo?');">
+                <button type="submit" class="btn-borrar">🗑 Borrar</button>
+            </form>
             {% endif %}
         </div>
     {% endfor %}

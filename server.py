@@ -175,16 +175,30 @@ def comentarios():
         if request.method == "POST":
             texto = request.form["comentario"]
             usuario = session.get("usuario")
-            cursor.execute("INSERT INTO comentarios (username, comentario) VALUES (%s, %s)", (usuario, texto))
+
+            # Inserta el comentario
+            cursor.execute(
+                "INSERT INTO comentarios (username, comentario) VALUES (%s, %s)",
+                (usuario, texto)
+            )
             mysql.connection.commit()
             flash("Comentario publicado", "success")
 
+            # 👇 Redirige después de publicar (evita duplicación al recargar)
+            return redirect(url_for("comentarios"))
+
+        # Si es GET, carga los comentarios
         cursor.execute("SELECT id, username, comentario FROM comentarios ORDER BY fecha DESC")
         comentarios_db = cursor.fetchall()
     finally:
         cursor.close()
 
-    return render_template("comentarios.html", comentarios=comentarios_db, user_authenticated=user_authenticated(), show_aside=True)
+    return render_template(
+        "comentarios.html",
+        comentarios=comentarios_db,
+        user_authenticated=user_authenticated(),
+        show_aside=True
+    )
 
 # ----------------------
 # Borrar comentario
@@ -197,18 +211,26 @@ def borrar_imagen(id):
 
     cursor = mysql.connection.cursor(DictCursor)
     try:
-        # Obtener ruta del archivo para borrarlo
+        # Obtener la ruta del archivo en la base de datos
         cursor.execute("SELECT ruta FROM multimedia WHERE id = %s", (id,))
         img = cursor.fetchone()
-        if img:
+
+        if img and img.get("ruta"):
             filepath = os.path.join(app.root_path, "static", img["ruta"])
-            if os.path.exists(filepath):
+
+            # Eliminar archivo físico si existe
+            if os.path.isfile(filepath):
                 os.remove(filepath)
 
-            # Borrar registro de la base de datos
+            # Eliminar registro en la base de datos
             cursor.execute("DELETE FROM multimedia WHERE id = %s", (id,))
             mysql.connection.commit()
-            flash("Imagen eliminada", "success")
+            flash("Imagen eliminada correctamente", "success")
+        else:
+            flash("Imagen no encontrada o ruta inválida", "warning")
+
+    except Exception as e:
+        flash(f"Error al eliminar la imagen: {str(e)}", "error")
     finally:
         cursor.close()
 
@@ -235,7 +257,9 @@ def borrar_comentario(id):
 # ----------------------
 @app.route("/usuarios")
 def usuarios():
-    if session.get("rol") != "admin":
+    # Verifica si hay sesión y si el rol es admin
+    rol = session.get("rol")
+    if rol != "admin":
         flash("No tienes permiso para acceder a esta página", "error")
         return redirect(url_for("index"))
 
@@ -246,7 +270,12 @@ def usuarios():
     finally:
         cursor.close()
 
-    return render_template("usuarios.html", usuarios=usuarios, user_authenticated=user_authenticated(), show_aside=True)
+    return render_template(
+        "usuarios.html",
+        usuarios=usuarios,
+        user_authenticated=user_authenticated(),
+        show_aside=True
+    )
 
 @app.route("/eliminar_usuario/<int:id>", methods=["POST"])
 def eliminar_usuario(id):
