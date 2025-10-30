@@ -1,5 +1,5 @@
 /* ================================ */
-/*       RESETEO Y CONFIGURACIÓN    */
+/* RESETEO Y CONFIGURACIÓN    */
 /* ================================ */
 * {
     box-sizing: border-box;
@@ -19,7 +19,7 @@ body {
 }
 
 /* ================================ */
-/*         CABECERA / HEADER        */
+/* CABECERA / HEADER        */
 /* ================================ */
 header.site-header {
     text-align: center;
@@ -80,12 +80,13 @@ header.site-header h1::after {
 }
 
 /* ================================ */
-/*         NAVEGACIÓN / NAV         */
+/* NAVEGACIÓN / NAV         */
 /* ================================ */
 nav.main-nav {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-between; /* Empuja izq. y der. a los extremos */
     align-items: center;
+    width: 100%;
     background-color: rgba(10, 10, 10, 0.85);
     padding: 12px 20px;
     flex-wrap: wrap;
@@ -93,13 +94,22 @@ nav.main-nav {
     backdrop-filter: blur(6px);
 }
 
-.nav-left, .nav-right {
+.nav-left, .nav-center, .nav-right {
     display: flex;
+    align-items: center;
     flex-wrap: wrap;
-    gap: 10px;
+    gap: 1.5rem; /* Espacio entre enlaces */
 }
 
-.nav-left a, .nav-right a {
+.nav-center {
+    justify-content: center;
+}
+
+.nav-right {
+    justify-content: flex-end;
+}
+
+.nav-left a, .nav-center a, .nav-right a {
     color: #f0f0f0;
     text-decoration: none;
     font-weight: bold;
@@ -108,15 +118,19 @@ nav.main-nav {
     transition: all 0.3s ease;
 }
 
-.nav-left a:hover, .nav-right a:hover {
+.nav-left a:hover, .nav-center a:hover, .nav-right a:hover {
     color: #000;
     background: #ffcc00;
     box-shadow: 0 0 15px rgba(255,204,0,0.8);
     transform: scale(1.05);
 }
 
+.main-nav a h4 {
+    margin: 0; /* Resetea el margen del h4 de admin */
+}
+
 /* ================================ */
-/*             TARJETAS             */
+/* TARJETAS             */
 /* ================================ */
 .card, .card-bg {
     background: rgba(0,0,0,0.7);
@@ -140,7 +154,7 @@ nav.main-nav {
 }
 
 /* ================================ */
-/*        ESTRUCTURA PRINCIPAL      */
+/* ESTRUCTURA PRINCIPAL       */
 /* ================================ */
 main {
     display: flex;
@@ -152,19 +166,16 @@ main {
     flex-wrap: nowrap;
 }
 
-main aside {
-    display: flex;
-    flex-direction: column;
-    width: 25%;
+/* El main-content ahora maneja el ancho */
+.main-content {
+    width: 100%;
 }
 
-main div {
-    width: 70%;
-}
 
 /* ================================ */
-/*          MENÚ LATERAL            */
+/* MENÚ LATERAL           */
 /* ================================ */
+/* (Este CSS ya no se usa porque quitamos el aside, pero no hace daño dejarlo) */
 #menuAside {
     display: flex;
     flex-direction: column;
@@ -216,19 +227,19 @@ main div {
 }
 
 #menuAside a {
-    display: flex;               /* Permite que el ancho se adapte al contenido */
-    align-items: center;         /* Centra verticalmente iconos y texto */
-    justify-content: center;     /* Centra el texto */
-    width: 100%;                 /* Ocupa todo el ancho del div padre */
-    padding: 12px 16px;          /* Espacio interno proporcional */
-    box-sizing: border-box;      /* Para que padding no rompa el ancho */
-    min-width: 0;                /* Evita que el ancho se quede fijo */
+    display: flex;                 /* Permite que el ancho se adapte al contenido */
+    align-items: center;           /* Centra verticalmente iconos y texto */
+    justify-content: center;       /* Centra el texto */
+    width: 100%;                   /* Ocupa todo el ancho del div padre */
+    padding: 12px 16px;            /* Espacio interno proporcional */
+    box-sizing: border-box;        /* Para que padding no rompa el ancho */
+    min-width: 0;                  /* Evita que el ancho se quede fijo */
 }
 
 /* Iconos dentro de los enlaces del menú */
 #menuAside a .icon {
     margin-right: 10px;
-    flex-shrink: 0;              /* No se achican los iconos */
+    flex-shrink: 0;                /* No se achican los iconos */
     width: 20px;
     height: 20px;
 }
@@ -236,13 +247,13 @@ main div {
 /* Responsive: celulares */
 @media (max-width: 500px) {
     #menuAside a {
-        font-size: 1rem;         /* Texto más legible en móvil */
-        padding: 12px 14px;      /* Ajuste del padding */
+        font-size: 1rem;           /* Texto más legible en móvil */
+        padding: 12px 14px;        /* Ajuste del padding */
     }
 }
 
 /* ================================ */
-/*      MENSAJES FLASH / ALERTS     */
+/* MENSAJES FLASH / ALERTS      */
 /* ================================ */
 .flash-messages {
     position: fixed;
@@ -298,7 +309,7 @@ main div {
 }
 
 /* ================================ */
-/*      COMENTARIOS Y BORRAR        */
+/* COMENTARIOS Y BORRAR       */
 /* ================================ */
 
 /* Lista de comentarios */
@@ -398,7 +409,7 @@ form button:hover {
 
 
 /* ================================ */
-/*          SUBIR IMAGENES          */
+/* SUBIR IMAGENES           */
 /* ================================ */
 .form-container {
     max-width: 500px;
@@ -461,19 +472,19 @@ form button:hover {
 
 
 /* ================================ */
-/*      FORMULARIOS / LOGIN-REG     */
+/* FORMULARIOS / LOGIN-REG      */
 /* ================================ */
-main {
+/* main {
     display: flex;
     flex-direction: row;     /* 🔹 vuelve a dos columnas (aside + contenido) */
-    align-items: flex-start; /* 🔹 menú se queda arriba, no centrado verticalmente */
-    justify-content: center; /* 🔹 mantiene centrado el contenedor general */
-    gap: 20px;
+    /* align-items: flex-start; /* 🔹 menú se queda arriba, no centrado verticalmente */
+    /* justify-content: center; /* 🔹 mantiene centrado el contenedor general */
+    /* gap: 20px;
     padding: 40px;
     max-width: 1200px;
     margin: auto;
     flex: 1;
-}
+} */
 
 .form-container {
     background: rgba(0, 0, 0, 0.85);
@@ -485,6 +496,7 @@ main {
     text-align: center;
     color: #fff;
     backdrop-filter: blur(8px);
+    margin: 40px auto; /* Centra el formulario */
 
     /* Animación de entrada */
     transform: translateY(-20px);
@@ -609,7 +621,7 @@ main {
 }
 
 /* ================================ */
-/*        BOTONES MEJORADOS         */
+/* BOTONES MEJORADOS        */
 /* ================================ */
 .btn-container {
     display: flex;
@@ -714,7 +726,7 @@ button:hover, .btn-download:hover, .btn-link:hover {
 }
 
 /* ================================ */
-/*    BOTONES DEL MENÚ LATERAL      */
+/* BOTONES DEL MENÚ LATERAL       */
 /* ================================ */
 #menuAside a {
     display: inline-flex;        /* Se ajusta al contenido del texto */
@@ -757,7 +769,7 @@ button:hover, .btn-download:hover, .btn-link:hover {
 }
 
 /* ================================ */
-/*       TABLA Y BOTONES PRO        */
+/* TABLA Y BOTONES PRO        */
 /* ================================ */
 
 .table-container {
@@ -767,7 +779,7 @@ button:hover, .btn-download:hover, .btn-link:hover {
 }
 
 /* ------------------------------- */
-/*   BOTONES USUARIOS              */
+/* BOTONES USUARIOS              */
 /* ------------------------------- */
 
 .btn {
@@ -815,7 +827,7 @@ button:hover, .btn-download:hover, .btn-link:hover {
 }
 
 /* ------------------------------- */
-/*   TABLA DE USUARIOS             */
+/* TABLA DE USUARIOS             */
 /* ------------------------------- */
 
 .table {
@@ -864,18 +876,18 @@ button:hover, .btn-download:hover, .btn-link:hover {
 }
 
 /* ================================ */
-/*       FORMULARIO USUARIOS PRO    */
+/* FORMULARIO USUARIOS PRO    */
 /* ================================ */
 
 /* Contenedor del formulario */
 .form-container {
-    max-width: 500px;          /* ancho máximo */
-    margin: 40px auto;         /* centrado horizontal + espacio arriba */
-    padding: 30px 35px;        /* espacio interno */
+    max-width: 500px;           /* ancho máximo */
+    margin: 40px auto;          /* centrado horizontal + espacio arriba */
+    padding: 30px 35px;         /* espacio interno */
     background-color: #1f1f1f; /* fondo oscuro */
-    border-radius: 12px;       /* bordes redondeados */
+    border-radius: 12px;         /* bordes redondeados */
     border: 2px solid rgba(255, 204, 0, 0.8); /* borde dorado suave */
-    color: #fff;               /* color de texto */
+    color: #fff;                 /* color de texto */
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
 }
 
@@ -953,15 +965,15 @@ button:hover, .btn-download:hover, .btn-link:hover {
 .form-container .form-buttons {
     display: flex;
     justify-content: flex-start; /* alineados a la izquierda */
-    gap: 12px;                  /* espacio horizontal entre botones */
-    margin-top: 10px;           /* espacio superior */
+    gap: 12px;                   /* espacio horizontal entre botones */
+    margin-top: 10px;            /* espacio superior */
     flex-wrap: wrap;             /* que los botones bajen en pantallas pequeñas */
 }
 
 /* Botones */
 .form-container .btn {
-    flex: 1 1 auto;             /* se adaptan al espacio */
-    min-width: 120px;           /* ancho mínimo para que no se encimen */
+    flex: 1 1 auto;              /* se adaptan al espacio */
+    min-width: 120px;            /* ancho mínimo para que no se encimen */
     text-align: center;
 }
 
@@ -974,7 +986,7 @@ button:hover, .btn-download:hover, .btn-link:hover {
 }
 
 /* ================================ */
-/*      Boton borrar     */
+/* Boton borrar       */
 /* ================================ */
 
 .multimedia-lista {
@@ -1016,7 +1028,7 @@ button:hover, .btn-download:hover, .btn-link:hover {
 
 
 /* ================================ */
-/*      RESPONSIVE / ADAPTATIVO     */
+/* RESPONSIVE / ADAPTATIVO      */
 /* ================================ */
 
 /* Ajustes generales para pantallas medianas y grandes */
@@ -1028,7 +1040,7 @@ button:hover, .btn-download:hover, .btn-link:hover {
         align-items: center;
     }
 
-    main aside, main div {
+    main aside, .main-content { /* Aplicado a .main-content */
         width: 100%;
         max-width: 100%;
         margin: 0 auto;
@@ -1036,7 +1048,7 @@ button:hover, .btn-download:hover, .btn-link:hover {
 
     .card, .card-bg, #menuAside, .form-container {
         width: 95%;
-        max-width: 450px;
+        max-width: 100%; /* Permitir que ocupe más en tablets */
     }
 }
 
@@ -1048,8 +1060,9 @@ button:hover, .btn-download:hover, .btn-link:hover {
         padding: 10px;
     }
 
-    .nav-left, .nav-right {
+    .nav-left, .nav-center, .nav-right {
         justify-content: center;
+        width: 100%;
     }
 
     header.site-header {
@@ -1059,20 +1072,15 @@ button:hover, .btn-download:hover, .btn-link:hover {
 
 /* Pantallas pequeñas (menos de 800px) */
 @media (max-width: 800px) {
-    .principal {
-        width: 90%;
+    /* .principal { /* (Clase no usada) */
+    /* width: 90%;
         padding: 0;
-    }
-    .derecha {
-        width: 100%;
-    }
+    } */
+    /* .derecha { /* (Clase no usada) */
+    /* width: 100%;
+    } */
 }
 
-
-/* Celulares y dispositivos muy pequeños (menos de 500px) */
-/* ================================ */
-/*      RESPONSIVE / ADAPTATIVO     */
-/* ================================ */
 
 /* Celulares y dispositivos muy pequeños (menos de 500px) */
 @media (max-width: 500px) {
@@ -1082,7 +1090,7 @@ button:hover, .btn-download:hover, .btn-link:hover {
         gap: 12px;
     }
 
-    main aside, main div, .card, .card-bg, #menuAside, .form-container {
+    main aside, .main-content, .card, .card-bg, #menuAside, .form-container {
         width: 100%;
         max-width: 100%;
         margin: 0 auto;
@@ -1111,7 +1119,7 @@ button:hover, .btn-download:hover, .btn-link:hover {
         gap: 8px;
     }
 
-    .nav-left, .nav-right {
+    .nav-left, .nav-center, .nav-right {
         flex-wrap: wrap;
         justify-content: center;
         gap: 6px;
@@ -1129,3 +1137,92 @@ button:hover, .btn-download:hover, .btn-link:hover {
         margin: 0 6px;
     }
 }
+
+/* --------------------------------- */
+/* --- ESTILOS PÁGINA JUEGOS (Grid) --- */
+/* --------------------------------- */
+.game-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1.5rem;
+    padding: 1rem;
+}
+.game-card {
+    background-color: #333; /* Color de fondo oscuro */
+    border-radius: 8px;
+    overflow: hidden;
+    text-decoration: none;
+    color: #fff;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    border: 1px solid #444;
+    position: relative; /* Para el candado */
+}
+.game-card.bloqueado {
+    opacity: 0.6;
+}
+ /* Estilo para el enlace bloqueado (sin hover y sin puntero) */
+a.game-card.bloqueado {
+    pointer-events: none;
+    cursor: default;
+}
+.game-card .lock-icon {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 2rem;
+    color: #ff5050;
+    text-shadow: 0 0 5px black;
+}
+.game-card:not(.bloqueado):hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+}
+.game-card img {
+    width: 100%;
+    height: 350px; /* Altura fija para las portadas */
+    object-fit: cover; /* Asegura que la imagen cubra el espacio */
+    display: block;
+}
+.game-card h3 {
+    text-align: center;
+    padding: 1rem;
+    margin: 0;
+    background-color: rgba(0, 0, 0, 0.3);
+    font-size: 1.2rem;
+}
+
+/* --------------------------------- */
+/* --- ESTILOS PÁGINA JUEGO (Individual) --- */
+/* --------------------------------- */
+.juego-contenido h4 {
+    font-size: 1.5rem;
+    color: #ff5050;
+    border-bottom: 2px solid #444;
+    padding-bottom: 5px;
+    margin-top: 2.5rem;
+}
+.juego-contenido h3 {
+    font-size: 1.8rem;
+    color: #eee;
+    margin-top: 1.5rem;
+}
+.juego-contenido .faq-item {
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+.juego-contenido .faq-item h5 {
+    font-size: 1.3rem;
+    color: #ddd;
+    margin-bottom: 0.5rem;
+}
+.juego-contenido p, .juego-contenido li {
+    line-height: 1.7;
+    color: #ccc;
+    font-size: 1.1rem;
+}
+.juego-contenido ul, .juego-contenido ol {
+    padding-left: 25px;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+

@@ -1,53 +1,54 @@
 {% extends "base.html" %}
 
 {% block titulo %}
-    Iniciar Sesión
+  Iniciar Sesión
 {% endblock %}
 
 {% block head %}
-    {{ super() }}
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/forms.css') }}">
+  {{ super() }}
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/forms.css') }}">
 {% endblock %}
 
 {% block content %}
 <div class="form-container">
-    
-    {% with messages = get_flashed_messages(with_categories=true) %}
-        {% if messages %}
-            <ul class="flashes">
-            {% for category, message in messages %}
-                <li class="{{ category }}">{{ message }}</li>
-            {% endfor %}
-            </ul>
-        {% endif %}
-    {% endwith %}
+  
+    {# Esta sección de flashes ya está en base.html, pero la dejamos por si quieres moverla aquí #}
+  {# {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      <ul class="flashes">
+      {% for category, message in messages %}
+        <li class="{{ category }}">{{ message }}</li>
+      {% endfor %}
+      </ul>
+    {% endif %}
+  {% endwith %} #}
 
-    <form method="POST" novalidate>
-        <h2>Iniciar Sesión</h2>
+  <form method="POST" novalidate>
+    <h2>Iniciar Sesión</h2>
 
-        {{ form.hidden_tag() }}
+    {{ form.hidden_tag() }}
 
-        <div class="form-group">
-            {{ form.usuario.label }}
-            {{ form.usuario(class="form-input", placeholder="Ingrese su usuario") }}
-            {% for error in form.usuario.errors %}
-                <span class="error-text">{{ error }}</span>
-            {% endfor %}
-        </div>
+    <div class="form-group">
+      {{ form.usuario.label }}
+      {{ form.usuario(class="form-input", placeholder="Ingrese su usuario") }}
+      {% for error in form.usuario.errors %}
+        <span class="error-text">{{ error }}</span>
+      {% endfor %}
+    </div>
 
-        <div class="form-group">
-            {{ form.password.label }}
-            {{ form.password(class="form-input", placeholder="Ingrese su contraseña") }}
-            {% for error in form.password.errors %}
-                <span class="error-text">{{ error }}</span>
-            {% endfor %}
-        </div>
+    <div class="form-group">
+      {{ form.password.label }}
+      {{ form.password(class="form-input", placeholder="Ingrese su contraseña") }}
+      {% for error in form.password.errors %}
+        <span class="error-text">{{ error }}</span>
+      {% endfor %}
+    </div>
 
-        {{ form.submit(class="btn-submit", value="Iniciar Sesión") }}
-    </form>
-    
-    <p class="register-link">
-        ¿No tienes una cuenta? <a href="{{ url_for('register') }}">Regístrate aquí</a>
-    </p>
+    {{ form.submit(class="btn-submit", value="Iniciar Sesión") }}
+  </form>
+  
+  <p class="register-link">
+    ¿No tienes una cuenta? <a href="{{ url_for('register') }}">Regístrate aquí</a>
+  </p>
 </div>
 {% endblock %}
