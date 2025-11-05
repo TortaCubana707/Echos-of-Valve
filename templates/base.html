@@ -1,82 +1,88 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" type="text/css">
-  <title>{% block Titulo %}Echoes of Valve{% endblock %}</title>
-  <link rel="icon" type="image/png" href="{{ url_for('static', filename='img/Jockey.png') }}">
-  <!-- Bloque head adicional para CSS específico de página -->
-  {% block head %}{% endblock %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Asegúrate de que la ruta al CSS es correcta -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" type="text/css">
+    <title>{% block Titulo %}Echoes of Valve{% endblock %}</title>
+    <!-- 
+      CORRECCIÓN: 
+      Cambiado de 'rel.icon"' a 'rel="icon"' 
+    -->
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='img/Jockey.png') }}">
 </head>
 <body>
 
-  <header class="site-header">
-    <h1 class="main-title">
-      <img src="{{ url_for('static', filename='img/star-icon.gif') }}" alt="Star" class="title-icon"> 
-      Echoes of Valve
-      <img src="{{ url_for('static', filename='img/star-icon.gif') }}" alt="Star" class="title-icon">
-    </h1>
-    {% block header %}{% endblock %}
-  </header>
+    <header class="site-header">
+        <h1 class="main-title">
+            <img src="{{ url_for('static', filename='img/star-icon.gif') }}" alt="Star" class="title-icon">
+            Echoes of Valve
+            <img src="{{ url_for('static', filename='img/star-icon.gif') }}" alt="Star" class="title-icon">
+        </h1>
+        {% block header %}{% endblock %}
+    </header>
 
-  <nav class="main-nav">
-    <!-- SECCIÓN IZQUIERDA -->
-    <div class="nav-left">
-      <a href="{{ url_for('index') }}">Inicio</a>
-      {% if user_authenticated %}
-        <!-- Enlaces solo para usuarios logueados -->
-        <a href="{{ url_for('upload') }}">Subir Imágenes</a>
-        <a href="{{ url_for('comentarios') }}">Comentarios</a>
-        {% if session.get('rol') == 'admin' %}
-        <a href="{{ url_for('usuarios') }}">
-          <h4>Usuarios</h4>
-        </a>
+    <nav class="main-nav">
+        <!-- Izquierda: Inicio y Admin -->
+        <div class="nav-left">
+            <a href="{{ url_for('index') }}">Inicio</a>
+            {% if user_authenticated and session.get('rol') == 'admin' %}
+                <a href="{{ url_for('admin_productos') }}" class="admin-link">Admin Productos</a>
+            {% endif %}
+        </div>
+
+        <!-- Centro: Navegación Principal -->
+        <div class="nav-center">
+            <a href="{{ url_for('juegos') }}">Juegos</a>
+            <a href="{{ url_for('tienda') }}">Tienda</a>
+            {% if user_authenticated %}
+                <a href="{{ url_for('comentarios') }}">Comentarios</a>
+                <a href="{{ url_for('upload') }}">Multimedia</a>
+            {% endif %}
+        </div>
+
+        <!-- Derecha: Carrito y Sesión -->
+        <div class="nav-right">
+            {% if user_authenticated %}
+                <a href="{{ url_for('ver_carrito') }}">Carrito
+                    <!-- Mostrar contador de items en el carrito -->
+                    {% if session.carrito and session.carrito|length > 0 %}
+                        <span class="cart-count">({{ session.carrito|length }})</span>
+                    {% endif %}
+                </a>
+                {% if session.get('rol') == 'admin' %}
+                    <a href="{{ url_for('usuarios') }}">Usuarios</a>
+                {% endif %}
+                <a href="{{ url_for('logout') }}">Cerrar Sesión</a>
+            {% else %}
+                <a href="{{ url_for('login') }}">Login</a>
+                <a href="{{ url_for('register') }}">Registro</a>
+            {% endif %}
+        </div>
+    </nav>
+
+    {% with messages = get_flashed_messages(with_categories=True) %}
+        {% if messages %}
+            <div class="flash-messages">
+                {% for category, message in messages %}
+                    <p class="{{ category }}">{{ message }}</p>
+                {% endfor %}
+            </div>
         {% endif %}
-      {% endif %}
-    </div>
+    {% endwith %}
 
-    <!-- SECCIÓN CENTRAL -->
-    <div class="nav-center">
-      <a href="{{ url_for('juegos') }}">Juegos</a>
-      <a href="{{ url_for('tienda') }}">Tienda</a>
-    </div>
+    <main>
+        <!-- El div 'main-content' ahora envuelve todo el bloque de contenido -->
+        <div class="main-content">
+            {% block content %}{% endblock %}
+        </div>
+    </main>
 
-    <!-- SECCIÓN DERECHA -->
-    <div class="nav-right">
-      {% if user_authenticated %}
-        <!-- Usuario logueado -->
-        <span style="color: #fff; margin-right: 15px;">Hola, {{ session.get('usuario', 'Usuario') }}</span>
-        <a href="{{ url_for('logout') }}">Cerrar Sesión</a>
-      {% else %}
-        <!-- Visitante -->
-        <a href="{{ url_for('login') }}">Login</a>
-        <a href="{{ url_for('register') }}">Registro</a>
-      {% endif %}
-    </div>
-  </nav>
-
-  {% with messages = get_flashed_messages(with_categories=True) %}
-    {% if messages %}
-      <div class="flash-messages">
-        {% for category, message in messages %}
-          <p class="{{ category }}">{{ message }}</p>
-        {% endfor %}
-      </div>
-    {% endif %}
-  {% endwith %}
-
-  <main>
-    <div class="main-content">
-      {% block content %}{% endblock %}
-    </div>
-  </main>
-
-  <footer>
-    &copy; 2025 Blog | Hecho por Sarduño y Neto
-    {% block footer %}{% endblock %}
-  </footer>
+    <footer>
+        &copy; 2025 Blog | Hecho por Sarduño y Neto
+        {% block footer %}{% endblock %}
+    </footer>
 
 </body>
 </html>
-
