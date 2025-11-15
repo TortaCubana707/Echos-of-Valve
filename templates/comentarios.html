@@ -1,23 +1,45 @@
 {% extends "base.html" %}
+{% block titulo %}Comentarios{% endblock %}
+
 {% block content %}
-<h2>Comentarios del público</h2>
-<form method="POST">
-    <textarea name="comentario" rows="4" required></textarea>
-    <button type="submit">Enviar</button>
-</form>
+<div class="comentarios-container">
+    <h2>Comentarios del Público</h2>
 
-<div class="comentarios-lista">
-    {% for c in comentarios %}
-        <div class="comentario">
-            <strong>{{ c['username'] }}:</strong>
-            <p>{{ c['comentario'] }}</p>
+    <!-- Formulario para nuevo comentario -->
+    <div class="comentario-form">
+        <form method="POST">
+            <div class="form-group">
+                <label for="comentario">Escribe tu comentario:</label>
+                <textarea id="comentario" name="comentario" rows="4" placeholder="¿Qué opinas del sitio?" required></textarea>
+            </div>
+            <!-- El botón usará la clase .btn-primary del CSS -->
+            <button type="submit" class="btn-primary" style="width: auto; margin-top: 0;">Enviar Comentario</button>
+        </form>
+    </div>
 
-            {% if session.get('rol') == 'admin' %}
-                <form method="POST" action="{{ url_for('borrar_comentario', id=c['id']) }}">
-                    <button type="submit" class="btn-borrar">Borrar</button>
+    <!-- Lista de comentarios existentes -->
+    <div class="comentarios-lista">
+        {% if comentarios %}
+            {% for comentario in comentarios %}
+            <div class="comentario">
+                <!-- Mostramos el nombre de usuario -->
+                <strong>{{ comentario.username }}</strong>
+                <p>{{ comentario.comentario }}</p>
+                
+                <!-- Botón de borrar (solo para admin) -->
+                {% if session.get('rol') == 'admin' %}
+                <form action="{{ url_for('borrar_comentario', id=comentario.id) }}" method="POST" style="align-self: flex-end; margin: 0;">
+                    <button type="submit" class="btn-danger" style="width: auto; padding: 6px 14px; margin: 0;" onclick="return confirm('¿Estás seguro de que deseas eliminar este comentario?');">
+                        Borrar
+                    </button>
                 </form>
-            {% endif %}
-        </div>
-    {% endfor %}
+                {% endif %}
+            </div>
+            {% endfor %}
+        {% else %}
+            <p style="text-align: center;">No hay comentarios todavía. ¡Sé el primero!</p>
+        {% endif %}
+    </div>
+
 </div>
 {% endblock %}

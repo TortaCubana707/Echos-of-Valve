@@ -11,3 +11,10 @@ __pycache__/
 venv/
 *.sqlite3
 *.log
+config.py
+.env
+.venv
+venv/
+venv.bak/
+pycache/
+*.py[cod]
