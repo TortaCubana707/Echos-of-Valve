@@ -16,7 +16,25 @@ body {
     background: url('/static/img/Fondo.gif') no-repeat center center fixed;
     background-size: cover;
     overflow-x: hidden;
+    position: relative; /* Necesario para el overlay */
 }
+
+/* (NUEVO) Overlay Oscuro y Borroso
+  Esto se pone encima del fondo.gif pero detrás de todo el contenido.
+  Arregla el problema de legibilidad en todo el sitio.
+*/
+body::before {
+    content: '';
+    position: fixed; /* Fijo para que cubra todo */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: rgba(10, 10, 15, 0.4); /* Overlay oscuro */
+    backdrop-filter: blur(4px); /* Difumina el GIF de fondo */
+    z-index: -1; /* Se pone detrás del contenido */
+}
+
 
 /* ================================ */
 /* CABECERA / HEADER        */
@@ -74,7 +92,7 @@ nav.main-nav {
     justify-content: space-between;
     align-items: center;
     width: 100%;
-    background-color: rgba(10, 10, 10, 0.85);
+    background-color: rgba(10, 10, 10, 0.9); /* Más opaco */
     padding: 12px 20px;
     flex-wrap: wrap;
     border-bottom: 3px solid #ff5050;
@@ -103,7 +121,7 @@ nav.main-nav {
     padding: 10px 20px;
     border-radius: 20px;
     transition: all 0.3s ease;
-    white-space: nowrap; /* Evita que "Admin Productos" se parta */
+    white-space: nowrap;
 }
 
 .nav-left a:hover, .nav-center a:hover, .nav-right a:hover {
@@ -117,7 +135,6 @@ nav.main-nav {
     margin: 0;
 }
 
-/* (NUEVO) Contador del carrito */
 .cart-count {
     font-size: 0.9rem;
     color: #ffcc00;
@@ -129,7 +146,7 @@ nav.main-nav {
 /* TARJETAS GENÉRICAS           */
 /* ================================ */
 .card, .card-bg {
-    background: rgba(0,0,0,0.7);
+    background: rgba(18, 18, 20, 0.9); /* Más opaco */
     border-radius: 12px;
     margin: 16px 0;
     padding: 20px;
@@ -137,7 +154,7 @@ nav.main-nav {
     transition: all 0.3s ease-in-out;
     color: #fff;
     width: 100%;
-    text-align: center; /* (NUEVO) Centra el <p> y el botón de Steam */
+    text-align: center;
 }
 
 .card:hover {
@@ -175,7 +192,7 @@ main {
 /* ================================ */
 .flash-messages {
     position: fixed;
-    top: 80px; /* Bajado para no chocar con el nav */
+    top: 80px;
     right: 20px;
     display: flex;
     flex-direction: column;
@@ -215,17 +232,20 @@ main {
 /* ================================ */
 
 /* Contenedor general para páginas de formulario */
-.form-page-container {
+/* (CORREGIDO) Se aplica a .form-container (Login/Reg) Y .form-page-container (Nuevas) */
+.form-page-container,
+.form-container {
     max-width: 600px;
     margin: 2rem auto;
     padding: clamp(25px, 5vw, 40px);
-    background: rgba(0, 0, 0, 0.85);
+    background: rgba(18, 18, 20, 0.95); /* Más opaco */
     border-radius: 25px;
     box-shadow: 0px 12px 30px rgba(0,0,0,0.6);
     backdrop-filter: blur(8px);
 }
 
-.form-page-container h2 {
+.form-page-container h2,
+.form-container h2 {
     text-align: center;
     color: #ffcc00; /* Dorado */
     margin-bottom: 1.5rem;
@@ -296,7 +316,6 @@ input[type="file"] {
     background-color: #2a2a2a;
     color: #fff;
 }
-/* Estilo del botón "Seleccionar archivo" */
 input[type="file"]::file-selector-button {
     padding: 10px 15px;
     border: none;
@@ -317,13 +336,15 @@ input[type="file"]::file-selector-button:hover {
 /* ================================ */
 
 /* --- Botón Primario (Naranja) --- */
+/* (CORREGIDO) Se añaden TODOS los botones primarios a esta regla */
 .btn-primary,
 .btn-submit, /* (Login/Reg) */
 .btn-agregar, /* (Admin Usuarios) */
 .comentario-form button, /* (Comentarios) */
 .upload-form .btn-submit-upload, /* (Upload) */
 .btn-agregar-carrito, /* (Tienda) */
-.cart-checkout-btn /* (Carrito) */
+.cart-checkout-btn, /* (Carrito) */
+.btn-download /* (Botón Descargar Steam) */
 {
     display: inline-block;
     width: 100%;
@@ -347,11 +368,12 @@ input[type="file"]::file-selector-button:hover {
 .comentario-form button:hover,
 .upload-form .btn-submit-upload:hover,
 .btn-agregar-carrito:hover,
-.cart-checkout-btn:hover {
+.cart-checkout-btn:hover,
+.btn-download:hover {
     background: linear-gradient(135deg, #ff6f00, #ff9f45);
     transform: translateY(-3px);
     box-shadow: 0 8px 20px rgba(255, 111, 0, 0.6);
-    color: #fff; /* Asegura que el color de texto no cambie */
+    color: #fff;
 }
 
 /* --- Botón Secundario (Dorado/Gris) --- */
@@ -408,7 +430,7 @@ input[type="file"]::file-selector-button:hover {
     max-width: 800px;
     margin: 2rem auto;
     padding: clamp(25px, 5vw, 40px);
-    background: rgba(0,0,0,0.85);
+    background: rgba(18, 18, 20, 0.95); /* Más opaco */
     border-radius: 25px;
     box-shadow: 0px 12px 30px rgba(0,0,0,0.6);
 }
@@ -460,7 +482,7 @@ input[type="file"]::file-selector-button:hover {
     max-width: 900px;
     margin: 2rem auto;
     padding: clamp(25px, 5vw, 40px);
-    background: rgba(0,0,0,0.85);
+    background: rgba(18, 18, 20, 0.95); /* Más opaco */
     border-radius: 25px;
     box-shadow: 0px 12px 30px rgba(0,0,0,0.6);
 }
@@ -541,7 +563,8 @@ input[type="file"]::file-selector-button:hover {
 /* ================================ */
 /* FORMULARIOS / LOGIN-REG      */
 /* ================================ */
-/* Usan .form-page-container ahora */
+/* (CORREGIDO) Se eliminó la definición .form-container antigua */
+/* Ahora usan .form-page-container (línea 234) */
 
 .register-link, .login-link {
     margin-top: 1.5rem;
@@ -593,16 +616,15 @@ input[type="file"]::file-selector-button:hover {
     padding: 10px 0;
 }
 
-/* Estilo unificado para .table y .admin-table */
 .table,
 .admin-table {
     width: 100%;
-    min-width: 600px; /* Reducido para admin_productos */
-    border-collapse: collapse; /* Usar collapse para un look más limpio */
+    min-width: 600px;
+    border-collapse: collapse;
     font-size: 0.95rem;
     background-color: #2a2a2a;
     border-radius: 12px;
-    overflow: hidden; /* Para que el radius funcione en las esquinas */
+    overflow: hidden;
 }
 
 .table th,
@@ -618,14 +640,14 @@ input[type="file"]::file-selector-button:hover {
 .table tbody tr,
 .admin-table tbody tr {
     background-color: #2a2a2a;
-    border-bottom: 1px solid #3a3a40; /* Línea separadora */
+    border-bottom: 1px solid #3a3a40;
 }
 
 .table td,
 .admin-table td {
     padding: 14px 18px;
     color: #fff;
-    vertical-align: middle; /* Centra verticalmente el texto con los botones */
+    vertical-align: middle;
 }
 
 .table tbody tr:hover,
@@ -634,21 +656,20 @@ input[type="file"]::file-selector-button:hover {
     transition: background 0.3s ease;
 }
 
-/* Botones dentro de la tabla */
 .table td .btn-secondary,
 .table td .btn-danger,
 .admin-table td .btn-secondary,
 .admin-table td .btn-danger {
     font-size: 0.85rem;
-    padding: 8px 12px; /* Padding unificado */
+    padding: 8px 12px;
     margin: 2px 0;
-    width: 80px; /* Ancho fijo para alinear botones */
+    width: 80px;
     text-align: center;
 }
 .table .actions,
 .admin-table .actions {
     display: flex;
-    flex-direction: column; /* Apila los botones */
+    flex-direction: column;
     gap: 5px;
 }
 .table .actions form,
@@ -657,7 +678,7 @@ input[type="file"]::file-selector-button:hover {
 }
 .table .actions .btn-danger,
 .admin-table .actions .btn-danger {
-    width: 80px; /* Ancho fijo */
+    width: 80px;
 }
 
 
@@ -683,25 +704,23 @@ input[type="file"]::file-selector-button:hover {
     }
 }
 
-/* FIX RESPONSIVE: Ajuste para el NAV en tablets */
 @media (max-width: 1024px) {
     nav.main-nav {
-        flex-direction: column; /* Apila las secciones */
+        flex-direction: column;
         gap: 10px;
         padding: 10px;
-        align-items: center; /* Centra todo en modo columna */
+        align-items: center;
     }
     .nav-left, .nav-center, .nav-right {
-        justify-content: center; /* Centra los enlaces dentro de su sección */
-        width: 100%; /* Cada sección ocupa el ancho completo */
-        gap: 10px; /* Reduce el espacio entre enlaces */
+        justify-content: center;
+        width: 100%;
+        gap: 10px;
     }
     header.site-header {
         padding: clamp(30px, 6vw, 60px) 15px;
     }
 }
 
-/* FIX RESPONSIVE: Ajustes para móviles */
 @media (max-width: 500px) {
     main {
         padding: 10px;
@@ -713,25 +732,23 @@ input[type="file"]::file-selector-button:hover {
         margin: 0 auto;
     }
     
-    /* Botones de formulario a ancho completo en móvil */
     .btn-primary, .btn-secondary, .btn-danger {
         width: 100%;
         min-width: auto;
         font-size: 1.1rem;
         padding: 14px 16px;
         margin-right: 0;
-        margin-bottom: 10px; /* Añade espacio si se apilan */
+        margin-bottom: 10px;
     }
     
-    /* Botones de tablas (Editar/Eliminar) */
     .table .actions, .admin-table .actions {
-        flex-direction: row; /* En móvil, poner botones uno al lado del otro */
-        flex-wrap: wrap; /* Permitir que se envuelvan si no caben */
+        flex-direction: row;
+        flex-wrap: wrap;
     }
     .table td .btn-secondary, .table td .btn-danger,
     .admin-table td .btn-secondary, .admin-table td .btn-danger {
-        width: auto; /* Ancho automático */
-        flex-grow: 1; /* Ocupan espacio disponible */
+        width: auto;
+        flex-grow: 1;
     }
 
     nav.main-nav {
@@ -751,17 +768,16 @@ input[type="file"]::file-selector-button:hover {
         height: clamp(30px, 10vw, 60px);
     }
 
-    /* Ajuste para carrito en móvil */
     .cart-item {
         flex-direction: column;
-        align-items: center; /* Centrar todo */
+        align-items: center;
         gap: 1rem;
     }
     .cart-item-info, .cart-item-actions {
-        text-align: center; /* Centrar texto */
+        text-align: center;
     }
     .cart-item-actions form {
-        margin: 0 auto; /* Centrar el botón de eliminar */
+        margin: 0 auto;
         max-width: 200px;
     }
 }
@@ -807,8 +823,8 @@ a.game-card.bloqueado {
 .game-card img {
     width: 100%;
     height: 350px;
-    object-fit: contain; /* ARREGLO: Muestra la imagen completa */
-    background-color: #1a1a1b; /* Fondo para 'contain' */
+    object-fit: contain;
+    background-color: #1a1a1b;
     display: block;
 }
 .game-card h3 {
@@ -900,33 +916,15 @@ a.game-card.bloqueado {
 }
 
 /* ================================ */
-/* --- (NUEVO) ESTILO BOTÓN DESCARGAR (INDEX) --- */
+/* --- (CORREGIDO) ESTILO BOTÓN DESCARGAR (INDEX) --- */
 /* ================================ */
 .btn-download {
-    display: inline-flex; /* Usar inline-flex para que se ajuste al contenido */
+    display: inline-flex; 
     align-items: center;
     gap: 1rem;
-    padding: 14px 25px; /* Padding generoso */
-    margin-top: 1.5rem; /* Espacio desde el párrafo */
-    background: linear-gradient(135deg, #ff9f45, #ff6f00);
-    border: none;
-    border-radius: 12px;
-    color: #fff;
-    font-size: 1.1rem;
-    font-weight: bold;
-    cursor: pointer;
-    text-decoration: none;
-    transition: all 0.3s ease;
-    box-shadow: 0 6px 15px rgba(255, 111, 0, 0.4);
-}
-
-.btn-download:hover {
-    background: linear-gradient(135deg, #ff6f00, #ff9f45);
-    transform: translateY(-3px);
-    /* (MODIFICADO) Sombra más brillante para efecto 'glow' */
-    box-shadow: 0 8px 25px rgba(255, 159, 69, 0.7);
-    /* (NUEVO) Brillo sutil para el texto */
-    text-shadow: 0 0 6px rgba(255, 255, 255, 0.5);
+    padding: 14px 25px; 
+    margin-top: 1.5rem; 
+    width: auto; /* (CORREGIDO) No ocupar todo el ancho */
 }
 
 .btn-download .icon {
@@ -1045,7 +1043,7 @@ a.game-card.bloqueado {
     max-width: 900px;
     margin: 2rem auto;
     padding: 2rem;
-    background: rgba(0, 0, 0, 0.85);
+    background: rgba(18, 18, 20, 0.95); /* Más opaco */
     border-radius: 25px;
 }
 
@@ -1125,10 +1123,12 @@ a.game-card.bloqueado {
 .admin-form-container {
     position: sticky;
     top: 20px;
+    background: rgba(18, 18, 20, 0.95); /* Más opaco */
 }
 
 .admin-list-container {
      padding: 2rem;
+     background: rgba(18, 18, 20, 0.95); /* Más opaco */
 }
 
 .image-preview {
@@ -1152,5 +1152,83 @@ a.game-card.bloqueado {
     }
 }
 
-/* --- (SECCIÓN ELIMINADA) --- */
-/* Ya no necesitamos .index-container, .index-header, .index-links-grid, .index-link-card */
+/* ================================ */
+/* --- ESTILOS PÁGINAS DE PAGO --- */
+/* ================================ */
+.payment-status-container {
+    max-width: 600px;
+    margin: 3rem auto;
+    padding: 2.5rem;
+    background: rgba(18, 18, 20, 0.95); /* Más opaco */
+    border-radius: 25px;
+    box-shadow: 0px 12px 30px rgba(0,0,0,0.6);
+    text-align: center;
+}
+
+/* (NUEVO) Animación de "Sacudir" (Shake) */
+@keyframes shake {
+    0% { transform: translateX(0); }
+    20% { transform: translateX(-10px); }
+    40% { transform: translateX(10px); }
+    60% { transform: translateX(-10px); }
+    80% { transform: translateX(10px); }
+    100% { transform: translateX(0); }
+}
+
+/* (NUEVO) Clase que aplica la animación */
+.shake {
+    animation: shake 0.5s ease-in-out;
+}
+
+.status-icon {
+    font-size: 5rem;
+    font-weight: bold;
+    line-height: 1;
+    margin-bottom: 1.5rem;
+}
+.status-icon.success {
+    color: #55dd55; /* Verde */
+}
+.status-icon.cancel {
+    color: #dc3545; /* Rojo */
+}
+
+.payment-status-container p {
+    font-size: 1.1rem;
+    color: #ccc;
+    line-height: 1.6;
+    margin-top: 1rem;
+}
+
+/* (NUEVO) Estilo para el bloque de dirección */
+.pickup-address {
+    background-color: #2a2a2e; /* Fondo oscuro */
+    border: 1px solid #555;
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-top: 2rem;
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+.pickup-address p {
+    font-size: 1.1rem;
+    color: #eee;
+    line-height: 1.6;
+    margin-top: 0.5rem; /* Ajuste de margen */
+}
+
+.pickup-address strong {
+    color: #ffc107; /* Dorado */
+    font-size: 1.2rem;
+}
+
+.status-actions {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+    flex-wrap: wrap; /* Para móvil */
+}
+
+/* (ELIMINADO) Sección .index-container que estaba duplicada */

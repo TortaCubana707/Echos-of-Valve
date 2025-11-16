@@ -6,24 +6,14 @@
 
 {% block head %}
   {{ super() }}
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/forms.css') }}">
+  <!-- <link rel="stylesheet" href="{{ url_for('static', filename='css/forms.css') }}"> -->
 {% endblock %}
 
 {% block content %}
-<div class="form-container">
+<!-- (CORREGIDO) Se usa la clase unificada .form-page-container -->
+<div class="form-page-container">
   
-    {# Esta sección de flashes ya está en base.html, pero la dejamos por si quieres moverla aquí #}
-  {# {% with messages = get_flashed_messages(with_categories=true) %}
-    {% if messages %}
-      <ul class="flashes">
-      {% for category, message in messages %}
-        <li class="{{ category }}">{{ message }}</li>
-      {% endfor %}
-      </ul>
-    {% endif %}
-  {% endwith %} #}
-
-  <form method="POST" novalidate>
+  <form method="POST" novalidate style="background: none; padding: 0; box-shadow: none; margin: 0; max-width: 100%;">
     <h2>Iniciar Sesión</h2>
 
     {{ form.hidden_tag() }}
@@ -44,7 +34,8 @@
       {% endfor %}
     </div>
 
-    {{ form.submit(class="btn-submit", value="Iniciar Sesión") }}
+    <!-- (CORREGIDO) Se usa la clase unificada .btn-primary -->
+    {{ form.submit(class="btn-primary", value="Iniciar Sesión") }}
   </form>
   
   <p class="register-link">
