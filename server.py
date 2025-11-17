@@ -93,7 +93,7 @@ def login():
             flash("Usuario o contraseña incorrectos", "error")
 
     return render_template("login.html", form=form, user_authenticated=user_authenticated())
-
+4
 # ----------------------
 # Registro con WTForms
 # ----------------------
