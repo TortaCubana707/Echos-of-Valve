@@ -3,13 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Asegúrate de que la ruta al CSS es correcta -->
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" type="text/css">
     <title>{% block Titulo %}Echoes of Valve{% endblock %}</title>
-    <!-- 
-      CORRECCIÓN: 
-      Cambiado de 'rel.icon"' a 'rel="icon"' 
-    -->
     <link rel="icon" type="image/png" href="{{ url_for('static', filename='img/Jockey.png') }}">
 </head>
 <body>
@@ -24,29 +19,26 @@
     </header>
 
     <nav class="main-nav">
-        <!-- Izquierda: Inicio y Admin -->
         <div class="nav-left">
             <a href="{{ url_for('index') }}">Inicio</a>
             {% if user_authenticated and session.get('rol') == 'admin' %}
-                <a href="{{ url_for('admin_productos') }}" class="admin-link">Admin Productos</a>
+                <a href="{{ url_for('admin_productos') }}" style="color: #ffcc00;">Admin Productos</a>
             {% endif %}
         </div>
 
-        <!-- Centro: Navegación Principal -->
         <div class="nav-center">
-            <a href="{{ url_for('juegos') }}">Juegos</a>
+            <a href="{{ url_for('juegos') }}">Wiki Juegos</a>
             <a href="{{ url_for('tienda') }}">Tienda</a>
             {% if user_authenticated %}
-                <a href="{{ url_for('comentarios') }}">Comentarios</a>
+                <a href="{{ url_for('comentarios') }}">Comunidad</a>
                 <a href="{{ url_for('upload') }}">Multimedia</a>
             {% endif %}
         </div>
 
-        <!-- Derecha: Carrito y Sesión -->
         <div class="nav-right">
             {% if user_authenticated %}
-                <a href="{{ url_for('ver_carrito') }}">Carrito
-                    <!-- Mostrar contador de items en el carrito -->
+                <a href="{{ url_for('ver_carrito') }}">
+                    🛒 Carrito
                     {% if session.carrito and session.carrito|length > 0 %}
                         <span class="cart-count">({{ session.carrito|length }})</span>
                     {% endif %}
@@ -54,7 +46,7 @@
                 {% if session.get('rol') == 'admin' %}
                     <a href="{{ url_for('usuarios') }}">Usuarios</a>
                 {% endif %}
-                <a href="{{ url_for('logout') }}">Cerrar Sesión</a>
+                <a href="{{ url_for('logout') }}">Salir</a>
             {% else %}
                 <a href="{{ url_for('login') }}">Login</a>
                 <a href="{{ url_for('register') }}">Registro</a>
@@ -62,26 +54,24 @@
         </div>
     </nav>
 
-    {% with messages = get_flashed_messages(with_categories=True) %}
-        {% if messages %}
-            <div class="flash-messages">
-                {% for category, message in messages %}
-                    <p class="{{ category }}">{{ message }}</p>
-                {% endfor %}
-            </div>
-        {% endif %}
-    {% endwith %}
-
     <main>
-        <!-- El div 'main-content' ahora envuelve todo el bloque de contenido -->
         <div class="main-content">
+            {% with messages = get_flashed_messages(with_categories=True) %}
+                {% if messages %}
+                    <div class="flash-messages">
+                        {% for category, message in messages %}
+                            <p class="{{ category }}">{{ message }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            {% endwith %}
+
             {% block content %}{% endblock %}
         </div>
     </main>
 
     <footer>
-        &copy; 2025 Blog | Hecho por Sarduño y Neto
-        {% block footer %}{% endblock %}
+        &copy; 2025 Echoes of Valve | Hecho por Sarduño y Neto
     </footer>
 
 </body>

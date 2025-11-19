@@ -1231,4 +1231,165 @@ a.game-card.bloqueado {
     flex-wrap: wrap; /* Para móvil */
 }
 
-/* (ELIMINADO) Sección .index-container que estaba duplicada */
+/* ... (Todo tu CSS anterior se mantiene igual) ... */
+
+/* ================================ */
+/* PAGINA JUEGO (WIKI) - MEJORADO */
+/* ================================ */
+
+/* Sección Hero */
+.juego-hero {
+    position: relative;
+    width: 100vw;
+    height: 50vh;
+    margin-left: calc(-50vw + 50%);
+    margin-top: -40px;
+    margin-bottom: 2rem;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.8);
+}
+
+.hero-background {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background-size: cover;
+    background-position: center top; /* Enfoca la parte superior de la imagen */
+    background-attachment: fixed;
+    z-index: 0;
+}
+
+.hero-overlay {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.3), #121212);
+    z-index: 1;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+.juego-titulo {
+    font-family: 'Orbitron', sans-serif;
+    font-size: clamp(3rem, 6vw, 5rem);
+    text-transform: uppercase;
+    text-shadow: 0 0 20px rgba(255, 159, 69, 0.8);
+    letter-spacing: 3px;
+    margin-bottom: 1rem;
+}
+
+.typewriter {
+    font-family: 'Consolas', monospace;
+    font-size: 1.2rem;
+    color: #ffcc00;
+    background: rgba(0,0,0,0.6);
+    padding: 5px 15px;
+    border-radius: 5px;
+    border: 1px solid #ff9f45;
+}
+
+/* Contenedor Principal */
+.juego-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    background: rgba(20, 20, 25, 0.95);
+    padding: 2.5rem;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    border: 1px solid #444;
+    position: relative;
+    z-index: 10;
+    margin-top: -60px;
+}
+
+/* --- PESTAÑAS TIPO BOTÓN --- */
+.tabs {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 2rem;
+    border-bottom: 1px solid #444;
+    padding-bottom: 15px;
+    flex-wrap: wrap;
+}
+
+.tab-link {
+    background-color: #2a2a2e;
+    border: 1px solid #555;
+    color: #aaa;
+    padding: 10px 20px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 25px; /* Botones redondeados */
+    transition: all 0.3s ease;
+}
+
+.tab-link:hover {
+    background-color: #3a3a40;
+    color: #fff;
+    border-color: #ffcc00;
+}
+
+.tab-link.active {
+    background: linear-gradient(135deg, #ff9f45, #ff6f00);
+    color: #fff;
+    border-color: #ff6f00;
+    box-shadow: 0 4px 10px rgba(255, 111, 0, 0.3);
+    transform: translateY(-2px);
+}
+
+/* Contenido */
+.tab-content {
+    display: none;
+    animation: fadeIn 0.5s;
+}
+.tab-content.active { display: block; }
+
+.tab-content h3 {
+    color: #ff9f45;
+    font-size: 1.8rem;
+    margin-bottom: 1.2rem;
+    border-left: 4px solid #ffcc00;
+    padding-left: 15px;
+    text-align: left;
+}
+
+.highlight-box {
+    background: rgba(255, 159, 69, 0.1);
+    border-left: 4px solid #ff9f45;
+    padding: 1rem;
+    margin: 1.5rem 0;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+.feature-list li {
+    background: rgba(255,255,255,0.05);
+    padding: 12px 15px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    border-left: 3px solid #ffcc00;
+    list-style: none;
+}
+
+.feature-list strong { color: #ffcc00; }
+
+/* Iframe y Multimedia */
+.tab-content iframe, .tab-content img {
+    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+    border: 2px solid #444;
+}
+
+@media (max-width: 768px) {
+    .juego-hero { height: 40vh; margin-left: -20px; width: calc(100% + 40px); }
+    .tabs { gap: 8px; }
+    .tab-link { flex: 1; text-align: center; border-radius: 8px; font-size: 0.9rem; }
+}

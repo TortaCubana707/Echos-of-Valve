@@ -1,40 +1,49 @@
 {% extends "base.html" %}
+{% block titulo %}Gestión de Usuarios{% endblock %}
+
 {% block content %}
-<h2>Lista de usuarios</h2>
-
-<a href="{{ url_for('register') }}" class="btn btn-agregar">➕ Agregar usuario</a>
-
-<div class="table-container">
-    <table class="table">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Nombre</th>
-                <th>Apellidos</th>
-                <th>Usuario</th>
-                <th>Email</th>
-                <th>Rol</th>
-                <th>Acciones</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for u in usuarios %}
-            <tr>
-                <td>{{ u.id }}</td>
-                <td>{{ u.nombre }}</td>
-                <td>{{ u.apellidos }}</td>
-                <td>{{ u.username }}</td>
-                <td>{{ u.email }}</td>
-                <td>{{ u.rol }}</td>
-                <td>
-                    <a href="{{ url_for('modificar_usuario', id=u.id) }}" class="btn btn-modificar btn-sm">✏️ Modificar</a>
-                    <form action="{{ url_for('eliminar_usuario', id=u.id) }}" method="POST" style="display:inline;">
-                        <button type="submit" class="btn btn-eliminar btn-sm" onclick="return confirm('¿Seguro que quieres eliminar este usuario?');">🗑️ Eliminar</button>
-                    </form>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+<div class="admin-list-container card">
+    <h2>Gestión de Usuarios</h2>
+    
+    <div class="table-container">
+        <table class="admin-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Usuario</th>
+                    <th>Email</th>
+                    <th>Rol</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for u in usuarios %}
+                <tr>
+                    <td>{{ u.id }}</td>
+                    <td>{{ u.nombre }} {{ u.apellidos }}</td>
+                    <td>{{ u.username }}</td>
+                    <td>{{ u.email }}</td>
+                    <td>
+                        {% if u.rol == 'admin' %}
+                            <span style="color: #ffcc00; font-weight: bold;">Admin</span>
+                        {% else %}
+                            Usuario
+                        {% endif %}
+                    </td>
+                    <td class="actions">
+                        <!-- Botón Modificar -->
+                        <a href="{{ url_for('modificar_usuario', id=u.id) }}" class="btn btn-modificar">Editar</a>
+                        
+                        <!-- Botón Eliminar -->
+                        <form action="{{ url_for('eliminar_usuario', id=u.id) }}" method="POST" style="display:inline;">
+                            <button type="submit" class="btn btn-eliminar" onclick="return confirm('¿Estás seguro de eliminar a este usuario?');">Eliminar</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 </div>
 {% endblock %}
