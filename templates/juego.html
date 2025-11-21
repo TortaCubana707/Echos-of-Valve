@@ -6,7 +6,6 @@
 
 <!-- Sección Hero con Imagen de Fondo -->
 <div class="juego-hero">
-    <!-- Fondo con efecto parallax y centrado -->
     <div class="hero-background" style="background-image: url('{{ url_for('static', filename='img/' ~ (fondo|default('default.jpg'))) }}');"></div>
     <div class="hero-overlay"></div>
     <div class="hero-content">
@@ -15,10 +14,10 @@
     </div>
 </div>
 
-<!-- Contenedor Principal -->
+<!-- Contenedor Principal con Pestañas -->
 <div class="juego-container">
     
-    <!-- Navegación de Pestañas (Estilo Botones) -->
+    <!-- Navegación de Pestañas -->
     <div class="tabs">
         <button class="tab-link active" onclick="openTab(event, 'Historia')">📖 Historia</button>
         <button class="tab-link" onclick="openTab(event, 'Desarrollo')">🛠️ Desarrollo</button>
@@ -32,38 +31,42 @@
     {% if juego.nombre == "half-life" %}
         <div id="Historia" class="tab-content active">
             <h3>El Incidente de Black Mesa</h3>
-            <p>Half-Life fue desarrollado por Valve Corporation y lanzado el 19 de noviembre de 1998. Desde su salida, revolucionó el género de los first-person shooters (FPS) gracias a la manera en que integraba la narrativa con la jugabilidad, sin usar cinemáticas tradicionales.</p>
-            <p>La historia sigue a <strong>Gordon Freeman</strong>, un físico teórico que trabaja en el complejo de investigación secreto Black Mesa, en Nuevo México. Durante un experimento con un cristal anómalo, ocurre una <strong>Resonancia en Cascada</strong>, abriendo portales hacia otra dimensión llamada Xen. De estos portales emergen criaturas hostiles que invaden el complejo.</p>
-            <p>El jugador, en el papel de Freeman, debe abrirse paso para sobrevivir, enfrentándose no solo a los alienígenas, sino también al ejército estadounidense (HECU), que llega para encubrir el incidente eliminando a los testigos.</p>
+            <p>Todo comienza con un día normal de trabajo para <strong>Gordon Freeman</strong>, un físico teórico de 27 años del MIT. Sin embargo, al insertar una muestra de cristal inestable (GG-3883) en el espectrómetro de antimateria del Sector C, se desata el caos.</p>
+            <div class="highlight-box">
+                <p><em>"Prepárese para consecuencias imprevistas..."</em> — G-Man</p>
+            </div>
+            <p>Ocurre una <strong>Resonancia en Cascada</strong>, una ruptura interdimensional que conecta la Tierra con el mundo fronterizo de <strong>Xen</strong>. De repente, criaturas alienígenas comienzan a teletransportarse dentro de las instalaciones, masacrando al personal científico.</p>
+            <p>Gordon debe luchar para salir a la superficie, pero pronto descubre que el gobierno ha enviado a la <strong>Unidad de Combate en Entornos Peligrosos (HECU)</strong> no para rescatarlos, sino para silenciar el incidente eliminando a todos los testigos. Atrapado entre alienígenas hostiles y un ejército humano, Freeman se convierte en la única esperanza de supervivencia.</p>
         </div>
 
         <div id="Desarrollo" class="tab-content">
-            <h3>La Revolución del GoldSrc</h3>
-            <p>Half-Life fue creado con el motor gráfico GoldSrc, una modificación del motor de Quake de id Software. Valve no se limitó a copiar el estilo de los FPS de la época, sino que innovó en varios aspectos:</p>
+            <h3>Cambiando las Reglas del Juego</h3>
+            <p>Antes de Half-Life, los FPS eran simples "galerías de tiro" (como Doom o Quake). Valve, fundada por ex-empleados de Microsoft (Gabe Newell y Mike Harrington), quería contar una historia.</p>
             <ul class="feature-list">
-                <li><strong>Narrativa integrada:</strong> La historia se cuenta a través de los sucesos en tiempo real.</li>
-                <li><strong>IA avanzada:</strong> Los enemigos reaccionan de manera coordinada, flanquean y usan granadas.</li>
-                <li><strong>Física y realismo:</strong> Interacción con el entorno (botones, cajas rompibles).</li>
-                <li><strong>Diseño de niveles:</strong> El juego es fluido y simula un recorrido continuo.</li>
+                <li><strong>Narrativa Ininterrumpida:</strong> El juego nunca te quita el control. No hay "cinemáticas" ni cortes de cámara. Si un guardia de seguridad te habla, puedes escucharlo o alejarte. Tú eres la cámara.</li>
+                <li><strong>Inteligencia Artificial Revolucionaria:</strong> Los soldados de la HECU no solo corrían hacia ti. Se comunicaban por radio, flanqueaban, usaban granadas para sacarte de tu cobertura y huían si estaban heridos.</li>
+                <li><strong>Tecnología GoldSrc:</strong> Basado en el motor de Quake, fue modificado tan drásticamente (casi un 70% del código reescrito) que se convirtió en su propio motor, permitiendo animaciones esqueléticas complejas.</li>
             </ul>
         </div>
 
         <div id="Datos" class="tab-content">
-            <h3>Datos Curiosos</h3>
+            <h3>Secretos de Black Mesa</h3>
             <ul class="feature-list">
-                <li>🏆 <strong>Más de 50 premios:</strong> Fue nombrado "Juego del Año" por múltiples publicaciones.</li>
-                <li>🕴️ <strong>G-Man:</strong> El misterioso hombre del maletín se convirtió en un ícono del misterio.</li>
+                <li>🕴️ <strong>El G-Man:</strong> A lo largo del juego, puedes ver a un misterioso hombre de traje azul observándote desde lejos en balcones o trenes inalcanzables. Su identidad sigue siendo uno de los mayores misterios del gaming.</li>
+                <li>☢️ <strong>El Símbolo Lambda (λ):</strong> Es la letra griega utilizada en física para representar la constante de desintegración radiactiva. En el juego, marca escondites de suministros de la resistencia.</li>
+                <li>📅 <strong>Un Retraso Necesario:</strong> El juego iba a salir en 1997, pero era un desastre. Valve tomó la arriesgada decisión de retrasarlo un año entero para rehacer casi todo el diseño de niveles. El resultado fue una obra maestra.</li>
+                <li>🍕 <strong>El equipo de Pizza:</strong> Durante el "crunch" (trabajo intensivo) final, el equipo local de entrega de pizza sabía exactamente cuándo llegaba Valve a la oficina y cuándo se iban.</li>
             </ul>
         </div>
 
         <div id="FAQ" class="tab-content">
             <div class="faq-item">
-                <h5>¿Quién es Gordon Freeman?</h5>
-                <p>Es el protagonista silencioso, un físico teórico del MIT que utiliza el traje HEV Mark IV. Su arma icónica es la palanca.</p>
+                <h5>¿Por qué Gordon Freeman nunca habla?</h5>
+                <p>Es una decisión de diseño para la inmersión. Valve quería que "tú" fueras Gordon Freeman. Si él hablara y dijera algo que tú no dirías, esa conexión se rompería.</p>
             </div>
             <div class="faq-item">
-                <h5>¿Qué es Black Mesa?</h5>
-                <p>Un gigantesco complejo de investigación secreto en Nuevo México donde se realizan experimentos de física cuántica y teletransportación.</p>
+                <h5>¿Qué es Xen?</h5>
+                <p>Es una dimensión fronteriza, un "mundo entre mundos". No es el planeta de origen de los alienígenas, sino un lugar al que ellos también huyeron escapando de una amenaza mayor (los Combine).</p>
             </div>
         </div>
 
@@ -72,32 +75,43 @@
     <!-- ========================================== -->
     {% elif juego.nombre == "cs" %}
         <div id="Historia" class="tab-content active">
-            <h3>El Mod que conquistó el mundo</h3>
-            <p>Counter-Strike nació en 1999 como un mod gratuito para Half-Life creado por Minh "Gooseman" Le y Jess Cliffe. La premisa de terroristas contra antiterroristas en rondas tácticas con objetivos concretos (bombas, rehenes) definió el género.</p>
-            <p>Valve adquirió los derechos en el año 2000 y lanzó Counter-Strike 1.0 como producto independiente. Desde entonces, ha evolucionado a través de CS 1.6, CS: Source, CS:GO y CS2.</p>
+            <h3>De Mod Amateur a Deporte Mundial</h3>
+            <p>Counter-Strike no fue creado por una gran empresa, sino por dos estudiantes universitarios: <strong>Minh "Gooseman" Le</strong> y <strong>Jess Cliffe</strong> en 1999. Utilizaron el código de Half-Life para crear un mod gratuito.</p>
+            <p>La premisa era sencilla: un equipo de Terroristas intenta plantar una bomba (C4) o retener rehenes, y un equipo de Antiterroristas (CT) debe detenerlos. No había historia compleja, solo pura tensión táctica donde una sola vida por ronda significaba que cada error contaba.</p>
+            <div class="highlight-box">
+                <p><em>"Bomb has been planted."</em></p>
+            </div>
         </div>
+
         <div id="Desarrollo" class="tab-content">
-            <h3>Evolución Táctica</h3>
+            <h3>La Evolución de una Franquicia</h3>
+            <p>Valve vio el éxito explosivo del mod y contrató a sus creadores, comprando los derechos. Así nació la saga:</p>
             <ul class="feature-list">
-                <li><strong>Orígenes:</strong> Comenzó como un proyecto de dos personas que actualizaban el mod con la comunidad.</li>
-                <li><strong>Global Offensive (2012):</strong> Introdujo matchmaking, skins y consolidó los eSports.</li>
-                <li><strong>Counter-Strike 2 (2023):</strong> Actualización al motor Source 2 con gráficas y físicas modernas.</li>
+                <li><strong>CS 1.6:</strong> La versión definitiva del motor original. Se convirtió en el estándar de los cibercafés en los 2000.</li>
+                <li><strong>CS: Source (2004):</strong> Un salto gráfico polémico. Introdujo físicas de "muñeco de trapo" (ragdoll), pero dividió a la comunidad competitiva.</li>
+                <li><strong>CS: Global Offensive (2012):</strong> Al principio fue criticado, pero con la introducción de skins y un sistema de rangos competitivo, se convirtió en el rey de los FPS tácticos.</li>
+                <li><strong>Counter-Strike 2 (2023):</strong> La actualización al motor Source 2, introduciendo humos volumétricos dinámicos y un sistema de "sub-tick" para mayor precisión.</li>
             </ul>
         </div>
+
         <div id="Datos" class="tab-content">
+            <h3>Curiosidades del Servidor</h3>
             <ul class="feature-list">
-                <li>💰 <strong>Economía:</strong> Pionero en el sistema de comprar armas con dinero ganado en rondas anteriores.</li>
-                <li>🌍 <strong>Esports:</strong> Es uno de los pilares fundamentales de los deportes electrónicos competitivos.</li>
+                <li>🐓 <strong>Las Gallinas:</strong> En los mapas de Italia (cs_italy) y luego en Inferno, las gallinas se convirtieron en mascotas no oficiales del juego. En CS:GO, incluso recibieron sus propios suéteres navideños.</li>
+                <li>🗺️ <strong>Dust II:</strong> Es posiblemente el mapa multijugador más famoso de la historia. Su diseño de "tres caminos" es tan perfecto que se estudia en diseño de videojuegos.</li>
+                <li>🔫 <strong>AWP:</strong> El rifle de francotirador más letal y controvertido. Un disparo al cuerpo mata instantáneamente. Su sonido es capaz de causar pánico en todo el equipo contrario.</li>
+                <li>📉 <strong>Economía:</strong> CS fue pionero en hacer que el dinero importara. Saber cuándo "ahorrar" (eco round) y cuándo gastar es tan importante como tener buena puntería.</li>
             </ul>
         </div>
+
         <div id="FAQ" class="tab-content">
             <div class="faq-item">
-                <h5>¿Cuáles son los objetivos?</h5>
-                <p>Los Terroristas deben plantar la bomba o retener rehenes. Los Antiterroristas deben desactivar la bomba o rescatar rehenes.</p>
+                <h5>¿Qué significa "Rush B"?</h5>
+                <p>Es una estrategia (y meme) clásica donde todo el equipo terrorista corre sin detenerse hacia el sitio de bomba B, intentando abrumar a los defensores con velocidad y caos.</p>
             </div>
             <div class="faq-item">
-                <h5>¿Qué arma es icónica?</h5>
-                <p>El AK-47 es el símbolo del bando terrorista por su alto daño y bajo costo.</p>
+                <h5>¿Por qué los cuchillos son tan caros?</h5>
+                <p>Son objetos cosméticos extremadamente raros (menos del 1% de probabilidad en cajas). Su rareza, combinada con el mercado libre de Steam, ha elevado sus precios a miles de dólares.</p>
             </div>
         </div>
 
@@ -106,28 +120,37 @@
     <!-- ========================================== -->
     {% elif juego.nombre == "portal" %}
         <div id="Historia" class="tab-content active">
-            <h3>The Cake is a Lie</h3>
-            <p>Portal es un juego de rompecabezas en primera persona. Asumes el papel de <strong>Chell</strong>, una mujer atrapada en las instalaciones de Aperture Science, donde debe superar pruebas diseñadas por una inteligencia artificial sarcástica y despiadada llamada <strong>GLaDOS</strong>.</p>
+            <h3>La Promesa del Pastel</h3>
+            <p>Despiertas en una cápsula de estasis dentro de los laboratorios de <strong>Aperture Science</strong>. Una voz robótica, educada pero inquietante, te da la bienvenida. Eres <strong>Chell</strong>, y has sido seleccionada para probar el <em>Dispositivo Portátil de Portales de Aperture Science</em> (ASHPD).</p>
+            <p>Tu supervisora es <strong>GLaDOS</strong>, una Inteligencia Artificial que controla todo el complejo. Lo que comienza como pruebas de lógica simples pronto se torna oscuro cuando descubres que eres la única humana viva en el lugar, y que GLaDOS tiene intenciones homicidas disfrazadas de ciencia.</p>
         </div>
+
         <div id="Desarrollo" class="tab-content">
-            <h3>Narbacular Drop</h3>
-            <p>El juego se inspiró en el proyecto estudiantil "Narbacular Drop". Valve contrató al equipo para crear Portal, integrándolo en el paquete "The Orange Box" en 2007.</p>
-        </div>
-        <div id="Datos" class="tab-content">
-             <ul class="feature-list">
-                <li>🍰 <strong>Meme Legendario:</strong> La frase "The cake is a lie" se convirtió en un fenómeno de internet.</li>
-                <li>🎵 <strong>Still Alive:</strong> La canción de los créditos finales es una de las más queridas en los videojuegos.</li>
-                <li>🧪 <strong>Universo Compartido:</strong> Existen referencias directas a Black Mesa, confirmando que comparte universo con Half-Life.</li>
+            <h3>De Proyecto Estudiantil a Éxito Mundial</h3>
+            <p>Portal nació como <em>Narbacular Drop</em>, un proyecto de estudiantes del DigiPen Institute. Valve vio su demo, los contrató a todos al día siguiente y les dio presupuesto para pulir su idea.</p>
+            <ul class="feature-list">
+                <li><strong>Física de Portales:</strong> La regla de oro es <em>"Speedy thing goes in, speedy thing comes out"</em> (Lo que entra rápido, sale rápido). El juego conserva tu inercia a través de los portales.</li>
+                <li><strong>Humor Negro:</strong> Erik Wolpaw y Chet Faliszek escribieron el guion, creando a GLaDOS como una villana pasivo-agresiva que te insulta sutilmente mientras intentas sobrevivir.</li>
             </ul>
         </div>
+
+        <div id="Datos" class="tab-content">
+            <h3>Secretos de Aperture</h3>
+            <ul class="feature-list">
+                <li>❤️ <strong>Cubo de Compañía:</strong> El nivel 17 te obliga a "eutanasiar" a tu cubo de compañía, un objeto inanimado con el que el juego te fuerza a crear un vínculo emocional.</li>
+                <li>🍰 <strong>The Cake is a Lie:</strong> Frase escrita por Douglas Rattmann, un científico superviviente que vive en las paredes, advirtiéndote que la promesa de pastel de GLaDOS es una trampa.</li>
+                <li>🎵 <strong>Still Alive:</strong> La canción final, escrita por Jonathan Coulton y cantada por la actriz de voz de GLaDOS (Ellen McLain), se convirtió en un himno gamer.</li>
+            </ul>
+        </div>
+
         <div id="FAQ" class="tab-content">
-             <div class="faq-item">
-                <h5>¿Quién es GLaDOS?</h5>
-                <p>Genetic Lifeform and Disk Operating System. Es la IA antagonista que controla las instalaciones y guía al jugador con humor negro.</p>
+            <div class="faq-item">
+                <h5>¿Quién es Cave Johnson?</h5>
+                <p>El fundador de Aperture Science. Aparece en Portal 2 a través de grabaciones antiguas. Es famoso por su discurso sobre los "limones combustibles".</p>
             </div>
             <div class="faq-item">
-                <h5>¿Cuál es el objetivo?</h5>
-                <p>Escapar del complejo de Aperture Science utilizando la Portal Gun para resolver acertijos físicos.</p>
+                <h5>¿Están conectados Portal y Half-Life?</h5>
+                <p>Sí. Aperture Science y Black Mesa eran empresas rivales compitiendo por contratos del gobierno. GLaDOS menciona a Black Mesa varias veces con desprecio.</p>
             </div>
         </div>
 
@@ -136,23 +159,37 @@
     <!-- ========================================== -->
     {% elif juego.nombre == "tf2" %}
         <div id="Historia" class="tab-content active">
-            <h3>Guerra de Empresas</h3>
-            <p>Team Fortress 2 es un shooter multijugador basado en clases. Dos compañías rivales, RED y BLU, contratan mercenarios para luchar por el control de tierras inútiles. Se destaca por su humor y estilo visual caricaturesco.</p>
+            <h3>La Guerra de la Gravilla</h3>
+            <p>La historia de TF2 es absurdamente compleja y divertida. Dos hermanos inmortales, <strong>Redmond</strong> y <strong>Blutarch Mann</strong>, han pasado siglos peleando por la herencia de su padre: terrenos inútiles de gravilla en Nuevo México.</p>
+            <p>Para luchar esta guerra, contrataron a dos equipos de mercenarios: <strong>RED</strong> (Reliable Excavation Demolition) y <strong>BLU</strong> (Builders League United). Aunque parecen clones, cada mercenario tiene una personalidad única y exagerada.</p>
+            <div class="highlight-box">
+                <p><em>"Soy Heavy Weapons Guy... y esta es mi arma."</em></p>
+            </div>
         </div>
+
         <div id="Desarrollo" class="tab-content">
-            <h3>El Vaporware que llegó</h3>
-            <p>El proyecto comenzó en 1998 con un estilo militar realista, pero tras años de rediseños (casi 9 años), Valve optó por un estilo artístico inspirado en las ilustraciones de Norman Rockwell de mediados del siglo XX.</p>
+            <h3>El Rey del Vaporware</h3>
+            <p>Anunciado en 1998, TF2 iba a ser un juego de guerra moderno y realista. Pasó años en silencio, rediseñándose una y otra vez, hasta el punto de convertirse en un chiste de la industria ("vaporware").</p>
+            <p>En 2007, Valve finalmente lo lanzó, sorprendiendo a todos con un estilo artístico inspirado en la publicidad americana de los años 50 y las pinturas de J.C. Leyendecker. Este estilo "timeless" (atemporal) ha permitido que el juego envejezca increíblemente bien.</p>
         </div>
+
         <div id="Datos" class="tab-content">
-             <ul class="feature-list">
-                <li>🎩 <strong>Sombreros:</strong> TF2 fue pionero en el sistema de cosméticos virtuales, creando una economía propia.</li>
-                <li>📽️ <strong>Meet the Team:</strong> Los cortos animados para presentar a cada clase son obras maestras de la narrativa visual.</li>
+            <h3>Curiosidades del Sombrero</h3>
+            <ul class="feature-list">
+                <li>🎩 <strong>Simulador de Sombreros:</strong> TF2 introdujo la personalización de personajes con sombreros. Esto evolucionó en una economía real donde los sombreros "Inusuales" (con efectos de partículas) se venden por cientos de dólares.</li>
+                <li>🥪 <strong>El Sandvich:</strong> El Heavy tiene un ítem que es literalmente un sándwich. Fue tan popular que Valve tuvo que nerfearlo y luego crearle su propio video de "Meet the Sandvich".</li>
+                <li>🕵️ <strong>Spy Crab:</strong> Un error de animación permitía al Spy caminar como cangrejo. A la comunidad le encantó tanto que Valve lo dejó como una característica oficial y creó un cosmético al respecto.</li>
             </ul>
         </div>
+
         <div id="FAQ" class="tab-content">
-             <div class="faq-item">
-                <h5>¿Cuántas clases hay?</h5>
-                <p>Nueve clases divididas en roles: Ofensiva (Scout, Soldier, Pyro), Defensiva (Demoman, Heavy, Engineer) y Apoyo (Medic, Sniper, Spy).</p>
+            <div class="faq-item">
+                <h5>¿Qué es el "UberCharge"?</h5>
+                <p>Es la habilidad definitiva del Medic. Tras curar lo suficiente, hace que él y su paciente sean completamente invencibles por 8 segundos, esencial para romper defensas.</p>
+            </div>
+            <div class="faq-item">
+                <h5>¿Sigue vivo el juego?</h5>
+                <p>Sorprendentemente, sí. A pesar de la falta de actualizaciones recientes (la "Crisis de los Bots"), la comunidad mantiene vivo el juego con servidores comunitarios y contenido propio.</p>
             </div>
         </div>
 
@@ -161,50 +198,41 @@
     <!-- ========================================== -->
     {% elif juego.nombre == "l4d" %}
         <div id="Historia" class="tab-content active">
-            <h3>De "Terror Strike" a Left 4 Dead</h3>
-            <p>L4D se lanzó en 2008. Inicialmente surgió como un mod de Counter-Strike: Source llamado <strong>"Terror Strike"</strong>. A los desarrolladores de Turtle Rock Studios les gustó tanto la idea que comenzaron a hacerlo un juego propio.</p>
+            <h3>El Apocalipsis Verde</h3>
+            <p>Una nueva cepa de la rabia, conocida como la "Gripe Verde", ha infectado a la población de Pensilvania, convirtiéndolos en máquinas de matar irracionales. Dos semanas después de la primera infección, cuatro supervivientes inmunes deben abrirse paso hacia la salvación.</p>
             <div class="highlight-box">
-                <p><em>"La versión beta era mucho más oscura y terrorífica, con supervivientes de aspecto sucio y una atmósfera opresiva."</em></p>
+                <p><em>"Beta: Terror Strike"</em></p>
             </div>
-            <p>Posteriormente, Valve adquirió Turtle Rock Studios y pulió el juego hasta convertirlo en el clásico de acción cooperativa que conocemos.</p>
-            
-            <div style="margin-top: 20px; text-align: center;">
-                <iframe width="100%" height="315" src="https://www.youtube.com/embed/8SPWsmasgXU?si=nKB2jSyUCS-PMzfG" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen style="border-radius: 10px; border: 2px solid #444;"></iframe>
-            </div>
+            <p>Originalmente un mod de Counter-Strike donde un jugador con cuchillo (zombi) cazaba a otros con armas. Turtle Rock Studios vio el potencial y creó una Beta muy oscura y sucia. Valve compró el estudio y lo pulió hasta darle el estilo cinematográfico actual.</p>
         </div>
 
         <div id="Desarrollo" class="tab-content">
-            <h3>Evolución de los Supervivientes</h3>
-            <p>El diseño cambió drásticamente desde la Beta para darles más personalidad:</p>
-            <ul class="feature-list">
-                <li><strong>BILL:</strong> Pasó de ser un soldado genérico a un veterano de Vietnam icónico.</li>
-                <li><strong>LOUIS:</strong> De mánager religioso serio a oficinista optimista.</li>
-                <li><strong>FRANCIS:</strong> De delincuente común a motociclista carismático que "odia todo".</li>
-                <li><strong>ZOEY:</strong> De adulta post-apocalíptica a estudiante universitaria fan del cine.</li>
-            </ul>
-            <div style="text-align: center; margin: 20px 0;">
-                <img src="{{ url_for('static', filename='img/survs.jpeg') }}" alt="Supervivientes Beta" style="max-width: 100%; border-radius: 10px;">
-                <p style="font-size: 0.9rem; color: #aaa;">Concepto Beta</p>
-            </div>
+            <h3>Diseñando el Pánico</h3>
+            <p>El objetivo no era solo matar zombis, sino sobrevivir juntos. Si te alejas de tu equipo, mueres. Mecánicas como ser atrapado por un Hunter o Smoker <strong>obligan</strong> a que un compañero te ayude, haciendo la cooperación indispensable.</p>
             
-            <h4>🤖 El AI Director</h4>
-            <p>Un sistema dinámico que ajusta la intensidad, aparición de hordas y objetos según el rendimiento de los jugadores.</p>
+            <h4>Evolución de los Personajes (Beta vs Final)</h4>
+            <ul class="feature-list">
+                <li><strong>Louis:</strong> En la beta era un mánager serio en sudadera amarilla. En la final, es un oficinista optimista con corbata ("¡Pills here!").</li>
+                <li><strong>Bill:</strong> De un soldado genérico a un icónico veterano de Vietnam que sacrifica todo por el equipo.</li>
+                <li><strong>Zoey:</strong> De una adulta ruda a una estudiante universitaria fan del cine de terror, aportando humanidad al grupo.</li>
+            </ul>
+             <div style="text-align: center; margin: 20px 0;">
+                <img src="{{ url_for('static', filename='img/survs.jpeg') }}" alt="Supervivientes Beta" style="max-width: 100%; border-radius: 10px;">
+                <p style="font-size: 0.9rem; color: #aaa;">Diseños originales de la Beta</p>
+            </div>
         </div>
 
         <div id="Datos" class="tab-content">
-            <h3>Curiosidades y Scripts Eliminados</h3>
-            <p>El Hunter sufrió cambios masivos por balance:</p>
-            <ul class="feature-list">
-                <li>🕷️ <strong>Colgarse del techo:</strong> Eliminado para evitar campeo excesivo.</li>
-                <li>👻 <strong>Invisibilidad:</strong> Eliminado por ser demasiado poderoso.</li>
-                <li>❤️ <strong>Regeneración:</strong> Podía recuperar vida si escapaba (eliminado).</li>
-            </ul>
+            <h3>El Director IA y Scripts Eliminados</h3>
+            <p>El "Director IA" es el cerebro invisible del juego. Analiza tu estrés (cuánta vida tienes, cuántas balas gastas) y decide cuándo enviarte una horda o cuándo dejarte descansar.</p>
+            <h4>El Hunter Beta:</h4>
+            <p>Era mucho más letal. Podía volverse invisible al estar quieto y colgarse de los techos para caer sobre ti. Estas habilidades se eliminaron porque hacían que el juego fuera demasiado difícil para los nuevos jugadores.</p>
         </div>
 
         <div id="FAQ" class="tab-content">
             <div class="faq-item">
-                <h5>¿Cuántos supervivientes hay?</h5>
-                <p>Cuatro: Bill, Zoey, Louis y Francis.</p>
+                <h5>¿Por qué llora la Witch?</h5>
+                <p>La Witch es sensible a la luz y a la presencia de los no infectados. Su llanto es una advertencia: "No me molestes y no te mataré".</p>
             </div>
         </div>
 
@@ -213,27 +241,28 @@
     <!-- ========================================== -->
     {% elif juego.nombre == "l4d2" %}
         <div id="Historia" class="tab-content active">
-            <h3>El Sur Profundo</h3>
-            <p>Lanzado en 2009, presenta a <strong>Coach, Ellis, Nick y Rochelle</strong>. Ambientado en el sur de EE.UU., viajando desde Savannah hasta Nueva Orleans a través de pantanos y ferias.</p>
+            <h3>Roadtrip al Infierno</h3>
+            <p>La infección se ha extendido al sur de Estados Unidos. Cuatro nuevos supervivientes (Coach, Ellis, Nick y Rochelle) deben viajar desde Savannah, Georgia, hasta Nueva Orleans, Luisiana, cruzando pantanos, centros comerciales y parques de atracciones abandonados.</p>
         </div>
+
         <div id="Desarrollo" class="tab-content">
-            <h3>Más Grande y Brutal</h3>
-            <p>Se introdujo el <strong>AI Director 2.0</strong>, capaz de alterar la estructura del mapa en tiempo real. Se añadieron armas cuerpo a cuerpo (sartén, katana) y nuevos infectados especiales (Charger, Spitter, Jockey).</p>
+            <h3>Más Sangre, Más Caos</h3>
+            <p>L4D2 introdujo el desmembramiento de zombis y armas cuerpo a cuerpo (sartén, katana, guitarra), cambiando el combate cercano para siempre.</p>
+            <p>El <strong>AI Director 2.0</strong> ahora podía cambiar la ruta del mapa. En una partida, un camino podría estar abierto; en la siguiente, bloqueado, obligándote a tomar una ruta más peligrosa a través de un cementerio.</p>
         </div>
+
         <div id="Datos" class="tab-content">
              <ul class="feature-list">
-                <li>🎸 La campaña "Dark Carnival" presenta a la banda ficticia Midnight Riders.</li>
-                <li>🧟 Se introdujeron infectados "poco comunes" con habilidades únicas según el mapa.</li>
+                <li>🎸 <strong>Midnight Riders:</strong> La banda ficticia de hard rock cuya pirotecnia tienes que activar en el concierto de "Dark Carnival" para pedir rescate.</li>
+                <li>🧟 <strong>Infectados Inusuales:</strong> Zombis con trajes de protección (inmunes al fuego) en el pantano, o payasos (cuyos zapatos chillones atraen más zombis) en la feria.</li>
+                <li>🚫 <strong>Boicot:</strong> Cuando se anunció L4D2 tan pronto después del 1, hubo un boicot masivo de fans. Sin embargo, al salir el juego, fue tan bueno que el boicot desapareció.</li>
             </ul>
         </div>
+
         <div id="FAQ" class="tab-content">
             <div class="faq-item">
-                <h5>¿Cuál es el enemigo más peligroso?</h5>
-                <p>La Witch y el Jockey son letales por su capacidad de incapacitar o separar a los jugadores.</p>
-            </div>
-            <div class="faq-item">
-                <h5>¿Qué armas nuevas hay?</h5>
-                <p>Armas cuerpo a cuerpo, lanzagranadas y munición especial (incendiaria/explosiva).</p>
+                <h5>¿Quién es Ellis?</h5>
+                <p>Un mecánico joven y optimista que siempre tiene una historia absurda sobre su amigo Keith para contar en los momentos menos oportunos.</p>
             </div>
         </div>
 
@@ -242,23 +271,27 @@
     <!-- ========================================== -->
     {% elif juego.nombre == "dota2" %}
         <div id="Historia" class="tab-content active">
-            <h3>El Origen del MOBA</h3>
-            <p>Nació del mod "Defense of the Ancients" de Warcraft III. La idea de controlar a un solo "héroe" creó el género. Valve contrató a <strong>IceFrog</strong> para crear esta secuela independiente.</p>
+            <h3>La Guerra de los Ancestros</h3>
+            <p>Dos entidades antiguas, Radiant y Dire, están atrapadas en una lucha eterna. Los héroes de todo el universo son convocados para luchar en esta guerra. El objetivo es simple: destruir el "Ancient" del enemigo.</p>
         </div>
+
         <div id="Desarrollo" class="tab-content">
-            <h3>La Batalla Legal</h3>
-            <p>Tras una disputa con Blizzard, Valve conservó los derechos de "Dota 2". El juego es conocido por su inmensa profundidad estratégica y curva de aprendizaje.</p>
+            <h3>La Secuela Imposible</h3>
+            <p>Dota original era un mapa de Warcraft III. Valve hizo una jugada maestra al contratar a <strong>IceFrog</strong>, el desarrollador anónimo que mantenía el mod, para crear una versión moderna y libre de las limitaciones del motor de Blizzard.</p>
+            <p>El juego es famoso por ser **completamente gratis**. A diferencia de otros MOBA, no tienes que comprar héroes; los más de 120 personajes están disponibles desde el minuto uno.</p>
         </div>
+
         <div id="Datos" class="tab-content">
              <ul class="feature-list">
-                <li>🏆 <strong>The International:</strong> El torneo con los premios más grandes de la historia de los eSports.</li>
-                <li>🧠 <strong>Complejidad:</strong> Más de 120 héroes, todos gratuitos desde el principio.</li>
+                <li>🏆 <strong>The International:</strong> El torneo anual de Dota 2. Financiado por la comunidad a través del "Compendium", ha llegado a tener premios de más de 40 millones de dólares, los más altos en la historia de los deportes.</li>
+                <li>🚫 <strong>Denegar (Deny):</strong> Una mecánica única de Dota. Puedes matar a tus propios "creeps" (soldados) para evitar que el enemigo gane oro y experiencia. Es una táctica psicológica brutal.</li>
             </ul>
         </div>
+
         <div id="FAQ" class="tab-content">
             <div class="faq-item">
-                <h5>¿Qué es un "carry"?</h5>
-                <p>Un héroe que se vuelve extremadamente poderoso al final de la partida y lleva al equipo a la victoria.</p>
+                <h5>¿Qué tan difícil es?</h5>
+                <p>Tiene una de las curvas de aprendizaje más empinadas. Se dice bromeando que "el tutorial termina después de tus primeras 1000 horas".</p>
             </div>
         </div>
     
@@ -267,23 +300,30 @@
     <!-- ========================================== -->
     {% elif juego.nombre == "alyx" %}
         <div id="Historia" class="tab-content active">
-            <h3>Regreso a la VR</h3>
-            <p>Lanzado en 2020, es una precuela de HL2 exclusiva para VR. Sigues a Alyx Vance en su lucha contra los Combine antes de la llegada de Gordon Freeman.</p>
+            <h3>Una Nueva Perspectiva</h3>
+            <p>Ambientado cinco años antes de Half-Life 2, controlas a <strong>Alyx Vance</strong>. Tu misión: robar una superarma que los Combine tienen escondida en una gigantesca nave flotante llamada "La Bóveda".</p>
+            <div class="highlight-box">
+                <p><em>"Este juego redefinió lo que la Realidad Virtual podía ser."</em></p>
+            </div>
         </div>
+
         <div id="Desarrollo" class="tab-content">
-            <h3>Interacción Física</h3>
-            <p>Valve creó los "Gravity Gloves" para hacer la jugabilidad en VR fluida, permitiendo atraer objetos a distancia.</p>
+            <h3>Los Guantes de Gravedad</h3>
+            <p>El mayor reto de la VR es el movimiento. Valve inventó los "Gravity Gloves" (Russels), que te permiten "fliclear" la muñeca para atraer objetos lejanos hacia tu mano. Esto solucionó el problema de tener que agacharse o caminar demasiado en la vida real.</p>
         </div>
+
         <div id="Datos" class="tab-content">
              <ul class="feature-list">
-                <li>🧤 Puedes interactuar con casi cualquier objeto del entorno.</li>
-                <li>😱 Considerado el estándar de oro para juegos de Realidad Virtual.</li>
+                <li>🎹 <strong>Interacción Total:</strong> Puedes tocar un piano real nota por nota, dibujar con marcadores en ventanas sucias o aplastar latas con tus manos virtuales.</li>
+                <li>🦀 <strong>Terror VR:</strong> Ver a un Headcrab saltar hacia tu cara en realidad virtual es una experiencia mucho más aterradora que en una pantalla plana.</li>
+                <li>🤯 <strong>El Final:</strong> El juego cambia retroactivamente el final de Half-Life 2: Episode Two, abriendo la puerta a un futuro Half-Life 3.</li>
             </ul>
         </div>
+
         <div id="FAQ" class="tab-content">
              <div class="faq-item">
-                <h5>¿Necesito gafas VR?</h5>
-                <p>Sí, es obligatorio. No se puede jugar con teclado y ratón tradicional.</p>
+                <h5>¿Por qué no es Half-Life 3?</h5>
+                <p>Valve quería experimentar con la VR sin la presión masiva de lanzar la secuela más esperada de la historia, aunque Alyx terminó siendo igual de importante para la trama.</p>
             </div>
         </div>
 
